@@ -7,16 +7,7 @@
     </head>
 
     <body>
-		<div align="center">
-            <p>
-                <a href=index.html>Indice</a>
-                <a href=detalles.html>Detalles</a>
-                <a href=bocetos.html>Bocetos</a>
-                <a href=miembros.html>Miembros</a>
-                <a href=planificacion.html>Planificacion</a>
-                <a href=contacto.html>Contacto</a>
-            </p>
-        </div>
+		<?php require 'links.php'; ?>
         <div align="center">
             <img src="img/seawolf logo.png" width = "500" alt = "">
         </div>

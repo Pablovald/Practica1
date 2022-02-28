@@ -8,16 +8,7 @@
 </head>
 
 <body>
-<div align="center">
-  <p>
-    <a href=index.html>Indice</a>
-    <a href=detalles.html>Detalles</a>
-    <a href=bocetos.html>Bocetos</a>
-    <a href=miembros.html>Miembros</a>
-    <a href=planificacion.html>Planificacion</a>
-    <a href=contacto.html>Contacto</a>
-  </p>
-</div>
+<?php require 'links.php'; ?>
   <h1>Contacta con nosotros</h1>
   <p>Rellena el siguiente formulario para contactar con el equipo de SeaWolf</p>
     <form action="mailto:seawolfdeportesnauticos@gmail.com" method="POST" enctype="text/plain"
