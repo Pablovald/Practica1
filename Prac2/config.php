@@ -5,10 +5,10 @@ require ("Aplicacion.php");
 /**
  * Parámetros de conexión a la BD
  */
-define('BD_HOST', 'localhost');
-define('BD_NAME', 'ejercicio3');
-define('BD_USER', 'ejercicio3');
-define('BD_PASS', 'ejercicio3');
+define('BD_HOST', 'seawolf.cniftlypeq51.eu-west-3.rds.amazonaws.com');
+define('BD_NAME', 'Seawolf');
+define('BD_USER', 'admin');
+define('BD_PASS', 'Seawolf2022');
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
