@@ -35,7 +35,7 @@ $contenidoPrincipal = <<<EOS
 	<div><td>
 			<h4>Récord mundial nadando, 127 kilómetros en solitario.</h4>
 			<a href="record.php"><img src= 'record.jpg' width='250' height='250' align = 'center'> </a>
-		</td></div>
+	</td></div>
 		<div><td>
 			<h4>Jötunn, el kayak más extremo</h4>
 			<a href="kayakExtremo.php"><img src= 'kayakExtremo.png' width='250' height='250' align = 'center'> </a>
