@@ -22,7 +22,8 @@ en la playa de Uluwatu. Steve Cooney surfeó la primera ola de la historia de Ul
 <p>La acción se concentra en el sur de la isla. Y principalmente, en la península de Bukit, donde se encuentran las mejores olas de Bali: Uluwatu, Padang-Padang,
  Impossibles, Bingin, Dreamland … También es una de las partes más bellas de la isla. Olas perfectas en cada rincón, aguas cristalinas, acantilados de locura, playas de arena blanca… 
  Eso sí, como Uluwatu, muchas de esas rompientes son peligrosas. Y, sí, están masificadas, aunque en Bali la multitudes suelen ser soportables.</p>
-<p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/UdDx4UGlJww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+<p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/UdDx4UGlJww" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+ encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 EOS;
 
 require ("plantilla.php");
