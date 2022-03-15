@@ -7,6 +7,9 @@ $tituloPagina = 'HOME';
 $tituloCabecera = 'HOME';
 
 $contenidoPrincipal = <<<EOS
+			<div align="center">
+				<img src="seawolf logo.png" width = "500" alt = "">
+			</div>
 			<p>
                 ¿Alguna vez has querido empezar a realizar un deporte acuático pero nunca te has atrevido a ello o no conoces donde practicarlo ni aprenderlo?
                 En Seawolf Deportes Náuticos te abrimos las puertas a nuestras exclusivas instalaciones. Tanto si quieres aprender sobre una gran variedad de deportes acuáticos,
