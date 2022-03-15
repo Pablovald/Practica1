@@ -1,0 +1,40 @@
+<?php
+
+require ("config.php");
+
+$tituloPagina = 'Kayak';
+
+$tituloCabecera = 'Kayak';
+
+$contenidoPrincipal = <<<EOS
+<h3>Horarios del curso de kayak:</h3>
+<p>
+    Las clases tienen una duración de 2 horas, pudiendo cambiarse la fecha y horario con solicitud previa (siendo obligatorio para las clases privadas solicitar previamente la fecha y hora):
+    Lunes y Miércoles de 16:00 a 18:30
+    Sabado y Domingo de 12:30 a 15:00
+    Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos).
+</p>
+<form>
+    <label for="nombre">Nombre completo:</label><br>
+    <input type="text" id="nombre" name="nombre"><br>
+    <label for="dni">DNI:</label><br>
+    <input type="text" id="dni" name="dni"><br>
+    <label for="curso">Selecciona el tipo de curso al que quieres inscribirte:</label><br>
+    <select name="curso">
+    <option>Curso completo</option>
+    <option>Medio curso</option>
+    <option>Clase privada</option>
+    </select><br>
+    <label for="dia">Selecciona el dia de la semana que prefieres para las clases)</label><br>
+    <select name="dia">
+    <option>Lunes</option>
+    <option>Miércoles</option>
+    <option>Sábado</option>
+    <option>Domingo</option>
+    <option>Otro</option>
+    </select><br>
+    <input type="submit" value="Inscribirse">
+</form>
+EOS;
+
+require("plantilla.php");
