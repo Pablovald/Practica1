@@ -7,17 +7,17 @@ $tituloPagina = 'Kayak';
 $tituloCabecera = 'Kayak';
 
 $contenidoPrincipal = <<<EOS
-<h3>Horarios del curso de kayak:</h3>
+<h3>Información del curso kayak:</h3>
 <p>
     Las clases tienen una duración de 2 horas, pudiendo cambiarse la fecha y horario con solicitud previa (siendo obligatorio para las clases privadas solicitar previamente la fecha y hora):</p>
-    <p>Lunes y Miércoles de 16:00 a 18:30</p>
-    <p>Sabado y Domingo de 12:30 a 15:00</p>
+    <p>Lunes y Miércoles de 16:00 a 18:00</p>
+    <p>Sabado y Domingo de 12:30 a 14:30</p>
    <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos).
 </p>
 
 <h4> Precios del curso </h4>
 	<p>140€ curso completo (12 horas).</p>
-	<p>85 curso medio completo (6 horas).</p>
+	<p>85€ curso medio completo (6 horas).</p>
 	<p>25€ clase privada.</p>
 <table>
     <tr>

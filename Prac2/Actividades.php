@@ -61,7 +61,7 @@ $contenidoPrincipal = <<<EOS
 			que serás incapaz de olvidar. Todos nuestros cursos están certificados y titulados.
 			<h5> Precios </h5>
 			<p>	275€ curso completo avanzado(8 horas).</p>
-			<p>	225€ curso completo medio(8 horas).</p>
+			<p>	225€ curso completo medio(4 horas).</p>
 			<p>	120€ bautizo</p>
 		</td></div>
 		<div><td>
@@ -78,7 +78,7 @@ $contenidoPrincipal = <<<EOS
 			garantía de proporcionar buenos momentos y alegrías.
 			<h5> Precios </h5>
 			<p>	140€ curso completo (12 horas).</p>
-			<p>	85 curso medio completo (6 horas).</p>
+			<p>	85€ curso medio completo (6 horas).</p>
 			<p>	25€ clase privada.</p>
 		</td></div>
 	</tr>
@@ -89,7 +89,7 @@ $contenidoPrincipal = <<<EOS
 			Se recomienda tener nociones básicas de surf o windsurf.
 			<h5> Precios </h5>
 			<p>	200€ curso completo (8 horas).</p>
-			<p>	165€ curso completo (4 horas) Area Socios.</p>
+			<p>	165€ curso medio completo (4 horas).</p>
 			<p>	55€ clase privada.</p>
 		</td></div>
 		<div><td>

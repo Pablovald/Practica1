@@ -2,23 +2,23 @@
 
 require ("config.php");
 
-$tituloPagina = 'Surf';
+$tituloPagina = 'Vela';
 
-$tituloCabecera = 'SURF';
+$tituloCabecera = 'VELA';
 
 $contenidoPrincipal = <<<EOS
-<h3>Información del curso surf:</h3>
+<h3>Información del curso vela:</h3>
 <p>
-    Las clases tienen una duración de 2 horas, pudiendo haber cambio de horario debido a las condiciones climáticas y medioambientales. Los profesores tendrán en cuenta tanto
-	el viento como el oleaje para proporcionar una total seguridad. </p>
+    Las clases tienen una duración de 2 horas, pudiendo haber cambio de horario debido a las condiciones climáticas y medioambientales. Disponemos de diferentes barcos para 
+	los diferentes niveles de aprendizaje, el profesor decidirá al inicio de la clase en que nivel será establecido el alumno.</p>
 	<h4> Horarios disponibles </h4>
-    <p> Jueves y Viernes de 16:00 a 18:00 </p>
+    <p> Martes y Jueves de 16:00 a 18:00 </p>
     <p> Sabado y Domingo de 12:30 a 14:30</p>
     <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos). </p>
 	<h4> Precios del curso </h4>
-	<p>200€ curso completo (8 horas).</p>
-	<p>125€ curso medio completo (4 horas).</p>
-	<p>40€ clase privada.</p>
+	<p>180€ curso completo (12 horas).</p>
+	<p>99€ medio completo (6 horas).</p>
+	<p>40€ bautizo.</p>
 	
 <h2> Formulario de inscripción </h2>
 <form>
@@ -43,13 +43,13 @@ $contenidoPrincipal = <<<EOS
     <select name="curso">
     <option>Curso completo</option>
     <option>Medio curso</option>
-    <option>Clase privada</option>
+    <option>Bautizo</option>
     </select><br>
     <br>
     <label for="dia">Selecciona el dia de la semana que prefieres para las clases</label><br>
     <select name="dia">
+    <option>Martes</option>
     <option>Jueves</option>
-    <option>Viernes</option>
     <option>Sábado</option>
     <option>Domingo</option>
     <option>Otro</option>
