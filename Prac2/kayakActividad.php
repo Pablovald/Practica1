@@ -22,7 +22,7 @@ $contenidoPrincipal = <<<EOS
 <table>
     <tr>
         <td>
-            <div align="center">
+            <div align="left">
             <h2> Formulario de inscripción </h2>
             <form>
             <label for="nombre">Nombre completo:</label><br>
@@ -63,12 +63,11 @@ $contenidoPrincipal = <<<EOS
             </div>
         <td>
         <div align="right">
-        <img src = "kayakActividad2.jpg" width="600" height="400"></div>
+        <img src = "kayakActividad2.jpg" width="900" height="700"></div>
         </div>
         </td>
     </tr>
 </table>
->>>>>>> Stashed changes
 
 EOS;
 
