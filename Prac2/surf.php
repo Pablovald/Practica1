@@ -2,22 +2,24 @@
 
 require ("config.php");
 
-$tituloPagina = 'Kayak';
+$tituloPagina = 'Surf';
 
-$tituloCabecera = 'Kayak';
+$tituloCabecera = 'SURF';
 
 $contenidoPrincipal = <<<EOS
-<h3>Horarios del curso de kayak:</h3>
+<h3>Información del curso surf:</h3>
 <p>
-    Las clases tienen una duración de 2 horas, pudiendo cambiarse la fecha y horario con solicitud previa (siendo obligatorio para las clases privadas solicitar previamente la fecha y hora):</p>
-    <p>Lunes y Miércoles de 16:00 a 18:30</p>
-    <p>Sabado y Domingo de 12:30 a 15:00</p>
-   <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos).
-</p>
-<h4> Precios del curso </h4>
-	<p>140€ curso completo (12 horas).</p>
-	<p>85 curso medio completo (6 horas).</p>
-	<p>25€ clase privada.</p>
+    Las clases tienen una duración de 2 horas, pudiendo haber cambio de horario debido a las condiciones climáticas y medioambientales. Los profesores tendrán en cuenta tanto
+	el viento como el oleaje para proporcionar una total seguridad. </p>
+	<h4> Horarios disponibles </h4>
+    <p> Jueves y Viernes de 16:00 a 18:30 </p>
+    <p> Sabado y Domingo de 12:30 a 15:00</p>
+    <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos). </p>
+	<h4> Precios del curso </h4>
+	<p>200€ curso completo (8 horas).</p>
+	<p>125€ curso medio completo (4 horas).</p>
+	<p>40€ clase privada.</p>
+	
 <h2> Formulario de inscripción </h2>
 <form>
     <label for="nombre">Nombre completo:</label><br>
@@ -44,10 +46,10 @@ $contenidoPrincipal = <<<EOS
     <option>Clase privada</option>
     </select><br>
     <br>
-    <label for="dia">Selecciona el dia de la semana que prefieres para las clases)</label><br>
+    <label for="dia">Selecciona el dia de la semana que prefieres para las clases</label><br>
     <select name="dia">
-    <option>Lunes</option>
-    <option>Miércoles</option>
+    <option>Jueves</option>
+    <option>Viernes</option>
     <option>Sábado</option>
     <option>Domingo</option>
     <option>Otro</option>

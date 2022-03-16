@@ -21,9 +21,9 @@ $contenidoPrincipal = <<<EOS
 			Apúntate y disfruta de este maravilloso deporte.
 			
 			<h5> Precios </h5>
-			<p>	200€ curso completo (8 horas).</p>
-			<p>	165€ curso completo (8 horas) --Area Socios.</p>
-			<p>	40€ clase privada.</p>
+				<p>200€ curso completo (8 horas).</p>
+				<p>125€ curso medio completo (4 horas).</p>
+				<p>40€ clase privada.</p>
 		</td></div>
 	</tr>
 	<tr>
