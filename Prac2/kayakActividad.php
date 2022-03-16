@@ -14,18 +14,33 @@ $contenidoPrincipal = <<<EOS
     Sabado y Domingo de 12:30 a 15:00
     Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos).
 </p>
+<div align="right><img src = "kayakActividad2.jpg"></div>
 <form>
     <label for="nombre">Nombre completo:</label><br>
     <input type="text" id="nombre" name="nombre"><br>
     <label for="dni">DNI:</label><br>
     <input type="text" id="dni" name="dni"><br>
+    <label for="correo">Correo electrónico:</label><br>
+    <input type="text" id="correo" name="correo"><br>
+    <label for="fechaNac">Fecha de nacimiento(dd/mm/aa):</label><br>
+    <input type="text" id="fechaNac" name="fechaNac"><br>
+    <label for="telefono">Telefono (alumno o tutor legal):</label><br>
+    <input type="text" id="telefono" name="telefono"><br>
+
+    <p>¿El alumno sabe nadar?</p>
+    <input type="radio" id="si" name="nadar" value="Si">
+    <label for="si">Si</label><br>
+    <input type="radio" id="no" name="nadar" value="No">
+    <label for="no">No</label><br>
+    <br>
     <label for="curso">Selecciona el tipo de curso al que quieres inscribirte:</label><br>
     <select name="curso">
     <option>Curso completo</option>
     <option>Medio curso</option>
     <option>Clase privada</option>
     </select><br>
-    <label for="dia">Selecciona el dia de la semana que prefieres para las clases)</label><br>
+    <br>
+    <label for="dia">Selecciona el dia de la semana que prefieres para las clases</label><br>
     <select name="dia">
     <option>Lunes</option>
     <option>Miércoles</option>
@@ -33,6 +48,7 @@ $contenidoPrincipal = <<<EOS
     <option>Domingo</option>
     <option>Otro</option>
     </select><br>
+    <br>
     <input type="submit" value="Inscribirse">
 </form>
 EOS;
