@@ -7,7 +7,7 @@ $tituloPagina = 'Blog';
 $tituloCabecera = 'BLOG';
 
 $contenidoPrincipal = <<<EOS
-<p> En el club Seawolf Deportes Naúticos os proporcionamos un blog con las noticias más extravagantes sobre deportes acuáticos </p>
+<p> En club Seawolf Deportes Naúticos os proporcionamos un blog con las noticias más extravagantes sobre deportes acuáticos </p>
 
 
 <table align = "center">
