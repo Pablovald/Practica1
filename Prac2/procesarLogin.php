@@ -37,11 +37,8 @@ if (count($erroresFormulario) === 0) {
 		} else {
 			$fila = $rs->fetch_assoc();
 
-			if ( !password_verify($password, $fila['password'])) {
-				$erroresFormulario[] = "El usuario o el password no coinciden";
 			if ( ! password_verify($password, $fila['password'])) {
 				$erroresFormulario[] = "El password no es correcto";
-
 			} else {
 				$_SESSION['login'] = true;
 				$_SESSION['nombre'] = $fila['nombre'];
