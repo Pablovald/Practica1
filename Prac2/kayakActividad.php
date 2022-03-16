@@ -14,6 +14,7 @@ $contenidoPrincipal = <<<EOS
     Sabado y Domingo de 12:30 a 15:00
     Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos).
 </p>
+<div align="right><img src = "kayakActividad2.jpg"></div>
 <form>
     <label for="nombre">Nombre completo:</label><br>
     <input type="text" id="nombre" name="nombre"><br>
@@ -39,7 +40,7 @@ $contenidoPrincipal = <<<EOS
     <option>Clase privada</option>
     </select><br>
     <br>
-    <label for="dia">Selecciona el dia de la semana que prefieres para las clases)</label><br>
+    <label for="dia">Selecciona el dia de la semana que prefieres para las clases</label><br>
     <select name="dia">
     <option>Lunes</option>
     <option>Miércoles</option>
