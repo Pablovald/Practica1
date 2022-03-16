@@ -56,8 +56,10 @@ $contenidoPrincipal = <<<EOS
 			<div align = "center">
 				<a href="record.php"><img src= 'record.jpg' width='250' height='250'></a>
 				<h4>Récord mundial nadando, 127 kilómetros en solitario.</h4>
-				<p></p>
-				<a href="record.php">Leer más</a>
+				<p>La Vendée Globe es una regata que<br/>
+				consiste en dar la vuelta al mundo a vela<br/>
+				en solitario... <a href="record.php">Leer más</a></p>
+				
 			</div>
 		</td>
 		<td>
