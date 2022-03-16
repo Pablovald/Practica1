@@ -70,7 +70,7 @@ if (count($erroresFormulario) === 0) {
 
 if (isset($_SESSION["login"])) {
 	$contenidoPrincipal .= <<<EOS
-	<h1>Bienvenido {$_SESSION[nombre]}</h1>
+	<h1>Bienvenido {$_SESSION['nombre']}</h1>
 	<p>Usa el menú para navegar.</p>
 	EOS;
 } else {

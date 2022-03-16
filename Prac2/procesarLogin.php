@@ -36,8 +36,12 @@ if (count($erroresFormulario) === 0) {
 			$erroresFormulario[] = "El usuario o el password no coinciden";
 		} else {
 			$fila = $rs->fetch_assoc();
+
 			if ( !password_verify($password, $fila['password'])) {
 				$erroresFormulario[] = "El usuario o el password no coinciden";
+			if ( ! password_verify($password, $fila['password'])) {
+				$erroresFormulario[] = "El password no es correcto";
+
 			} else {
 				$_SESSION['login'] = true;
 				$_SESSION['nombre'] = $fila['nombre'];
@@ -56,7 +60,7 @@ if (count($erroresFormulario) === 0) {
 
 if (isset($_SESSION["login"])) {
 	$contenidoPrincipal .= <<<EOS
-	<h1>Bienvenido {$_SESSION[nombre]}</h1>
+	<h1>Bienvenido {$_SESSION['nombre']}</h1>
 	<p>Usa el menú para navegar.</p>
 	EOS;
 } else {
