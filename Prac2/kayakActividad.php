@@ -14,32 +14,16 @@ $contenidoPrincipal = <<<EOS
     <p>Sabado y Domingo de 12:30 a 15:00</p>
    <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos).
 </p>
-<<<<<<< Updated upstream
-<<<<<<< HEAD
+
 <h4> Precios del curso </h4>
 	<p>140€ curso completo (12 horas).</p>
 	<p>85 curso medio completo (6 horas).</p>
 	<p>25€ clase privada.</p>
-<h2> Formulario de inscripción </h2>
-=======
-<div align="right><img src = "kayakActividad2.jpg"></div>
->>>>>>> 0bb42b35a8796f80d87c18f59b966955c174b6ac
-<form>
-    <label for="nombre">Nombre completo:</label><br>
-    <input type="text" id="nombre" name="nombre"><br>
-    <label for="dni">DNI:</label><br>
-    <input type="text" id="dni" name="dni"><br>
-    <label for="correo">Correo electrónico:</label><br>
-    <input type="text" id="correo" name="correo"><br>
-    <label for="fechaNac">Fecha de nacimiento(dd/mm/aa):</label><br>
-    <input type="text" id="fechaNac" name="fechaNac"><br>
-    <label for="telefono">Telefono (alumno o tutor legal):</label><br>
-    <input type="text" id="telefono" name="telefono"><br>
-=======
 <table>
     <tr>
         <td>
             <div align="center">
+            <h2> Formulario de inscripción </h2>
             <form>
             <label for="nombre">Nombre completo:</label><br>
             <input type="text" id="nombre" name="nombre"><br>
@@ -77,7 +61,6 @@ $contenidoPrincipal = <<<EOS
             <input type="submit" value="Inscribirse">
             </form>
             </div>
-        </td>
         <td>
         <div align="right">
         <img src = "kayakActividad2.jpg" width="600" height="400"></div>
