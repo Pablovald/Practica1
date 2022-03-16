@@ -43,7 +43,7 @@ if (count($erroresFormulario) === 0) {
 				$_SESSION['nombre'] = $fila['nombre'];
 				$_SESSION['esAdmin'] = strcmp($fila['rol'], 'admin') == 0 ? true : false;
 				$rs->free();
-				header('Location: Blog.php');
+				header('Location: home.php');
 				exit();
 			}
 		}
@@ -57,7 +57,7 @@ if (count($erroresFormulario) === 0) {
 if (isset($_SESSION["login"])) {
 	$contenidoPrincipal .= <<<EOS
 	<h1>Bienvenido {$_SESSION[nombre]}</h1>
-	<p>Usa el menú de la izquierda para navegar.</p>
+	<p>Usa el menú para navegar.</p>
 	EOS;
 } else {
 	$contenidoPrincipal .= <<<EOS
