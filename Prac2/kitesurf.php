@@ -47,14 +47,9 @@ $contenidoPrincipal = <<<EOS
     <option>Clase privada</option>
     </select><br>
     <br>
-    <label for="dia">Selecciona el dia de la semana que prefieres para las clases</label><br>
-    <select name="dia">
-    <option>Jueves</option>
-    <option>Viernes</option>
-    <option>Sábado</option>
-    <option>Domingo</option>
-    <option>Otro</option>
-    </select><br>
+    <<label for="dia">Selecciona la fecha para las clases</label><br>
+    <input type="date" id="dia" name="dia"><br>
+    <br>
     <br>
     <input type="submit" value="Inscribirse">
 </form>
