@@ -36,14 +36,15 @@ if (count($erroresFormulario) === 0) {
 			$erroresFormulario[] = "El usuario o el password no coinciden";
 		} else {
 			$fila = $rs->fetch_assoc();
+
 			if ( ! password_verify($password, $fila['password'])) {
-				$erroresFormulario[] = "El usuario o el password no coinciden";
+				$erroresFormulario[] = "El password no es correcto";
 			} else {
 				$_SESSION['login'] = true;
 				$_SESSION['nombre'] = $fila['nombre'];
 				$_SESSION['esAdmin'] = strcmp($fila['rol'], 'admin') == 0 ? true : false;
 				$rs->free();
-				header('Location: Blog.php');
+				header('Location: home.php');
 				exit();
 			}
 		}
@@ -56,8 +57,8 @@ if (count($erroresFormulario) === 0) {
 
 if (isset($_SESSION["login"])) {
 	$contenidoPrincipal .= <<<EOS
-	<h1>Bienvenido {$_SESSION[nombre]}</h1>
-	<p>Usa el menú de la izquierda para navegar.</p>
+	<h1>Bienvenido {$_SESSION['nombre']}</h1>
+	<p>Usa el menú para navegar.</p>
 	EOS;
 } else {
 	$contenidoPrincipal .= <<<EOS
