@@ -2,9 +2,9 @@
 
 require ("config.php");
 
-$tituloPagina = 'Uluwatu';
+$tituloPagina = 'Salto record';
 
-$tituloCabecera = 'Uluwatu';
+$tituloCabecera = 'Salto record';
 
 $contenidoPrincipal = <<<EOS
 <h1>Récords del mundo: el salto al agua más alto de la historia</h1>
