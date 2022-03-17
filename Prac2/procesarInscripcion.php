@@ -12,10 +12,27 @@ $tituloCabecera = 'Inscripcion';
 
 $contenidoPrincipal = '';
 
+$capacidad = isset($_POST['capacidad']);
+$solicitud_dia = isset($_POST['dia']) ? $_POST['dia'] : null;
+
 if (isset($_SESSION["login"])) {
+	if(!empty($solicitud_dia)){
+		if($capacidad > 0){
+			$contenidoPrincipal .= <<<EOS
+			<h1>¡Felicidades {$_SESSION['nombre']} ! Te has inscrito correctamente</h1>
+			EOS;
+		}
+		else{
+			$contenidoPrincipal .= <<<EOS
+			<h1>Lo sentimos no quedan plazas disponibles para el dia seleccionado</h1>
+			EOS;
+		}
+	}
+	else{
 	$contenidoPrincipal .= <<<EOS
-	<h1>¡Felicidades {$_SESSION['nombre']} ! Te has inscrito correctamente</h1>
+	<h1>¡Lo sentimos no disponemos de actividad para el dia deseado.</h1>
 	EOS;
+	}
 } else {
 	//<form action="procesarInscripcion.php" method="POST"> (va debajo de EOS)
 	$contenidoPrincipal .= <<<EOS
