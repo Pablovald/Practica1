@@ -23,7 +23,7 @@ $contenidoPrincipal = <<<EOS
 <h2> Formulario de inscripción </h2>
 <form action="procesarInscripcion.php" method="POST">
     <label for="actividad">Actividad:</label>
-    <input type="text" id="actividad" name="actividad" value="vela" readonly><br>
+    <input type="text" id="actividad" name="actividad" value="Vela Ligera" readonly><br>
     <label for="nombre">Nombre completo:</label><br>
     <input type="text" id="nombre" name="nombre" required><br>
     <label for="dni">DNI:</label><br>
