@@ -36,9 +36,8 @@ $contenidoPrincipal = <<<EOS
 
     <p>¿El alumno sabe nadar?</p>
     <input type="radio" id="si" name="nadar" value="Si" checked>
-    <input type="radio" id="si" name="nadar" value="Si" required>
     <label for="si">Si</label><br>
-    <input type="radio" id="no" name="nadar" value="No" required>
+    <input type="radio" id="no" name="nadar" value="No">
     <label for="no">No</label><br>
     <br>
     <label for="curso">Selecciona el tipo de curso al que quieres inscribirte:</label><br>
@@ -50,7 +49,6 @@ $contenidoPrincipal = <<<EOS
     <br>
     <<label for="dia">Selecciona la fecha para las clases</label><br>
     <input type="date" id="dia" name="dia" value="2022-03-18"><br>
-    <input type="date" id="dia" name="dia" required><br>
     <br>
     <br>
     <input type="submit" value="Inscribirse">
