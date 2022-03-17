@@ -29,6 +29,12 @@ $contenidoPrincipal = <<<EOS
     <label for="correo">Correo electrónico:</label><br>
     <input type="text" id="correo" name="correo" required><br>
     <label for="fechaNac">Fecha de nacimiento(dd/mm/aa):</label><br>
+    <input type="text" id="fechaNac" name="fechaNac"required><br>
+    <label for="telefono">Telefono (alumno o tutor legal):</label><br>
+    <input type="text" id="telefono" name="telefono"required><br>
+
+    <p>¿El alumno sabe nadar?</p>
+    <input type="radio" id="si" name="nadar" value="Si" checked>
     <input type="text" id="fechaNac" name="fechaNac" required><br>
     <label for="telefono">Telefono (alumno o tutor legal):</label><br>
     <input type="text" id="telefono" name="telefono" required><br>
@@ -47,6 +53,7 @@ $contenidoPrincipal = <<<EOS
     </select><br>
     <br>
     <label for="dia">Selecciona la fecha para las clases</label><br>
+    <input type="date" id="dia" name="dia" value="2022-03-18"><br>
     <input type="date" id="dia" name="dia" required><br>
     <br>
     <br>

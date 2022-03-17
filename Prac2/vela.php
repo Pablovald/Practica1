@@ -34,6 +34,7 @@ $contenidoPrincipal = <<<EOS
     <input type="text" id="telefono" name="telefono" required><br>
 
     <p>¿El alumno sabe nadar?</p>
+    <input type="radio" id="si" name="nadar" value="Si" checked>
     <input type="radio" id="si" name="nadar" value="Si" required>
     <label for="si">Si</label><br>
     <input type="radio" id="no" name="nadar" value="No" required>
@@ -47,6 +48,7 @@ $contenidoPrincipal = <<<EOS
     </select><br>
     <br>
     <label for="dia">Selecciona la fecha para las clases</label><br>
+    <input type="date" id="dia" name="dia" value="2022-03-18"><br>
     <input type="date" id="dia" name="dia" required><br>
     <br>
     <br>

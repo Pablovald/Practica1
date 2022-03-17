@@ -2,12 +2,12 @@
 
 require ("config.php");
 
-$tituloPagina = 'Surf';
+$tituloPagina = 'Buceo';
 
-$tituloCabecera = 'SURF';
+$tituloCabecera = 'BUCEO';
 
 $contenidoPrincipal = <<<EOS
-<h3>Información del curso surf:</h3>
+<h3>Información del curso buceo:</h3>
 <p>
     Las clases tienen una duración de 2 horas, pudiendo haber cambio de horario debido a las condiciones climáticas y medioambientales. Es obligatorio proporcionar al profesor 
 	un informe médico antes del inicio del curso. Todos los cursos disponen de la titulación oficial según el Marco Europeo.</p>
@@ -34,6 +34,7 @@ $contenidoPrincipal = <<<EOS
     <input type="text" id="telefono" name="telefono" required><br>
 
     <p>¿El alumno sabe nadar?</p>
+    <input type="radio" id="si" name="nadar" value="Si" checked>
     <input type="radio" id="si" name="nadar" value="Si" required>
     <label for="si">Si</label><br>
     <input type="radio" id="no" name="nadar" value="No" required>
@@ -47,6 +48,7 @@ $contenidoPrincipal = <<<EOS
     </select><br>
     <br>
     <label for="dia">Selecciona la fecha para las clases</label><br>
+    <input type="date" id="dia" name="dia" value="2022-03-18"><br>
     <input type="date" id="dia" name="dia" required><br>
     <br>
     <br>
