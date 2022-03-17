@@ -21,7 +21,7 @@ $contenidoPrincipal = <<<EOS
 	<p>120€ bautizo</p>
 
 <h2> Formulario de inscripción </h2>
-<form action="procesarInscripcion.php">
+<form action="procesarInscripcion.php" method="POST">
     <label for="nombre">Nombre completo:</label><br>
     <input type="text" id="nombre" name="nombre" required><br>
     <label for="dni">DNI:</label><br>
