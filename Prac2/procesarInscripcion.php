@@ -14,7 +14,7 @@ $contenidoPrincipal = '';
 
 $capacidad = isset($_POST['capacidad']);
 $solicitud_dia = isset($_POST['dia']) ? $_POST['dia'] : null;
-
+echo "$solicitud_dia";
 if (isset($_SESSION["login"])) {
 	if(!empty($solicitud_dia)){
 		if($capacidad > 0){

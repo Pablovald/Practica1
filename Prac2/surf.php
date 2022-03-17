@@ -21,7 +21,9 @@ $contenidoPrincipal = <<<EOS
 	<p>40€ clase privada.</p>
 	
 <h2> Formulario de inscripción </h2>
-<form action="procesarInscripcion.php">
+<form action="procesarInscripcion.php" method="POST">
+    <label for="actividad">Actividad:</label>
+    <input type="text" id="actividad" name="actividad" value="Surf" readonly><br>
     <label for="nombre">Nombre completo:</label><br>
     <input type="text" id="nombre" name="nombre" required><br>
     <label for="dni">DNI:</label><br>
@@ -35,14 +37,8 @@ $contenidoPrincipal = <<<EOS
 
     <p>¿El alumno sabe nadar?</p>
     <input type="radio" id="si" name="nadar" value="Si" checked>
-    <input type="text" id="fechaNac" name="fechaNac" required><br>
-    <label for="telefono">Telefono (alumno o tutor legal):</label><br>
-    <input type="text" id="telefono" name="telefono" required><br>
-
-    <p>¿El alumno sabe nadar?</p>
-    <input type="radio" id="si" name="nadar" value="Si" required>
     <label for="si">Si</label><br>
-    <input type="radio" id="no" name="nadar" value="No" required>
+    <input type="radio" id="no" name="nadar" value="No">
     <label for="no">No</label><br>
     <br>
     <label for="curso">Selecciona el tipo de curso al que quieres inscribirte:</label><br>
@@ -54,7 +50,6 @@ $contenidoPrincipal = <<<EOS
     <br>
     <label for="dia">Selecciona la fecha para las clases</label><br>
     <input type="date" id="dia" name="dia" value="2022-03-18"><br>
-    <input type="date" id="dia" name="dia" required><br>
     <br>
     <br>
     <input type="submit" value="Inscribirse">
