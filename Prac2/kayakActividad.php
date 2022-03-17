@@ -14,7 +14,7 @@ $contenidoPrincipal = <<<EOS
             <h3>Información del curso de kayak:</h3>
             <p>
             Las clases tienen una duración de 2 horas, pudiendo cambiarse la fecha y horario con solicitud previa (siendo obligatorio para las clases privadas solicitar previamente la fecha y hora):</p>
-            <p>Lunes y Miércoles de 16:00 a 18:30</p>
+            <p>Lunes a Viernes de 16:00 a 18:30</p>
             <p>Sabado y Domingo de 12:30 a 15:00</p>
             <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos).
             </p>

@@ -12,7 +12,7 @@ $contenidoPrincipal = <<<EOS
     Las clases tienen una duración de 2 horas, pudiendo haber cambio de horario debido a las condiciones climáticas y medioambientales. Disponemos de diferentes barcos para 
 	los diferentes niveles de aprendizaje, el profesor decidirá al inicio de la clase en que nivel será establecido el alumno.</p>
 	<h4> Horarios disponibles </h4>
-    <p> Martes y Jueves de 16:00 a 18:00 </p>
+    <p> Lunes a Viernes de 16:00 a 18:00 </p>
     <p> Sabado y Domingo de 12:30 a 14:30</p>
     <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos). </p>
 	<h4> Precios del curso </h4>

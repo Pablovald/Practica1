@@ -12,7 +12,7 @@ $contenidoPrincipal = <<<EOS
     Las clases tienen una duración de 2 horas, pudiendo haber cambio de horario debido a las condiciones climáticas y medioambientales. Es obligatorio proporcionar al profesor 
 	un informe médico antes del inicio del curso. Todos los cursos disponen de la titulación oficial según el Marco Europeo.</p>
 	<h4> Horarios disponibles </h4>
-    <p> Martes y Miercoles de 16:00 a 18:00 </p>
+    <p> Lunes a Viernes de 16:00 a 18:00 </p>
     <p> Sabado y Domingo de 9:30 a 11:30</p>
     <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos). </p>
 	<h4> Precios del curso </h4>

@@ -13,7 +13,7 @@ $contenidoPrincipal = <<<EOS
 	Disponemos de diferentes niveles según el conociminiento del deporte y edad de cada alumno. El profesor es el encargado de seleccionar el nivel de cada integrante, tras una 
 	prueba inicial.</p>
 	<h4> Horarios disponibles </h4>
-    <p> Jueves y Viernes de 17:00 a 19:00 </p>
+    <p> Lunes a Viernes de 17:00 a 19:00 </p>
     <p> Sabado y Domingo de 9:30 a 11:30</p>
     <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos). </p>
 	<h4> Precios del curso </h4>
