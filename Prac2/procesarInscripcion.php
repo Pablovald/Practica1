@@ -41,13 +41,17 @@ if (isset($_SESSION["login"])) {
 						, $conn->real_escape_string($cursoActividad));
 				$rs3 = $conn->query($query);
 				if($rs3){
-					echo "Inscrito correctamente";
+					$contenidoPrincipal .= <<<EOS
+					<h1>Inscrito correctamente</h1>
+					EOS;
 				} else{
 					echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
 					exit();
 				}
 			} else {
-				echo "$nombreActividad del $cursoActividad en el $solicitud_dia están agotados, por favor seleccione otra fecha";
+				$contenidoPrincipal .= <<<EOS
+				<h1>$nombreActividad del $cursoActividad en $solicitud_dia están agotados, por favor seleccione otra fecha</h1>
+				EOS;
 			}
 
 		} else {
