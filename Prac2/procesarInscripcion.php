@@ -42,7 +42,7 @@ if (isset($_SESSION["login"])) {
 				$rs3 = $conn->query($query);
 				if($rs3){
 					$contenidoPrincipal .= <<<EOS
-					<h1>Inscrito correctamente en $nombreActividad del $cursoActividad en $solicitud_dia</h1>
+					<h1>Inscrito correctamente en $nombreActividad del $cursoActividad el dia $solicitud_dia</h1>
 					EOS;
 				} else{
 					echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
