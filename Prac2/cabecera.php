@@ -9,7 +9,7 @@ function mostrarSaludo() {
 }
 ?>
 
-<img src = "favicon.png" width="70" height="70" align="left">
+<img src = "img/favicon.png" width="70" height="70" align="left">
 <div align = "center">
 	<h1><?= $tituloCabecera ?></h1>
 	<div align = "right">

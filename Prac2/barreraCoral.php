@@ -16,7 +16,7 @@ $contenidoPrincipal = <<<EOS
 En el post de hoy vamos a contaros nuestra experiencia en este lugar mágico, mostrándoos las luces y las sombras de uno de los
  lugares más fascinantes del planeta. Hicimos dos visitas al arrecife desde dos ciudades diferentes: Cairns y Port Douglas. 
  Hoy vamos a contaros nuestra experiencia desde la ciudad de Cairns.</p></br>
-<div align="center"><img src = "barreraCoral.jpg" width="500" height="400"></div></br>
+<div align="center"><img src = "img/barreraCoral.jpg" width="500" height="400"></div></br>
 <h2>Hacer snorkel en la Gran Barrera de Coral</h2>
 <p>Durante nuestra jornada en la Gran Barrera de Coral visitamos tres atolones diferentes en la parte exterior del arrecife,
 con paradas de una hora en cada uno, aproximadamente. La empresa con la que fuimos visita habitualmente los siguientes emplazamientos:

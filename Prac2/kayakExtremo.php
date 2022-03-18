@@ -14,7 +14,7 @@ $contenidoPrincipal = <<<EOS
 Viven la naturaleza de una manera especial y tienen una conexión especial con el agua y ríos. Para un kayakista, lo de menos 
 es la foto o una toma espectacular, porque normalmente todo lo importante pasa con la cámara apagada. Lo importante es estar allí 
 fuera, disfrutando de una pasión que le da la energía vital que le hace caminar por este mundo. Esta vez hemos intentado enseñar eso que normalmente no se ve.</p></br>
-<div align="center"><img src = "kayak1.png" width="600" height="400"></div></br>
+<div align="center"><img src = "img/kayak1.png" width="600" height="400"></div></br>
 <h2>Islandia: país de cascadas</h2>
 <p>Una cascada es -probablemente- la formación más estética e hipnótica que podemos encontrar en un río. Y si hay un país que 
 destaca por sus cascadas, ese es Islandia; un país que está viviendo un boom turístico, cimentado principalmente en su impactante 
