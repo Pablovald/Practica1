@@ -10,7 +10,7 @@ $contenidoPrincipal = <<<EOS
 <h1>Uluwatu, una de las mejores olas de la historia</h1>
 <p>Uluwatu es una combinación de los innumerables sueños y fantasías que han pasado por la mente de todo amante del surf desde la adolescencia. 
 Una izquierda idílica, prodigiosa, tan perfecta y regular que parece una ilusión óptica.</p></br>
-<div align="center"><img src = "uluwatu.png" width="500" height="400"></div></br>
+<div align="center"><img src = "img/uluwatu.png" width="500" height="400"></div></br>
 <p>Uluwatu empezó a ser surfeada en 1972, debido a la realización de Morning of the Earth, un clásico de las películas de surf.
 Después de unos días de rodaje en la playa de Kuta, encontraron Uluwatu. Para llegar a Uluwatu es necesario descender por el templo y salir por las dos rocas de la base de la cueva, 
 en la playa de Uluwatu. Steve Cooney surfeó la primera ola de la historia de Uluwatu, capturándola en una película para Morning of the Earth.</p></br>

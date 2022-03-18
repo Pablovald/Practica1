@@ -9,7 +9,7 @@ $tituloCabecera = 'Salto record';
 $contenidoPrincipal = <<<EOS
 <h1 align="center">Récords del mundo: el salto al agua más alto de la historia</h1>
 <p align="center">Lazaro Schaller, más conocido como Laso, se tiró desde un acantilado a 58,8 metros de altura en Maggia (Suiza) en el año 2015.</p></br>
-<div align="center"><img src = "record.jpg" width="500" height="400"></div></br>
+<div align="center"><img src = "img/record.jpg" width="500" height="400"></div></br>
 <p>De vez en cuando nos gusta recordar gestas que han tenido lugar antes del nacimiento de As Acción.
 Si bien la sección de deportes de acción del Diario As ya lleva varios años en marcha,
 antes de que estuviera informando de todo lo que ocurre en el mundo extremo y de la aventura ocurrieron muchísimas cosas.

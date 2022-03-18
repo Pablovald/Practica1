@@ -13,7 +13,7 @@ $contenidoPrincipal = <<<EOS
 <table>
 	<tr>
 		<div><td>
-			<a href = "surf.php"><img src= 'surf.jpg' width='667' height='400' align = 'center'> </a>
+			<a href = "surf.php"><img src= 'img/surf.jpg' width='667' height='400' align = 'center'> </a>
 		</td></div>
 		<div><td>
 		<h2><a href = "surf.php">SURF </a></h2>
@@ -38,12 +38,12 @@ $contenidoPrincipal = <<<EOS
 			<p>	40€ bautizo... <a href = "vela.php">Leer más</a></p>
 		</td></div>
 		<div><td>
-			<a href = "vela.php"><img src= 'vela.png' width='667' height='400' align = 'center'> </a>
+			<a href = "vela.php"><img src= 'img/vela.png' width='667' height='400' align = 'center'> </a>
 		</td></div>
 	</tr>
 	<tr>
 		<div><td>
-			<a href = "windsurf.php"><img src= 'windsurf.jpg' width='667' height='400' align = 'center'> </a>
+			<a href = "windsurf.php"><img src= 'img/windsurf.jpg' width='667' height='400' align = 'center'> </a>
 		</td></div>
 		<div><td>
 		<h2><a href = "windsurf.php">WINDSURF</a></h2>
@@ -65,12 +65,12 @@ $contenidoPrincipal = <<<EOS
 			<p>	120€ bautizo...<a href = "buceo.php">Leer más</a></p>
 		</td></div>
 		<div><td>
-			<a href = "buceo.php"><img src= 'buceo.jpg' width='667' height='400' align = 'center'> </a>
+			<a href = "buceo.php"><img src= 'img/buceo.jpg' width='667' height='400' align = 'center'> </a>
 		</td></div>
 	</tr>
 	<tr>
 		<div><td>
-			<a href = "kayakActividad.php"><img src= 'kayakActividad.jpg' width='667' height='400' align = 'center'> </a>
+			<a href = "kayakActividad.php"><img src= 'img/kayakActividad.jpg' width='667' height='400' align = 'center'> </a>
 		</td></div>
 		<div><td>
 		<h2><a href = "kayakActividad.php">KAYAK</a></h2>
@@ -93,7 +93,7 @@ $contenidoPrincipal = <<<EOS
 			<p>	55€ clase privada...<a href = "kitesurf.php">Leer más</a></p>
 		</td></div>
 		<div><td>
-			<a href = "kitesurf.php"><img src= 'kitesurf.jpg' width='667' height='400' align = 'center'> </a>
+			<a href = "kitesurf.php"><img src= 'img/kitesurf.jpg' width='667' height='400' align = 'center'> </a>
 		</td></div>
 	</tr>
   </table>  
