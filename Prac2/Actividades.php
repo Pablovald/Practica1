@@ -13,13 +13,14 @@ $tableCont=NULL;
 for($i=1;$i<=$rs->num_rows;$i++){
 	$row=$conn->query(sprintf("SELECT * FROM Actividad_Main A WHERE A.id = '$i'"));
     $contenido=$row->fetch_assoc();
+	$url=rawurlencode("$contenido[Nombre]");
 	$leftCont =  "<div><td>
-			<a href = "."$contenido[link]"."><img src= '$contenido[rutaFoto]' width='667' height='400'> </a>
+			<a href ="."actividad.php?actividad=".$url."><img src= '$contenido[rutaFoto]' width='667' height='400'> </a>
 		</td></div>";
 	$rightCont = "<div><td>
-		<h2><a href = "."$contenido[link]".">"."$contenido[Nombre]"." </a></h2>
+		<h2><a href = "."actividad.php?actividad=".$url.">"."$contenido[Nombre]"." </a></h2>
 			"."$contenido[Descripcion]"."
-		<a href = "."$contenido[link]".">Leer más</a></p>
+		<a href = "."actividad.php?actividad=".$url.">Leer más</a></p>
 		</td></div>";
 
 	if($i%2==0){
