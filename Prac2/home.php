@@ -2,9 +2,9 @@
 
 require ("config.php");
 
-$tituloPagina = 'HOME';
+$tituloPagina = 'Seawolf Deportes Náuticos';
 
-$tituloCabecera = 'HOME';
+$tituloCabecera = 'Seawolf Deportes Náuticos';
 
 $contenidoPrincipal = <<<EOS
 			<div align="center">

@@ -44,18 +44,18 @@ if (count($erroresFormulario) === 0) {
 				$_SESSION['nombre'] = $fila['nombre'];
 				$_SESSION['esAdmin'] = strcmp($fila['rol'], 'admin') == 0 ? true : false;
 				$rs->free();
-				header('Location: home.php');
-				exit();
+				//header('Location: home.php');//redireccion automatica a home
+				//exit();
 			}
 		}
-		$rs->free();
+		//$rs->free();
 	} else {
 		echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
 		exit();
 	}
 }
 
-if (isset($_SESSION["login"])) {
+if ($_SESSION["login"]) {
 	$contenidoPrincipal .= <<<EOS
 	<h1>Bienvenido {$_SESSION['nombre']}</h1>
 	<p>Usa el menú para navegar.</p>

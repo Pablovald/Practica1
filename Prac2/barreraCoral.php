@@ -2,7 +2,7 @@
 
 require ("config.php");
 
-$tituloPagina = 'BarreaCoral';
+$tituloPagina = 'BarreraCoral';
 
 $tituloCabecera = 'La increíble visita a la Gran Barrera de Coral';
 
