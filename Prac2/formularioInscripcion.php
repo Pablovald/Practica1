@@ -6,7 +6,7 @@
 function buildFormularioInscripcion($actividad='',$app)
 {
     $conn = $app->conexionBd();
-    $row=$conn->query(sprintf("SELECT P.nombre,P.precio FROM PreciosActividades P JOIN Actividades A ON A.id_actividad=P.id_actividad WHERE A.nombre LIKE '$actividad'"));
+    $row=$conn->query(sprintf("SELECT C.nombre_curso,C.precio FROM CursosActividades C WHERE C.nombre_actividad LIKE '$actividad'"));
     $ret = "
     <form id='formInscription' action='procesarInscripcion.php' method='POST'>
         <fieldset>
@@ -33,7 +33,7 @@ function buildFormularioInscripcion($actividad='',$app)
             <select name='curso'>";
             for($i=0;$i<$row->num_rows;$i++){
                 $act=$row->fetch_assoc();
-                $ret.="<option>"."$act[nombre]"."</option>";
+                $ret.="<option>"."$act[nombre_curso]"."</option>";
                 }
             $ret.="</select><br>
             <label for='dia'>Selecciona la fecha para las clases</label><br>
