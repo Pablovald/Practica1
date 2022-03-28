@@ -1,6 +1,6 @@
 <?php
 
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Salto record';
 
@@ -27,4 +27,4 @@ encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 <p>Lazaro Schaller lo hizo todo a la perfección. Saltó donde tocaba, cayó como tocaba y consiguió el récord del mundo de la modalidad. Para hacerse una idea de la gesta, en el circuito mundial de la especialidad de Cliff Diving se salta desde plataformas que no llegan nunca a los 30 metros. Es decir, dobló la altura. Eso sí, sin piruetas ni giros, claro. Otro dato que demuestra lo que consiguió es que el récord es de 2015 y seis años después sigue vigente. ¿Lo batirá alguien algún día? El tiempo lo dirá...</p></br>
 EOS;
 
-require ("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

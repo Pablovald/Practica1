@@ -1,5 +1,5 @@
 <?php
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 
 //if (! isset($_POST['inscripcion']) ) {
 	//header('Location: inscripcion.php');
@@ -70,4 +70,4 @@ else {
 }
 
 
-require ("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

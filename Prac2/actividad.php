@@ -1,6 +1,6 @@
 <?php
 
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 require_once 'formularioInscripcion.php';
 $tituloPagina = htmlspecialchars($_GET["actividad"]);
 
@@ -26,4 +26,4 @@ $contenidoPrincipal = <<<EOS
 	$Cont
     $htmlFormIns
 EOS;
-require("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

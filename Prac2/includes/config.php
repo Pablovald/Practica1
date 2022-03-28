@@ -1,6 +1,6 @@
 <?php
 
-require ("Aplicacion.php");
+require_once __DIR__.'/Aplicacion.php';
 
 /**
  * Parámetros de conexión a la BD

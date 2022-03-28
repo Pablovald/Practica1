@@ -1,6 +1,6 @@
 <?php
 
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Uluwatu';
 
@@ -26,4 +26,4 @@ en la playa de Uluwatu. Steve Cooney surfeó la primera ola de la historia de Ul
  encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 EOS;
 
-require ("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

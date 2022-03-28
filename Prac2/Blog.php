@@ -1,6 +1,6 @@
 <?php
 
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Blog';
 
@@ -39,4 +39,4 @@ $contenidoPrincipal = <<<EOS
 
 EOS;
 
-require ("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

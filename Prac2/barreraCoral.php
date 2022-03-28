@@ -1,6 +1,6 @@
 <?php
 
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'BarreraCoral';
 
@@ -39,4 +39,4 @@ y eso se nota en el tipo de turista que visita la ciudad, dejando un ambiente al
  encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 EOS;
 
-require ("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

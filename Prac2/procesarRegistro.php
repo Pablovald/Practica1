@@ -1,5 +1,5 @@
 <?php
-require("config.php");
+require_once __DIR__.'/includes/config.php';
 
 if (! isset($_POST['registro']) ) {
 	header('Location: registro.php');
@@ -130,4 +130,4 @@ if (isset($_SESSION["login"])) {
 }
 
 
-require ("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

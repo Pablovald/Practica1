@@ -1,6 +1,6 @@
 <?php
 
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'La regata más dura del mundo: tres meses a solas en el mar';
 
@@ -31,4 +31,4 @@ Actualmente es la clase elegida en competiciones tan importantes como la Vendée
 encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 EOS;
 
-require ("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

@@ -1,6 +1,6 @@
 <?php
 
-require ("config.php");
+require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Jötunn, el kayak extremo';
 
@@ -39,4 +39,4 @@ un fotógrafo venido del mundo del MTB, que les echaría una mano con toda la lo
     clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 EOS;
 
-require("plantilla.php");
+include __DIR__.'/includes/plantillas/plantilla.php';

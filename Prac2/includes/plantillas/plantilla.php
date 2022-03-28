@@ -8,8 +8,8 @@
 <body>
 <div id="contenedor">
 <?php
-	require("links.php");
-	require("cabecera.php");
+	require("includes/comun/links.php");
+	require("includes/comun/cabecera.php");
 ?>
 	<main>
 		<article>
@@ -18,7 +18,7 @@
 	</main>
 	<br/> <br/>
 <?php
-	require("pie.php");
+	require("includes/comun/pie.php");
 ?>
 </div>
 </body>
