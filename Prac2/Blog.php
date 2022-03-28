@@ -10,7 +10,7 @@ $tablaBlog_Main=sprintf("SELECT * FROM Blog_Main");
 $rs = $conn->query($tablaBlog_Main);
 $tableCont="<tr>";
 $j=0;
-for($i=0;$i<$rs->num_rows;$i++){
+for($i=1;$i<=$rs->num_rows;$i++){
 	$row=$conn->query(sprintf("SELECT * FROM Blog_Main B WHERE B.numEntrada = '$i'"));
     $contenido=$row->fetch_assoc();
 	$rowCont =  "<td>
