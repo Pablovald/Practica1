@@ -13,9 +13,10 @@ $j=0;
 for($i=1;$i<=$rs->num_rows;$i++){
     $row=$conn->query(sprintf("SELECT * FROM Materiales M WHERE M.id = '$i'"));
     $contenido=$row->fetch_assoc();
+    $url=rawurlencode("$contenido[nombre]");
     $rowCount = "<td>
     <div align = 'center'>
-    <img src= $contenido[imagen] width='250' height='250'>
+    <a href ="."material.php?material=".$url."><img src= $contenido[imagen] width='250' height='250'> </a>
     <h4>"."$contenido[nombre]"."</h4>
     <p>"."$contenido[descripcion]"."</p>
     <p> Cantidad: "."$contenido[cantidad]"." unidades </p>
