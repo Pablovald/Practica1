@@ -25,7 +25,7 @@ function buildFormularioInscripcion($actividad='',$app)
             <br><input type='text' id='telefono' name='telefono' required></br>
             
             <p>¿El alumno sabe nadar?</p>
-            <input type='radio' id='si' name='nadar' value='Si' checked>
+            <input type='radio' id='si' name='nadar' value='Si'>
             <label for='si'>Si</label><br>
             <input type='radio' id='no' name='nadar' value='No'>
             <label for='no'>No</label><br><br>
