@@ -1,0 +1,120 @@
+/* Esto es del login y del registro */
+body {
+background-image: url("img/login3.png");
+background-size: 100% 100%;
+font-family: Arial;
+/* background-color: #3498DB; */
+padding: 50px;
+}
+
+div.login {
+margin: 20px auto;
+width: 300px;
+}
+
+div.login-screen {
+background-color: #FFF;
+padding: 20px;
+border-radius: 5px
+}
+
+div.app-title {
+text-align: center;
+color: #FF8000;
+}
+
+div.login-form {
+text-align: center;
+}
+div.grupo-control {
+margin-bottom: 10px;
+}
+
+input {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+width: 250px;
+transition: border .5s;
+}
+
+input:focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+button {
+  border: 2px solid transparent;
+  background: #FF8000;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+}
+
+button:hover {
+  background-color: #FF6600;
+}
+/* Hasta aquí del login y del registro */
+
+
+
+/* Esto pertenece a el css de la cabecera y de los links y del pie */
+div.saludo {
+	width: 100%;
+	text-align: right;
+	color: white;
+}
+
+div.saludo a, div.saludo a:visited {
+	color: orange;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+div.saludo a:hover { 
+	color: #FF6600;
+	text-decoration: underline;
+} 
+
+nav {
+	width: 100%;
+	word-spacing: 35pt; 
+	text-align: right;
+	color: white;
+}
+
+nav a, nav a:visited {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+} 
+
+nav a:hover {
+	color: orange;
+	text-decoration: underline;
+} 
+
+
+img.dimension{
+
+	text-align: left;
+	height: 75px;
+	width: 250px;
+}
+
+
+
+/* Aquí acaba el css de las vistas */
