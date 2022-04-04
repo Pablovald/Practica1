@@ -44,11 +44,11 @@ if (count($erroresFormulario) === 0) {
 				$_SESSION['nombre'] = $fila['nombre'];
 				$_SESSION['esAdmin'] = strcmp($fila['rol'], 'admin') == 0 ? true : false;
 				$rs->free();
-				//header('Location: home.php');//redireccion automatica a home
-				//exit();
+				header('Location: home.php');//redireccion automatica a home
+				exit();
 			}
 		}
-		//$rs->free();
+		$rs->free();
 	} else {
 		echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
 		exit();
