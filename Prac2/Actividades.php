@@ -7,12 +7,13 @@ $tituloCabecera = 'ACTIVIDADES';
 
 $conn = $app->conexionBd();
 $tablaActividad_Main=sprintf("SELECT * FROM Actividad_Main");
-$rs = $conn->query($tablaActividad_Main);
+$rs =$conn->query($tablaActividad_Main);
 $tableCont=NULL;
 if($rs)
 {
 	for($i=1;$i<=$rs->num_rows;$i++){
-		$row=$conn->query(sprintf("SELECT * FROM Actividad_Main A WHERE A.id = '$i'"));
+		$row=$conn->query(sprintf("SELECT * FROM Actividad_Main A WHERE A.id = '%s'"
+							, $conn->real_escape_string($i)));
 		if($row)
 		{
 			$contenido=$row->fetch_assoc();

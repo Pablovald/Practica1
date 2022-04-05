@@ -13,7 +13,8 @@ $tableCont=NULL;
 if($rs)
 {
 	for($i=1;$i<=$rs->num_rows;$i++){
-		$row=$conn->query(sprintf("SELECT * FROM Alojamiento A WHERE A.id = '$i'"));
+		$row=$conn->query(sprintf("SELECT * FROM Alojamiento A WHERE A.id = '%s'"
+									, $conn->real_escape_string($i)));
 		if($row)
 		{
 			$contenido=$row->fetch_assoc();

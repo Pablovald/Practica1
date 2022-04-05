@@ -6,7 +6,8 @@ require_once 'formularioInscripcion.php';
 $tituloPagina = htmlspecialchars($_GET["alojamiento"]);
 $tituloCabecera = strtoupper($tituloPagina);
 $conn = $app->conexionBd();
-$tablaActividad=sprintf("SELECT * FROM Alojamiento A WHERE A.nombre LIKE '$tituloPagina' ");
+$tablaActividad=sprintf("SELECT * FROM Alojamiento A WHERE A.nombre LIKE '%s' "
+						, $conn->real_escape_string($tituloPagina));
 $row = $conn->query($tablaActividad);
 if($row){
 	$rs=$row->fetch_assoc();

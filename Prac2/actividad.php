@@ -6,7 +6,8 @@ $tituloPagina = htmlspecialchars($_GET["actividad"]);
 
 $tituloCabecera = strtoupper($tituloPagina);
 $conn = $app->conexionBd();
-$tablaActividad=sprintf("SELECT * FROM Actividades A WHERE A.nombre LIKE '$tituloPagina' ");
+$tablaActividad=sprintf("SELECT * FROM Actividades A WHERE A.nombre LIKE '%s' "
+						, $conn->real_escape_string($tituloPagina));
 $row = $conn->query($tablaActividad);
 if($row){
 	$rs=$row->fetch_assoc();
@@ -18,7 +19,8 @@ if($row){
 	<p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos). </p>
 	<h4> Precios del curso </h4>";
 	
-	$row=$conn->query(sprintf("SELECT C.nombre_curso,C.precio FROM CursosActividades C WHERE C.nombre_actividad LIKE '$tituloPagina'"));
+	$row=$conn->query(sprintf("SELECT C.nombre_curso,C.precio FROM CursosActividades C WHERE C.nombre_actividad LIKE '%s'"
+								, $conn->real_escape_string($tituloPagina)));
 	if($row)
 	{
 		for($i=0;$i<$row->num_rows;$i++){
