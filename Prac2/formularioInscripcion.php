@@ -45,3 +45,22 @@ function buildFormularioInscripcion($actividad='',$app)
 
 return $ret;
 }
+
+function buildFormularioInscripcionAlojamiento()
+{
+	$hoy = date('Y-m-d');
+    $ret = "
+    <form id='formInscription' action='procesarInscripcion.php' method='POST'>
+        <fieldset>
+            <legend>Formulario de inscripción</legend>
+            <label for='adultos'>Adultos:</label><br>
+            <input type='number' id='adultos' name='adultos' value='0' required></br>
+            <label for='dia'>Fecha de Inicio</label><br>
+            <input type='date' id='diaInicio' name='dia' value= '$hoy' min='$hoy' required></br>        
+            <label for='dia'>Fecha de Fin</label><br>
+            <input type='date' id='diaFin' name='dia' value= '$hoy' min= '$hoy' required>  
+        </fieldset>
+        <button type='submit'>Inscribirse</button>
+    </form>";
+return $ret;
+}

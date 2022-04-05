@@ -42,6 +42,7 @@ if (count($erroresFormulario) === 0) {
 			} else {
 				$_SESSION['login'] = true;
 				$_SESSION['nombre'] = $fila['nombre'];
+				$_SESSION['nombreUsuario'] = $fila['nombreUsuario'];
 				$_SESSION['esAdmin'] = strcmp($fila['rol'], 'admin') == 0 ? true : false;
 				$rs->free();
 				header('Location: home.php');//redireccion automatica a home

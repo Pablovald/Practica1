@@ -3,5 +3,5 @@
     <a href=Blog.php>Blog</a>
     <a href=Actividades.php>Actividades</a>
 	<a href=Materiales.php>Materiales</a>
-	<a href=Alojamiento.php>Alojamiento</a>
+	<a href=Alojamientos.php>Alojamientos</a>
 </nav>
