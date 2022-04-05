@@ -4,7 +4,7 @@ $tituloPagina = htmlspecialchars($_GET["material"]);
 
 $tituloCabecera = strtoupper($tituloPagina);
 $conn = $app->conexionBd();
-$tablaMaterial=sprintf("SELECT * FROM Material M WHERE M.nombre LIKE '$tituloPagina' ");
+$tablaMaterial=sprintf("SELECT * FROM Materiales M WHERE M.nombre LIKE '$tituloPagina' ");
 $row = $conn->query($tablaMaterial);
 $rs=$row->fetch_assoc();
 $Cont="<h3> $tituloPagina </h3>
