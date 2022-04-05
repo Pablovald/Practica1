@@ -15,9 +15,9 @@ for($i=1;$i<=$rs->num_rows;$i++){
     $contenido=$row->fetch_assoc();
 	$rowCont =  "<td>
 	<div align = 'center'>
-	<a href="."$contenido[link]"."><img src= '$contenido[rutaFoto]' width='250' height='250'></a>
+	<a href="."procesarEntradaBlog.php?entrada="."$contenido[numEntrada]"."><img src= '$contenido[rutaFoto]' width='250' height='250'></a>
 	<h4>"."$contenido[titulo]"."</h4>
-	<p>"."$contenido[descripcion]"."<a href="."$contenido[link]"."> Leer más</a></p>	
+	<p>"."$contenido[descripcion]"."<a href="."entradaBlog.php?entrada="."$contenido[numEntrada]"."> Leer más</a></p>	
 	</div>
 	</td>";
 	if($j<3){	
@@ -28,7 +28,7 @@ for($i=1;$i<=$rs->num_rows;$i++){
 		$tableCont.="</tr>";
 		$tableCont.="<tr>";
 		$tableCont.=$rowCont;
-		$j=0;
+		$j=1;
 	}
 }
 $contenidoPrincipal = <<<EOS
