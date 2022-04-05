@@ -31,7 +31,7 @@ for($i=1;$i<=$rs->num_rows;$i++){
 		$tableCont.="</tr>";
 		$tableCont.="<tr>";
 		$tableCont.=$rowCount;
-		$j=0;
+		$j=1;
 	}
 }
 $contenidoPrincipal = <<<EOS
