@@ -1,5 +1,4 @@
 <?php
-
 function mostrarSaludo() {
 	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
 		echo "Bienvenido, " . $_SESSION['nombre'] . ".<a href='logout.php'>(salir)</a>";
@@ -10,15 +9,11 @@ function mostrarSaludo() {
 }
 ?>
 
-<header>
 <img class = "dimension" src = "img/seawolf logo.png">
-<?php require ('links.php'); ?>
-<div class = "titulo">
-	<h1><?= $tituloCabecera ?></h1>
+<div class = "saludo">
+<?php
+	mostrarSaludo();
+?>
 </div>
-	<div class = "saludo">
-	<?php
-		mostrarSaludo();
-	?>
-	</div>
-</header>
+
+

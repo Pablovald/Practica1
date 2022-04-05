@@ -7,20 +7,27 @@ $tituloPagina = 'Login';
 $tituloCabecera = 'Login';
 
 $contenidoPrincipal = <<<EOS
-<h1>Acceso al sistema</h1>
-
-<form action="procesarLogin.php" method="POST">
-<fieldset>
-	<legend>Usuario y contraseña</legend>
-	<div class="grupo-control">
-		<label>Nombre de usuario:</label> <input type="text" name="nombreUsuario" />
+<div class="login">
+	<div class="login-screen">
+		<div class="app-title">
+			<h1>Login</h1>
+		</div>
+		
+		<div class="login-form">
+			<form action="procesarLogin.php" method="POST">
+				<div class="grupo-control">
+				<input type="text" name="nombreUsuario" placeholder="Nombre usuario" />
+				</div>
+				<div class="grupo-control">
+				<input type="password" name="password" placeholder="contraseña" />
+				</div>
+				<div class="grupo-control">
+				<button type="submit" name="login">Login</button>
+				</div>
+			</form>
+		</div>
 	</div>
-	<div class="grupo-control">
-		<label>Contraseña:</label> <input type="password" name="password" />
-	</div>
-	<div class="grupo-control"><button type="submit" name="login">Entrar</button></div>
-</fieldset>
-</form>
+</div>
 EOS;
 
-include __DIR__.'/includes/plantillas/plantilla.php';
+include __DIR__.'/includes/plantillas/plantillaLogin.php';
