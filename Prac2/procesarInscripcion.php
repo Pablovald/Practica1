@@ -14,7 +14,7 @@ $contenidoPrincipal = '';
 
 $nombreActividad = isset($_POST['actividad']) ? $_POST['actividad'] : null;
 $solicitud_dia = isset($_POST['dia']) ? $_POST['dia'] : null;
-$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : null;
+$nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
 $cursoActividad = isset($_POST['curso']) ? $_POST['curso'] : null;
 
 if (isset($_SESSION["login"])) {
@@ -24,7 +24,7 @@ if (isset($_SESSION["login"])) {
 	$rs = $conn->query($id);
 	$tamListaAct=sprintf("SELECT * FROM ListaActividades");
 	$rs1 = $conn->query($tamListaAct);
-	if($rs && $tamListaAct){
+	if($rs && $rs1){
 		$capacidad = sprintf("SELECT * FROM ListaActividades LA WHERE LA.dia = '%s' AND LA.nombre = '%s' AND LA.curso = '%s'"
 					, $conn->real_escape_string($solicitud_dia)
 					, $conn->real_escape_string($nombreActividad)
@@ -35,7 +35,7 @@ if (isset($_SESSION["login"])) {
 			if($rs2->num_rows < 5){
 				$query=sprintf("INSERT INTO ListaActividades(nombre, ID, dia, idUsuario, curso) VALUES('%s', '%s', '%s', '%s', '%s')"
 						, $conn->real_escape_string($nombreActividad)
-						, $conn->real_escape_string($rs1->num_rows)
+						, $conn->real_escape_string($rs1->num_rows + 1)
 						, $conn->real_escape_string($solicitud_dia)
 						, $conn->real_escape_string($row['id'])
 						, $conn->real_escape_string($cursoActividad));
@@ -43,6 +43,11 @@ if (isset($_SESSION["login"])) {
 				if($rs3){
 					$contenidoPrincipal .= <<<EOS
 					<h1>Inscrito correctamente en $nombreActividad del $cursoActividad el dia $solicitud_dia</h1>
+					$rs1->free();
+					$rs2->free();
+					$rs3->free();
+					
+					exit();
 					EOS;
 				} else{
 					echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -53,7 +58,7 @@ if (isset($_SESSION["login"])) {
 				<h1>$nombreActividad del $cursoActividad en $solicitud_dia están agotados, por favor seleccione otra fecha</h1>
 				EOS;
 			}
-
+			
 		} else {
 			echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
 			exit();
