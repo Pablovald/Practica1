@@ -2,13 +2,22 @@ body {
 background-image: url("img/login3.png");
 background-size: 100% 100%;
 font-family: Arial;
+/* background-color: #3498DB; */
 padding: 50px;
 }
 
 div.login {
-margin: 20px auto;
+margin: 150px 475px;
+float: left;
+overflow: hidden;
+padding: 0;
 width: 300px;
 }
+
+/* div.login { */
+/* margin: 20px auto; */
+/* width: 300px; */
+/* } */
 
 div.login-screen {
 background-color: #FFF;
@@ -27,6 +36,7 @@ text-align: center;
 div.grupo-control {
 margin-bottom: 10px;
 }
+
 
 input {
 text-align: center;
@@ -65,9 +75,6 @@ button {
 button:hover {
   background-color: #FF6600;
 }
-/* Hasta aquí del login y del registro */
-
-
 
 
 nav{
@@ -90,11 +97,11 @@ nav a:hover{
 
 
 img.dimension{
+	width: 275px;
+	height: 100px;
 	position: absolute;
 	top: 50px;
 	left: 50px;
-	height: 100px;
-	width: 250px;
 }
 
 a{
@@ -105,5 +112,4 @@ a{
 a:hover{
 	color: orange;
 }
-
 
