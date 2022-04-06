@@ -8,9 +8,10 @@
 </head>
 <body>
 <div id="contenedor">
+	<img class = "dimension" src = "img/seawolf logo.png">;
 <?php
 	require("includes/comun/links.php");
-	require("includes/comun/cabeceraLogin.php");
+
 ?>
 	<main>
 		<article>
