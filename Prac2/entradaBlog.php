@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/includes/Aplicacion.php';
 
 class entradaBlog{
 

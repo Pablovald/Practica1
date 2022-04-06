@@ -13,7 +13,7 @@ $contenidoPrincipal = <<<EOS
 	<img src=$rs[rutaImagen] alt="">
 	<h2>$rs[header2]</h2>
 	<p>$rs[parrafo]</p>
-	<iframe src=$rs[video] title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+	<iframe src="https://www.youtube.com/embed/$rs[video]" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
 		encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	
 EOS;

@@ -1,5 +1,6 @@
 <?php
 require __DIR__.'/includes/Form.php';
+require __DIR__.'/entradaBlog.php';
 class FormularioBlog extends Form{
 public function __construct(){
     parent::__construct('formBlog');

@@ -11,13 +11,15 @@ $rs = $conn->query($tablaBlog_Main);
 $tableCont="<tr>";
 $j=0;
 for($i=1;$i<=$rs->num_rows;$i++){
-	$row=$conn->query(sprintf("SELECT * FROM Blog_Main B WHERE B.numEntrada = '$i'"));
+	$row=$conn->query(sprintf("SELECT * FROM entradasBlog B WHERE B.id = '$i'"));
     $contenido=$row->fetch_assoc();
+	$intro=explode(' ',$contenido['intro'],16);
+	$intro[15]="...";
 	$rowCont =  "<td>
 	<div align = 'center'>
-	<a href="."procesarEntradaBlog.php?entrada="."$contenido[numEntrada]"."><img src= '$contenido[rutaFoto]' width='250' height='250'></a>
+	<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."><img src= '$contenido[rutaImagen]' width='250' height='250'></a>
 	<h4>"."$contenido[titulo]"."</h4>
-	<p>"."$contenido[descripcion]"."<a href="."entradaBlog.php?entrada="."$contenido[numEntrada]"."> Leer más</a></p>	
+	<p>".implode(' ',$intro)."<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."> Leer más</a></p>	
 	</div>
 	</td>";
 	if($j<3){	
