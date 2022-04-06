@@ -24,6 +24,9 @@ $contenidoPrincipal = <<<EOS
 				<div class="grupo-control">
 				<button type="submit" name="login">Login</button>
 				</div>
+				<div class="grupo-control">
+				<a href='registro.php'>Registrate</a>
+				</div>
 			</form>
 		</div>
 	</div>

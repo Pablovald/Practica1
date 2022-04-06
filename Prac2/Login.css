@@ -1,9 +1,7 @@
-/* Esto es del login y del registro */
 body {
 background-image: url("img/login3.png");
 background-size: 100% 100%;
 font-family: Arial;
-/* background-color: #3498DB; */
 padding: 50px;
 }
 
@@ -71,23 +69,6 @@ button:hover {
 
 
 
-/* Esto pertenece a el css de la cabecera y de los links y del pie */
-div.saludo {
-	width: 100%;
-	text-align: right;
-	color: white;
-}
-
-div.saludo a, div.saludo a:visited {
-	color: orange;
-	font-weight: bold;
-	text-decoration: none;
-} 
-
-div.saludo a:hover { 
-	color: #FF6600;
-	text-decoration: underline;
-} 
 
 nav{
 	font: 120% Candara;
@@ -109,12 +90,20 @@ nav a:hover{
 
 
 img.dimension{
-
-	text-align: left;
-	height: 75px;
+	position: absolute;
+	top: 50px;
+	left: 50px;
+	height: 100px;
 	width: 250px;
 }
 
+a{
+	color: black;
+	text-decoration: none;
+}
+
+a:hover{
+	color: orange;
+}
 
 
-/* Aquí acaba el css de las vistas */
