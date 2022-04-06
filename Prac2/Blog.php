@@ -6,7 +6,7 @@ $tituloPagina = 'Blog';
 
 $tituloCabecera = 'BLOG';
 $conn = $app->conexionBd();
-$tablaBlog_Main=sprintf("SELECT * FROM Blog_Main");
+$tablaBlog_Main=sprintf("SELECT * FROM entradasBlog");
 $rs = $conn->query($tablaBlog_Main);
 $tableCont="<tr>";
 $j=0;
