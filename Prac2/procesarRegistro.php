@@ -53,6 +53,7 @@ if (count($erroresFormulario) === 0) {
 			if ( $conn->query($query) ) {
 				$_SESSION['login'] = true;
 				$_SESSION['nombre'] = $nombre;
+				$_SESSION['nombreUsuario'] = $nombreUsuario;
 				$rs->free();
 				header('Location: home.php');
 				exit();
