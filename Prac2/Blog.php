@@ -1,3 +1,7 @@
+<head>
+<link rel="stylesheet" type="text/css" href="estiloBlog.css" />
+</head>
+
 <?php
 
 require_once __DIR__.'/includes/config.php';
@@ -16,10 +20,16 @@ for($i=1;$i<=$rs->num_rows;$i++){
 	$intro=explode(' ',$contenido['intro'],16);
 	$intro[15]="...";
 	$rowCont =  "<td>
-	<div align = 'center'>
-	<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."><img src= '$contenido[rutaImagen]' width='250' height='250'></a>
-	<h4>"."$contenido[titulo]"."</h4>
-	<p>".implode(' ',$intro)."<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."> Leer más</a></p>	
+	<div class = 'blog-contenedor'>
+		<div class = 'blog-box'>
+			<div class = 'blog-img'>
+			<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."><img src= '$contenido[rutaImagen]'></a>
+			</div>
+			<div class = 'blog-text'>
+			<h4>"."$contenido[titulo]"."</h4>
+	<p>".implode(' ',$intro)."<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."> Leer más</a></p>
+			</div>
+		</div>
 	</div>
 	</td>";
 	if($j<3){	
@@ -33,12 +43,16 @@ for($i=1;$i<=$rs->num_rows;$i++){
 		$j=1;
 	}
 }
+require("includes/comun/navBlog.php");
 $contenidoPrincipal = <<<EOS
-<p> En club Seawolf Deportes Naúticos os proporcionamos un blog con las noticias más extravagantes sobre deportes acuáticos </p>
+<div class='cabecera'>
+	<p> En club Seawolf Deportes Naúticos os proporcionamos un blog con las noticias más extravagantes sobre deportes acuáticos </p>
+</div>
 <table align = "center">
 	$tableCont
   </table>  
 
 EOS;
+
 
 include __DIR__.'/includes/plantillas/plantilla.php';

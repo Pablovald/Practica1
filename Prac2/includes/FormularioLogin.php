@@ -55,7 +55,7 @@ class FormularioLogin extends Form
                 $_SESSION['nombre'] = $usuario->getNombre();
 				$_SESSION['nombreUsuario'] = $usuario->getNombreUsuario();
                 $_SESSION['esAdmin'] = strcmp($usuario->getRol(), 'admin') == 0 ? true : false;
-                $result = 'index.php';
+                $result = 'home.php';
             }
         }
         return $result;
