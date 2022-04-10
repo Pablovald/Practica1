@@ -2,28 +2,10 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/FormularioAlojamiento.php';
+$contenidoPrincipal = Alojamiento::infoAlojamiento($tituloPagina, $tituloCabecera);
 
-$tituloPagina = htmlspecialchars($_GET["alojamiento"]);
-$tituloCabecera = strtoupper($tituloPagina);
-$conn = $app->conexionBd();
-$tablaActividad=sprintf("SELECT * FROM Alojamiento A WHERE A.nombre LIKE '%s' "
-						, $conn->real_escape_string($tituloPagina));
-$row = $conn->query($tablaActividad);
-if($row){
-	$rs=$row->fetch_assoc();
-	$Cont="<h3>Información detallada del hotel "."$tituloPagina".":</h3>
-	<p>"."$rs[descripciondetallada]"."</p>";
-	$form = new FormularioAlojamiento();
-	$htmlFormIns = $form->gestiona();
-
-	$contenidoPrincipal = <<<EOS
-		$Cont
-		$htmlFormIns
-	EOS;
-	$row->free();
-}else{
-	echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-	exit();
-}
+$form = new FormularioAlojamiento();
+$htmlFormIns = $form->gestiona();
+$contenidoPrincipal .=$htmlFormIns;
 
 include __DIR__.'/includes/plantillas/plantilla.php';

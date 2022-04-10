@@ -11,9 +11,11 @@ class FormularioAlojamiento extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
 		$hoy = date('Y-m-d');
-		
+		$tomorrow = date('Y-m-d',time()+84600);
         $nombreUsuario = $datos['nombreUsuario'] ?? '';
-        $nombre = $datos['nombre'] ?? '';
+        $nombre = $datos['nhabitaciones'] ?? '';
+        $fechaini = $datos['fechaIni'] ?? '';
+        $fechafin = $datos['fechaFin'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -22,15 +24,18 @@ class FormularioAlojamiento extends Form
             <fieldset>
                 $htmlErroresGlobales
                 <div class="grupo-control">
-                    <input class="control" type="number" name="adultos" value="0" min="0"/>
+                    <label>Numero de habitaciones:</label></br>
+                    <input class="control" type="number" name="nhabitaciones" value="1" min="1"/>
                 </div>
                 <div class="grupo-control">
+                    <label>Fecha inicio:</label></br>
                     <input class="control" type="date" name="fechaIni" value="$hoy" min="$hoy"/>
                 </div>
                 <div class="grupo-control">
-                    <input class="control" type="date" name="fechaFin" value="$hoy" min="$hoy"/>
+                    <label>Fecha fin:</label></br>
+                    <input class="control" type="date" name="fechaFin" value="$tomorrow" min="$tomorrow"/>
                 </div>
-                <div class="grupo-control"><button type="submit" name="registro">Registrar</button></div>
+                <div class="grupo-control"><button type="submit" name="Reservar">Reservar</button></div>
             </fieldset>
         EOS;
         return $html;
@@ -40,38 +45,16 @@ class FormularioAlojamiento extends Form
     protected function procesaFormulario($datos)
     {
         $result = array();
+        $nhabitacion =$datos['nhabitaciones'] ?? null;
+        $fechaini =$datos['fechaIni'] ?? null;
+        $fechafin =$datos['fechaFin'] ?? null;
         
-        $nombreUsuario = $datos['nombreUsuario'] ?? null;
+        if(isset($_SESSION['login'])){
+            Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin, $result);
+        }
+        else{
+            $result[] = "Necesitas estar registrado en nuestra página web para reservar alojamientos. Si ya tienes una cuenta, inicia sesión.";
         
-        if ( empty($nombreUsuario) || mb_strlen($nombreUsuario) < 5 ) {
-            $result['nombreUsuario'] = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.";
-        }
-        
-        $nombre = $datos['nombre'] ?? null;
-        if ( empty($nombre) || mb_strlen($nombre) < 5 ) {
-            $result['nombre'] = "El nombre tiene que tener una longitud de al menos 5 caracteres.";
-        }
-        
-        $password = $datos['password'] ?? null;
-        if ( empty($password) || mb_strlen($password) < 5 ) {
-            $result['password'] = "El password tiene que tener una longitud de al menos 5 caracteres.";
-        }
-        $password2 = $datos['password2'] ?? null;
-        if ( empty($password2) || strcmp($password, $password2) !== 0 ) {
-            $result['password2'] = "Los passwords deben coincidir";
-        }
-        
-        if (count($result) === 0) {
-            $user = Usuario::crea($nombreUsuario, $nombre, $password, 'user');
-            if ( ! $user ) {
-                $result[] = "El usuario ya existe";
-            } else {
-                $_SESSION['login'] = true;
-                $_SESSION['nombre'] = $nombre;
-				$_SESSION['nombreUsuario'] = $nombreUsuario;
-                $result = 'home.php';
-            }
-        }
         return $result;
     }
 }
