@@ -4,7 +4,6 @@ require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/FormularioLogin.php';
 
 $tituloPagina = 'Login';
-
 $tituloCabecera = 'Login';
 
 $form = new FormularioLogin();
@@ -16,7 +15,9 @@ $contenidoPrincipal = <<<EOS
 			<h1>Login</h1>
 		</div>
 		<div class="login-form">
-			$htmlFormLogin;
+			$htmlFormLogin
+			<p>¿No tienes cuenta?</p>
+			<a href="registro.php">¡Regístrate!</a>
 		</div>
 	</div>
 </div>

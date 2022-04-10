@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once 'formularioInscripcion.php';
+require_once __DIR__.'/includes/FormularioAlojamiento.php';
 
 $tituloPagina = htmlspecialchars($_GET["alojamiento"]);
 $tituloCabecera = strtoupper($tituloPagina);
@@ -13,7 +13,8 @@ if($row){
 	$rs=$row->fetch_assoc();
 	$Cont="<h3>Información detallada del hotel "."$tituloPagina".":</h3>
 	<p>"."$rs[descripciondetallada]"."</p>";
-	$htmlFormIns=buildFormularioInscripcionAlojamiento();
+	$form = new FormularioAlojamiento();
+	$htmlFormIns = $form->gestiona();
 
 	$contenidoPrincipal = <<<EOS
 		$Cont

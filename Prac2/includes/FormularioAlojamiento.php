@@ -2,39 +2,36 @@
 require_once __DIR__.'/Form.php';
 require_once __DIR__.'/Usuario.php';
 
-class FormularioRegistro extends Form
+class FormularioAlojamiento extends Form
 {
     public function __construct() {
-        parent::__construct('formRegistro');
+        parent::__construct('formularioAlojamiento');
     }
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
+		$hoy = date('Y-m-d');
+		
         $nombreUsuario = $datos['nombreUsuario'] ?? '';
         $nombre = $datos['nombre'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-        $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
-        $errorNombre = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
-        $errorPassword = self::createMensajeError($errores, 'password', 'span', array('class' => 'error'));
-        $errorPassword2 = self::createMensajeError($errores, 'password2', 'span', array('class' => 'error'));
 
         $html = <<<EOS
-            $htmlErroresGlobales
-            <div class="grupo-control">
-                <input class="control" type="text" name="nombreUsuario" placeholder="Nombre de usuario"value="$nombreUsuario" />$errorNombreUsuario
-            </div>
-            <div class="grupo-control">
-                <input class="control" type="text" name="nombre" placeholder="Nombre completo" value="$nombre" />$errorNombre
-            </div>
-            <div class="grupo-control">
-                <input class="control" type="password" name="password" placeholder="Contraseña"/>$errorPassword
-            </div>
-            <div class="grupo-control">
-                <input class="control" type="password" name="password2" placeholder="Reintroduce tu contraseña"/>$errorPassword2
-            </div>
-            <div class="grupo-control"><button type="submit" name="registro">Registrar</button></div>
+            <fieldset>
+                $htmlErroresGlobales
+                <div class="grupo-control">
+                    <input class="control" type="number" name="adultos" value="0" min="0"/>
+                </div>
+                <div class="grupo-control">
+                    <input class="control" type="date" name="fechaIni" value="$hoy" min="$hoy"/>
+                </div>
+                <div class="grupo-control">
+                    <input class="control" type="date" name="fechaFin" value="$hoy" min="$hoy"/>
+                </div>
+                <div class="grupo-control"><button type="submit" name="registro">Registrar</button></div>
+            </fieldset>
         EOS;
         return $html;
     }

@@ -26,19 +26,19 @@ if (isset($_SESSION["login"])) {
 	$rs1 = $conn->query($tamListaAct);
 	if($rs && $rs1){
 		$capacidad = sprintf("SELECT * FROM ListaActividades LA WHERE LA.dia = '%s' AND LA.nombre = '%s' AND LA.curso = '%s'"
-					, $conn->real_escape_string($solicitud_dia)
-					, $conn->real_escape_string($nombreActividad)
-					, $conn->real_escape_string($cursoActividad));
+			, $conn->real_escape_string($solicitud_dia)
+			, $conn->real_escape_string($nombreActividad)
+			, $conn->real_escape_string($cursoActividad));
 		$rs2 = $conn->query($capacidad);
 		if($rs2){
 			$row = $rs->fetch_assoc();
 			if($rs2->num_rows < 5){
 				$query=sprintf("INSERT INTO ListaActividades(nombre, ID, dia, idUsuario, curso) VALUES('%s', '%s', '%s', '%s', '%s')"
-						, $conn->real_escape_string($nombreActividad)
-						, $conn->real_escape_string($rs1->num_rows + 1)
-						, $conn->real_escape_string($solicitud_dia)
-						, $conn->real_escape_string($row['id'])
-						, $conn->real_escape_string($cursoActividad));
+					, $conn->real_escape_string($nombreActividad)
+					, $conn->real_escape_string($rs1->num_rows + 1)
+					, $conn->real_escape_string($solicitud_dia)
+					, $conn->real_escape_string($row['id'])
+					, $conn->real_escape_string($cursoActividad));
 				$rs3 = $conn->query($query);
 				if($rs3){
 					$contenidoPrincipal .= <<<EOS
@@ -46,7 +46,6 @@ if (isset($_SESSION["login"])) {
 					$rs1->free();
 					$rs2->free();
 					$rs3->free();
-					
 					exit();
 					EOS;
 				} else{
@@ -58,7 +57,7 @@ if (isset($_SESSION["login"])) {
 				<h1>$nombreActividad del $cursoActividad en $solicitud_dia están agotados, por favor seleccione otra fecha</h1>
 				EOS;
 			}
-			
+	
 		} else {
 			echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
 			exit();

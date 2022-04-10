@@ -1,9 +1,10 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once 'formularioInscripcion.php';
-$tituloPagina = htmlspecialchars($_GET["actividad"]);
+require_once __DIR__.'/includes/FormularioActividad.php';
 
+$tituloPagina = htmlspecialchars($_GET["actividad"]);
+//$tituloPagina="Surf";
 $tituloCabecera = strtoupper($tituloPagina);
 $conn = $app->conexionBd();
 $tablaActividad=sprintf("SELECT * FROM Actividades A WHERE A.nombre LIKE '%s' "
@@ -27,7 +28,8 @@ if($row){
 			$act=$row->fetch_assoc();
 			$Cont.="<p>"."$act[nombre_curso]".": "."$act[precio]"." €</p>";
 		}
-		$htmlFormIns=buildFormularioInscripcion($tituloPagina,$app);
+		$form = new FormularioActividad();
+		$htmlFormIns = $form->gestiona();
 		$contenidoPrincipal = <<<EOS
 			$Cont
 			$htmlFormIns
