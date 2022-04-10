@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+button{
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    margin: 5px;
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrito{
+    background: #fdbb2d;
+    border-radius: 10px;
+    color: black;
+    font-size: 15px;
+    font-weight: bolder;
+    border-right: 2px solid black;
+}
+
+.carrito i{
+    position: absolute;
+    margin-left: 90px;
+    column-fill: transparent;
+    transition: 400ms;
+    color: transparent;
+}
+
+.carrito span{
+    transition: 400ms;
+}
+
+.carrito:hover span{
+    margin-right: 30px;
+}
+
+.carrito:hover i{
+    margin-left: 45px;
+    column-fill: white;
+    color:black;
+}
+
+button:focus{
+    outline: none;
+}
+
+#imagen {
+    text-align:center;
+}
+
+#contenido{
+    float: left;
+    clear: both;
+    height: 200px;
+    width: 800px;
+    margin: 0 auto;
+}

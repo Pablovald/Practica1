@@ -1,3 +1,7 @@
+<head>
+<link rel="stylesheet" type="text/css" href="materialesV.css" />
+</head>
+
 <?php
 
 require_once __DIR__. '/includes/config.php';
@@ -15,12 +19,19 @@ for($i=1;$i<=$rs->num_rows;$i++){
     $contenido=$row->fetch_assoc();
     $url=rawurlencode("$contenido[nombre]");
     $rowCount = "<td>
-    <div align = 'center'>
-    <a href ="."material.php?material=".$url."><img src= $contenido[imagen] width='250' height='250'> </a>
-    <h4>"."$contenido[nombre]"."</h4>
-    <p>"."$contenido[descripcion]"."</p>
-    <p> Cantidad: "."$contenido[cantidad]"." unidades </p>
-    <p> Precio: "."$contenido[precio]"." € <p>
+    <div class = 'contenido'>
+		<div class = 'card'>
+			<a href ="."material.php?material=".$url."><img src= $contenido[imagen]> </a>
+		</div>
+		<div class = 'informacion'>
+			<h4>"."$contenido[nombre]"."</h4>
+			<p class = 'descripcion'>"."$contenido[descripcion]"." </p>
+		</div>
+		<div class = 'precio'>
+			<div class = 'box-precio'>
+				<p> Precio: "."$contenido[precio]"." €/hora <p>
+			</div>
+		</div>
     </div>
     </td>";
     if($j<3){	
@@ -36,9 +47,10 @@ for($i=1;$i<=$rs->num_rows;$i++){
 }
 $contenidoPrincipal = <<<EOS
 <p> Materiales disponibles para alquilar. </p>
-<table align = "center">
+<div class='alinear'>
     $tableCont
-</table>
+</div>
+
 EOS;
 
 include __DIR__. '/includes/plantillas/plantilla.php';

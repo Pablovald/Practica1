@@ -1,0 +1,169 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family:poppins;
+	box-sizing: border-box;
+}
+
+a{
+	text-decoration: none;
+	color: orange;
+}
+a:hover{
+	color: #dc5c05;
+}
+
+a.login{  color: white;
+  padding: 10px;
+  width: 90px;
+  text-align: center;
+  border-radius: 50px;
+  background: linear-gradient(0deg, blue, #9E9E9E);
+  text-shadow: 1px 1px 10px white;
+  box-shadow: 5px 5px 2px #607D8B;
+  align-items: center;}
+
+aside {
+	padding: 10px;
+	float: right;
+	width: 160px;
+	height: 1200px;
+	/*background-color:#80d0eb;*/ background-color: #dddddd;
+	margin-top:610px;
+	margin-right: 10px;
+	border-radius: 20px;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+	font-family: poppins;
+}
+
+div.blog-contenedor{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0px;
+	flex-wrap: flex;
+}
+
+div.blog-box{
+	width: 350px;
+	background-color: #ffffff;
+	border: 2px solid #dddddd;/*#9b9b9b;*/
+	margin: 20px;
+}
+
+div.blog-img{
+	width: 100%;
+	height: auto;
+}
+div.blog-img img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	
+}
+
+div.blog-text{
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+h4{
+	text-align: center;
+}
+
+p{
+	text-align: center;
+}
+
+/* Boton de login */
+a.login{  color: white;
+  padding: 10px;
+  width: 90px;
+  text-align: center;
+  border-radius: 50px;
+  background: linear-gradient(0deg, blue, #9E9E9E);
+  text-shadow: 1px 1px 10px white;
+  box-shadow: 5px 5px 2px #607D8B;
+  align-items: center;}
+
+
+
+div.alinear{
+	margin-top: 30px;
+	margin-left: 40px;
+	margin-bottom: 80px;
+}
+
+div.contacto{
+	margin-top: 30px;
+	margin-left: 30px;
+	margin-bottom: 80px;
+}
+
+div.alinear2{
+	margin-top: 30px;
+	margin-left: 20px;
+	margin-bottom: 80px;
+}
+
+h3{
+	color: orange;
+	text-align: center;
+}
+
+div.cabecera {
+	padding: 10px;
+	height: 50px;
+	/*background-color: #80d0eb;*/ background-color: #dddddd;
+	color: black;
+	border-radius: 20px;
+	margin-left: 15px;
+	margin-top:10px;
+	margin-right:190px;
+}
+
+/* Slider */
+div.slider{
+	width: 95%;
+	margin:auto;
+	overflow: hidden;
+	margin-bottom: 80px;
+}
+
+div.slider ul{
+	padding: 0;
+	display: flex;
+	width: 400%;
+	animation: cambio 20s infinite alternate linear;
+}
+
+div.slider li{
+	list-style: none;
+	width: 100%;
+}
+
+div.slider img{
+	width: 100%;
+	height: 100%;
+}
+
+@keyframes cambio{
+	0% {margin-left: 0%;}
+	20% {margin-left: 0%;}
+	
+	25% {margin-left: -100%;}
+	45% {margin-left: -100%;}
+	
+	50% {margin-left: -200%;}
+	70% {margin-left: -200%;}
+	
+	75% {margin-left: -300%;}
+	100% {margin-left: -300%;}
+	}
+

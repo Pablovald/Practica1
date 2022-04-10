@@ -7,15 +7,26 @@ $conn = $app->conexionBd();
 $tablaMaterial=sprintf("SELECT * FROM Materiales M WHERE M.nombre LIKE '$tituloPagina' ");
 $row = $conn->query($tablaMaterial);
 $rs=$row->fetch_assoc();
-$Cont="<h3> $tituloPagina </h3>
-<img src= $rs[imagen] width='350' height='350'>
-<p> Descripción detallada del producto: </p>
-<p>"."$rs[descripcion]</p>";
+$Cont="
+<div id='imagen'>
+    <h3> $tituloPagina </h3>
+    <img src= $rs[imagen] width='350' height='350'>
+</div>
+<div id='contenido'>
+<p> Descripción detallada del producto: </p><br/>
+<p>"."$rs[desc_det]</p><br/>
+<p>"." Precio del producto: "." $rs[precio] "." €</p>
+<link rel='stylesheet' href='material.css'>
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<button class='carrito'>
+    <span>Carrito</span>
+    <i class='fa fa-shopping-basket' aria-hidden='true'></i>
+</button>
+</div>";
 
 $contenidoPrincipal = <<<EOS
-<h3> $tituloPagina </h3>
-<img src= $rs[imagen] width='250' height='250'>
-<p> Descripción detallada del producto: </p>
-<p>$rs[descripcion]</p>
+    $Cont
+
+
 EOS;
 include __DIR__. '/includes/plantillas/plantilla.php';

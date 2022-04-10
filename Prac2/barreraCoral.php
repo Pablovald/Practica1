@@ -35,7 +35,7 @@ sobre el paseo. Cairns es una ciudad con un ambiente juvenil, lleno de tiendas, 
 alternativo. Existen muchos albergues de mochileros con precios razonables, además de gran variedad de lugares para reservar excursiones,
 y eso se nota en el tipo de turista que visita la ciudad, dejando un ambiente alegre y desenfadado.</p></br>
 
-<p align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/jeRdzvgbjFI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+<p align="center"><iframe width="560" height="315" src= title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
  encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 EOS;
 
