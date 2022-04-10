@@ -11,7 +11,7 @@ function mostrarSaludo() {
 ?>
 
 <header>
-<img class = "dimension" src = "img/seawolf logo.png">
+<a href='home.php'><img class = "dimension" img src="img/seawolf logo.png"></a>
 <?php require ('links.php'); ?>
 <div class = "titulo">
 	<h1><?= $tituloCabecera ?></h1>
