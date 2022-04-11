@@ -26,3 +26,6 @@ $app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PAS
  * @see http://php.net/manual/en/language.types.callable.php
  */
 register_shutdown_function(array($app, 'shutdown'));
+
+// Creamos el array de productos
+$productos = array();

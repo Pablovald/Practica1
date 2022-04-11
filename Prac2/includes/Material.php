@@ -1,12 +1,36 @@
 <?php
 
+require_once __DIR__.'/config.php';
 require_once __DIR__. '/Aplicacion.php';
 
 class Material
 {
+
     private function __construct()
     {
 
+    }
+
+    private function insert(){
+        $input = document.getElementById('cantidad');
+        echo $input.select();
+
+        $repetido = FALSE;
+        $i = 0;
+        $a = array(htmlspecialchars($_GET['material']) => $cantidad);
+        while(!$repetido && i < $productos.length){
+            if(key($productos) == htmlspecialchars($_GET["material"]))
+                $repetido = TRUE;
+            else
+                next($productos);
+
+            $i = $i + 1;
+        }
+
+        if(!$repetido){
+            $a = array(htmlspecialchars($_GET['material']) => $cantidad);
+            echo $a;
+        }
     }
 
     public static function infoMaterial(&$tituloPagina, &$tituloCabecera){
@@ -15,7 +39,7 @@ class Material
         $contenidoPrincipal ="";
 
         $app = Aplicacion::getSingleton();
-        $conn = $app->conextionBd();
+        $conn = $app->conexionBd();
         $tablaMaterial=sprintf("SELECT * FROM Materiales M WHERE M.nombre LIKE '%s' "
                                 , $conn->real_escape_string($tituloPagina));
         $row = $conn->query($tablaMaterial);
@@ -32,7 +56,11 @@ class Material
             <p>"." Precio del producto: "." $rs[precio] "." €</p>
             <link rel='stylesheet' href='material.css'>
             <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-            <button class='carrito'>
+            <label for='cantidad'>Cantidad de unidades a comprar:
+            </label>
+            <input type='number' id='cantidad' name='cantidad'
+                min='1'>
+            <button class='carrito' id='boton' onclick='insert(cantidad.select())'>
                 <span>Carrito</span>
                 <i class='fa fa-shopping-basket' aria-hidden='true'></i>
             </button>
