@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/includes/config.php';
 require_once __DIR__.'/includes/FormularioActividad.php';
+require_once __DIR__.'/includes/Actividad.php';
+
 $contenidoPrincipal = Actividad::infoActividad($tituloPagina, $tituloCabecera);
 
 $form = new FormularioActividad();

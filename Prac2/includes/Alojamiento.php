@@ -24,12 +24,8 @@ class Alojamiento
             $rs=$row->fetch_assoc();
             $Cont="<h3>Información detallada del hotel "."$tituloPagina".":</h3>
             <p>"."$rs[descripciondetallada]"."</p>";
-            $form = new FormularioAlojamiento();
-            $htmlFormIns = $form->gestiona();
-        
             $contenidoPrincipal = <<<EOS
                 $Cont
-                $htmlFormIns
             EOS;
             $row->free();
         }else{

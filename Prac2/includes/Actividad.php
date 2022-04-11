@@ -76,7 +76,6 @@ class Actividad
 
     public static function inscribirActividad($nombreActividad, $solicitud_dia, $cursoActividad, &$result){
         $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
-
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario)));
