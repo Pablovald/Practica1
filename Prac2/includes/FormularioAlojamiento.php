@@ -56,5 +56,6 @@ class FormularioAlojamiento extends Form
             $result[] = "Necesitas estar registrado en nuestra página web para reservar alojamientos. Si ya tienes una cuenta, inicia sesión.";
         
         return $result;
+        }
     }
 }
