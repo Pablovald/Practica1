@@ -101,7 +101,7 @@ class Actividad
                     if($rs3){
                         $rs1->free();
                         $rs2->free();
-                        $result = 'home.php';
+                        $result = "actividad.php?curso=".$cursoActividad."&dia=".$solicitud_dia."&estado=InscritoCorrectamente&actividad=".$nombreActividad."";
                     }
                     else{
                         echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -110,6 +110,7 @@ class Actividad
                 }
                 else{
                     $result[] = " ".$nombreActividad." del ".$cursoActividad." en ".$solicitud_dia." están agotados, por favor seleccione otra fecha";
+                    header("Location: actividad.php?curso=".$cursoActividad."&dia=".$solicitud_dia."&estado=NoPlazas&actividad=".$nombreActividad."");
                 }
             }
             else{

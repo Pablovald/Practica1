@@ -46,7 +46,7 @@ class FormularioAlojamiento extends Form
         $fechafin =$datos['fechaFin'] ?? null;
         $nombreAlojamiento = $_GET["alojamiento"];
         
-        if(isset($_SESSION['login'])){
+        if(count($result) === 0 && isset($_SESSION['login'])){
             Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin,$nombreAlojamiento, $result);
         }
         else{

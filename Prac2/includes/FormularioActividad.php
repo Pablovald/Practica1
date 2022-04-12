@@ -18,7 +18,7 @@ class FormularioActividad extends Form
         $correo = $datos['correo'] ?? '';
         $fechaNac = $datos['fechaNac'] ?? '';
         $telefono = $datos['telefono'] ?? '';
-        $nombreActividad = $_GET["actividad"];
+        $nombreActividad = $_GET["actividad"] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -64,7 +64,7 @@ class FormularioActividad extends Form
             </div>
             <label for='curso'>Selecciona el tipo de curso al que quieres inscribirte:</label><br>
             <select name='curso'>';
-            ".self::cursoActividad()."
+            ".Actividad::cursoActividad($nombreActividad)."
             </select><br>
             <div class='grupo-control'>
                 <label>Selecciona la fecha para las clases:</label></br>
@@ -73,10 +73,6 @@ class FormularioActividad extends Form
             <button type='submit' name='login'>Entrar</button>
         </fieldset>";
         return $html;
-    }
-    
-    private function cursoActividad(){
-        return Actividad::cursoActividad($_GET["actividad"]);
     }
 
     protected function procesaFormulario($datos)
@@ -115,7 +111,7 @@ class FormularioActividad extends Form
         }
 
 
-        if(isset($_SESSION['login'])){
+        if(count($result) === 0 && isset($_SESSION['login'])){
             Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result);
         }
         else{
