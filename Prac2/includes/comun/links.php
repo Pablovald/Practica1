@@ -4,4 +4,5 @@
     <a href=Actividades_Main.php>Actividades</a>
 	<a href=Materiales.php>Materiales</a>
 	<a href=Alojamientos_Main.php>Alojamientos</a>
+	<a href=Carrito.php>Carrito</a>
 </nav>
