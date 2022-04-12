@@ -1,31 +1,30 @@
 <?php
 
 class entradaBlog{
-
     private $id;
     private $titulo;
     private $header1;
     private $intro;
     private $header2;
     private $parrafo;
-    private $rutaImagen;
+    private $imagen;
     private $video;
 
 
-    private function __construct($titulo, $header1, $intro, $header2,$parrafo,$rutaImagen,$video)
+    private function __construct($titulo, $header1, $intro, $header2,$parrafo,$imagen,$video)
     {
         $this->titulo= $titulo;
         $this->header1 = $header1;
         $this->intro = $intro;
         $this->header2 = $header2;
         $this->parrafo = $parrafo;
-        $this->rutaImagen = $rutaImagen;
+        $this->imagen = $imagen;
         $this->video = $video;
     }
 
-    public static function crea($titulo,$header1,$intro,$header2,$parrafo,$rutaImagen,$video){
+    public static function crea($titulo,$header1,$intro,$header2,$parrafo,$imagen,$video){
 
-        $entrada= new entradaBlog($titulo,$header1,$intro,$header2,$parrafo,$rutaImagen,$video);
+        $entrada= new entradaBlog($titulo,$header1,$intro,$header2,$parrafo,$imagen,$video);
         return self::guarda($entrada);
     }
     public static function guarda($entrada){
@@ -43,7 +42,7 @@ class entradaBlog{
         , $conn->real_escape_string($entrada->intro)
         , $conn->real_escape_string($entrada->header2)
         , $conn->real_escape_string($entrada->parrafo)
-        , $conn->real_escape_string($entrada->rutaImagen)
+        , $conn->real_escape_string($entrada->imagen)
         , $conn->real_escape_string($entrada->video));
         if ( $conn->query($query) ) {
             $entrada->id = $conn->insert_id;
@@ -63,7 +62,7 @@ class entradaBlog{
         , $conn->real_escape_string($entrada->intro)
         , $conn->real_escape_string($entrada->header2)
         , $conn->real_escape_string($entrada->parrafo)
-        , $conn->real_escape_string($entrada->rutaImagen)
+        , $conn->real_escape_string($entrada->imagen)
         , $conn->real_escape_string($entrada->video)
         , $entrada->id);
     if ( $conn->query($query) ) {
@@ -202,21 +201,21 @@ class entradaBlog{
     }
 
     /**
-     * Get the value of rutaImagen
+     * Get the value of imagen
      */ 
     public function getRutaImagen()
     {
-        return $this->rutaImagen;
+        return $this->imagen;
     }
 
     /**
-     * Set the value of rutaImagen
+     * Set the value of imagen
      *
      * @return  self
      */ 
-    public function setRutaImagen($rutaImagen)
+    public function setRutaImagen($imagen)
     {
-        $this->rutaImagen = $rutaImagen;
+        $this->imagen = $imagen;
 
         return $this;
     }
