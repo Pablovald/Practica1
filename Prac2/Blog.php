@@ -1,5 +1,5 @@
 <head>
-<link rel="stylesheet" type="text/css" href="estiloBlog.css" />
+<link rel="stylesheet" type="text/css" href="estyleBlog.css" />
 </head>
 
 <?php
@@ -43,7 +43,6 @@ for($i=1;$i<=$rs->num_rows;$i++){
 		$j=1;
 	}
 }
-require("includes/comun/navBlog.php");
 $contenidoPrincipal = <<<EOS
 <div class='cabecera'>
 	<p> En club Seawolf Deportes Naúticos os proporcionamos un blog con las noticias más extravagantes sobre deportes acuáticos </p>
@@ -55,4 +54,4 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 
-include __DIR__.'/includes/plantillas/plantilla.php';
+include __DIR__.'/includes/plantillas/plantillaBlog.php';
