@@ -10,7 +10,7 @@ $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET["estado"])){
     $estado = htmlspecialchars($_GET["estado"]);
-    $nombreActividad = rtrim(htmlspecialchars($_GET['actividad']));
+    $nombreActividad = htmlspecialchars($_GET['actividad']);
     $cursoActividad = htmlspecialchars($_GET['curso']);
     $solicitud_dia = htmlspecialchars($_GET['dia']);
     if($estado == "InscritoCorrectamente"){
