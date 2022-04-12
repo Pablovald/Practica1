@@ -12,11 +12,7 @@ class FormularioAlojamiento extends Form
     {
 		$hoy = date('Y-m-d');
 		$tomorrow = date('Y-m-d',time()+84600);
-        $nombreUsuario = $datos['nombreUsuario'] ?? '';
-        $nombre = $datos['nhabitaciones'] ?? '';
-        $fechaini = $datos['fechaIni'] ?? '';
-        $fechafin = $datos['fechaFin'] ?? '';
-
+        $nhabitaciones = $datos['nhabitaciones'] ?? '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
 
@@ -48,9 +44,10 @@ class FormularioAlojamiento extends Form
         $nhabitacion =$datos['nhabitaciones'] ?? null;
         $fechaini =$datos['fechaIni'] ?? null;
         $fechafin =$datos['fechaFin'] ?? null;
+        $nombreAlojamiento = $_GET["alojamiento"];
         
         if(isset($_SESSION['login'])){
-            Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin, $result);
+            Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin,$nombreAlojamiento, $result);
         }
         else{
             $result[] = "Necesitas estar registrado en nuestra página web para reservar alojamientos. Si ya tienes una cuenta, inicia sesión.";
