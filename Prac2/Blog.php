@@ -1,5 +1,5 @@
 <head>
-<link rel="stylesheet" type="text/css" href="estyleBlog.css" />
+<link rel="stylesheet" type="text/css" href="BlogStyle.css" />
 </head>
 
 <?php
