@@ -35,14 +35,14 @@ class Alojamiento
         return $contenidoPrincipal;
     }
 
-    public static function inscribirAlojamiento($nombreActividad, $solicitud_dia, $cursoActividad, &$result){
+    public static function inscribirAlojamiento($nhabitacion, $fechaini, $fechafin,$nombreAlojamiento, &$result){
         $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
-
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario)));
         $rs1 = $conn->query(sprintf("SELECT * FROM ListaActividades"));
         if($rs && $rs1){
+            $idUsuario=$rs->fetch_assoc();
             $capacidad = sprintf("SELECT * FROM ListaActividades LA WHERE LA.dia = '%s' AND LA.nombre = '%s' AND LA.curso = '%s'"
                 , $conn->real_escape_string($solicitud_dia)
                 , $conn->real_escape_string($nombreActividad)
@@ -50,7 +50,6 @@ class Alojamiento
             $rs2 = $conn->query($capacidad);
             if($rs2){
                 if($rs2->num_rows < 5){
-                    $usuario = $rs->fetch_assoc();
                     $IDActividad = $rs1->num_rows + 1;
                     $idUsuario = $usuario['id'];
                     $insertarActividad=sprintf("INSERT INTO ListaActividades(nombre, ID, dia, idUsuario, curso) VALUES('%s', '%s', '%s', '%s', '%s')"
