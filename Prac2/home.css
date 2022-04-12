@@ -1,0 +1,122 @@
+body{
+	margin:0;
+	padding:0;
+}
+header{
+	height: 600px;
+	background-image: url("img/home1.jpg");
+	border-style: none;
+	background-size: 100% 100%;
+}
+
+nav{
+	font: 120% Candara;
+	word-spacing: 15pt;
+	padding: 5px;
+	float: right;
+}
+
+nav ul{
+	list-style: none;
+}
+
+nav li{
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	padding: 0 20px;
+}
+
+nav li a{
+	color: white;
+	text-decoration: none;
+	font-weight: 1000;
+	display: block;
+}
+
+nav a:hover{
+	color: orange;
+}
+
+div.titulo{
+	color: white;
+	font: 190% Candara;
+	float: left;
+	margin-left: -220px;
+	margin-top: 300px;
+}
+
+div.saludo{
+	font: 120% Candara;
+	color: white;
+	float: right;
+}
+div.saludo a, div.saludo a:visited{
+	color: orange;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+div.saludo a:hover{
+	color: #FF6600;
+}
+
+img.dimension{
+	width: 275px;
+	height: 100px;
+	float: left;
+	margin-top: 25px;
+	margin-left: 20px;
+}
+
+div.textPrincipal{
+	font: 120% Candara;
+}
+
+div.NavTitulo{
+	background-color: #ffbf00;
+}
+
+div.Navegacion h4{
+	font: 150% Candara;
+	text-align: center;
+}
+
+div.Navegacion img{
+	float: left;
+	width: 337px;
+	height: 175px;
+	margin-bottom: 15px;
+}
+
+div.pie{
+	margin-top: 35px;
+	background-color: #ffbf00;
+	font: 120% Candara;
+	color: black;
+}
+
+div.pie h4{
+	margin-top: 5px;
+	font: 150% Candara;
+	text-align: center;
+}
+
+div.Info{
+	float: left;
+	margin-top: 10px;
+	margin-left: 40px;
+	margin-bottom: 10px;
+}
+
+div.Info a, div.Info a:visited{
+	color: black;
+	text-decoration: none;
+	font-weight: bold;
+}
+div.mapa{
+	float: right;
+	margin-top: 10px;
+	margin-right: 50px;
+}
+
