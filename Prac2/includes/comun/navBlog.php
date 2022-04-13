@@ -1,6 +1,4 @@
-<head>
-<link rel="stylesheet" type="text/css" href="Vistablog.css" />
-</head>
+
 
 <?php
 

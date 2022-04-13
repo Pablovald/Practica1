@@ -1,5 +1,5 @@
 <head>
-<link rel="stylesheet" type="text/css" href="BlogStyle.css" />
+<link rel="stylesheet" type="text/css" href="BlogView.css" />
 </head>
 
 <?php
