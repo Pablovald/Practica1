@@ -44,21 +44,23 @@ class Alojamiento
         if($rs&&$rs1){
             $idUsuario=$rs->fetch_assoc();
             $Alojamiento=$rs1->fetch_assoc();
-            $id=$idAlojamiento['id'];
-            $rs2 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '.$fechaini.' AND '.$fechafin.' AND h.id LIKE '%s'", $conn->real_escape_string($id)));
+            $id=$Alojamiento['id'];
+            $rs2 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%s'", $conn->real_escape_string($id)));
             if($rs2){
-                 $i=0;
-                 $error=false;
+                $i=0;
+                $error=false;
                 while($i<$rs2->num_rows&&!$error){
 		    	    $act=$rs2->fetch_assoc();
                     if($act['capacidad']<=0){
                         $error=true;
                         $diaError=$act['fecha'];
                     }
+                    $i++;
 		        }
                 if(!$error){
+                    $usuario=$idUsuario['id'];
                     $insertarReserva=sprintf("INSERT INTO listaAlojamiento(id, idUsuario, nombreAlojamiento, fechaini, fechafin,NumeroHabitacion) VALUES(NULL,'%s', '%s', '%s', '%s', '%s')"
-                        , $conn->real_escape_string($idUsuario['id'])
+                        , $conn->real_escape_string($usuario)
                         , $conn->real_escape_string($nombreAlojamiento)
                         , $conn->real_escape_string($fechaini)
                         , $conn->real_escape_string($fechafin)
@@ -68,7 +70,7 @@ class Alojamiento
                         $rs->free();
                         $rs1->free();
                         $rs2->free();
-                        $result = "alojamiento.php?estado=InscritoCorrectamente&alojamiento=".$nombreAlojamiento."";
+                        $result = "alojamiento.php?dia=".$fechaini."&estado=InscritoCorrectamente&alojamiento=".$nombreAlojamiento."";
                     }
                     else{
                         echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
