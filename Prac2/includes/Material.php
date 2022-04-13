@@ -2,6 +2,7 @@
 
 require_once __DIR__.'/config.php';
 require_once __DIR__. '/Aplicacion.php';
+include_once 'funciones.php';
 
 class Material
 {
@@ -9,28 +10,6 @@ class Material
     private function __construct()
     {
 
-    }
-
-    private function insert(){
-        $input = document.getElementById('cantidad');
-        echo $input.select();
-
-        $repetido = FALSE;
-        $i = 0;
-        $a = array(htmlspecialchars($_GET['material']) => $cantidad);
-        while(!$repetido && i < $productos.length){
-            if(key($productos) == htmlspecialchars($_GET["material"]))
-                $repetido = TRUE;
-            else
-                next($productos);
-
-            $i = $i + 1;
-        }
-
-        if(!$repetido){
-            $a = array(htmlspecialchars($_GET['material']) => $cantidad);
-            echo $a;
-        }
     }
 
     public static function infoMaterial(&$tituloPagina, &$tituloCabecera){
@@ -58,13 +37,28 @@ class Material
             <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
             <label for='cantidad'>Cantidad de unidades a comprar:
             </label>
-            <input type='number' id='cantidad' name='cantidad'
-                min='1'>
-            <button class='carrito' id='boton' onclick='insert(cantidad.select())'>
-                <span>Carrito</span>
-                <i class='fa fa-shopping-basket' aria-hidden='true'></i>
-            </button>
-            </div>";
+            ";
+            if (productoYaEstaEnCarrito($rs['id'])) {
+                $Cont .= "
+                <form action='eliminar_del_carrito.php' method='post'>
+                    <input type='hidden' name='id_producto' value='$rs[id] '>
+                    <span class='button is-success'>
+                        <i class='fa fa-check'></i>&nbsp;En el carrito
+                    </span>
+                    <button class='button is-danger'>
+                        <i class='fa fa-trash-o'></i>&nbsp;Quitar
+                    </button>
+                </form>";
+             } else { 
+                 $Cont .= "
+                <form action='agregar_al_carrito.php' method='post'>
+                    <input type='hidden' name='id_producto' value='$rs[id] '>
+                    <button class='button is-primary'>
+                        <i class='fa fa-cart-plus'></i>&nbsp;Agregar al carrito
+                    </button>
+                </form>";
+            } 
+            $Cont .= "</div>";
             $contenidoPrincipal = <<<EOS
                 $Cont
             EOS;
