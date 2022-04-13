@@ -5,6 +5,8 @@ div.contenido{
 	margin: 0 30px;
 	float:left;
 	margin-top: 3%;
+	background-color:white;
+	margin-bottom: 20px;
 }
 
 div.contenido:hover{
@@ -28,6 +30,7 @@ img{
 
 div.alinear{  
 	float: left;
+	background-color: white;
 } 
 
 div.informacion{
