@@ -4,6 +4,13 @@ require_once __DIR__.'/Aplicacion.php';
 
 class Actividad
 {
+    private $IDActividad_Main;
+
+    private $Nombre;
+
+    private $Descripcion;
+
+    private $rutaFoto;
 
     private function __construct()
     {
@@ -109,7 +116,6 @@ class Actividad
                     }
                 }
                 else{
-                    $result[] = " ".$nombreActividad." del ".$cursoActividad." en ".$solicitud_dia." están agotados, por favor seleccione otra fecha";
                     header("Location: actividad.php?curso=".$cursoActividad."&dia=".$solicitud_dia."&estado=NoPlazas&actividad=".$nombreActividad."");
                 }
             }
@@ -128,13 +134,13 @@ class Actividad
         $contenidoPrincipal = NULL;
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $tablaActividad_Main=sprintf("SELECT * FROM Actividad_Main");
+        $tablaActividad_Main=sprintf("SELECT * FROM Actividades");
         $rs =$conn->query($tablaActividad_Main);
         $tableCont=NULL;
         if($rs)
         {
             for($i=1;$i<=$rs->num_rows;$i++){
-                $row=$conn->query(sprintf("SELECT * FROM Actividad_Main A WHERE A.id = '$i'"));
+                $row=$conn->query(sprintf("SELECT * FROM Actividades A WHERE A.id = '$i'"));
                 if($row)
                 {
                     $contenido=$row->fetch_assoc();
@@ -173,4 +179,51 @@ class Actividad
         return $contenidoPrincipal;
     }
     
+    public function getIDActividad_Main()
+    {
+        return $this->IDActividad_Main;
+    }
+
+    public function setIDActividad_Main($id)
+    {
+        $this->IDActividad_Main = $id;
+
+        return $this;
+    }
+
+    public function getNombre()
+    {
+        return $this->Nombre;
+    }
+
+    public function setNombre($Nombre)
+    {
+        $this->Nombre = $Nombre;
+
+        return $this;
+    }
+
+    public function getDescripcion()
+    {
+        return $this->Descripcion;
+    }
+
+    public function setDescripcion($Descripcion)
+    {
+        $this->Descripcion = $Descripcion;
+
+        return $this;
+    }
+
+    public function getrutaFoto()
+    {
+        return $this->rutaFoto;
+    }
+
+    public function setrutaFoto($rutaFoto)
+    {
+        $this->rutaFoto = $rutaFoto;
+
+        return $this;
+    }
 }
