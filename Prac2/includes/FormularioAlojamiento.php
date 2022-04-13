@@ -16,24 +16,24 @@ class FormularioAlojamiento extends Form
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
 
-        $html = <<<EOS
-            <fieldset>
+        $html = "<div class='content'>
                 $htmlErroresGlobales
-                <div class="grupo-control">
+				<div class='formulario'>
+                <div class='grupo-control'>
                     <label>Numero de habitaciones:</label></br>
-                    <input class="control" type="number" name="nhabitaciones" value="1" min="1"/>
+                    <input class='control' type='number' name='nhabitaciones' value='1' min='1'/>
                 </div>
-                <div class="grupo-control">
+                <div class='grupo-control'>
                     <label>Fecha inicio:</label></br>
-                    <input class="control" type="date" name="fechaIni" value="$hoy" min="$hoy"/>
+                    <input class='control' type='date' name='fechaIni' value='$hoy' min='$hoy'/>
                 </div>
-                <div class="grupo-control">
+                <div class='grupo-control'>
                     <label>Fecha fin:</label></br>
-                    <input class="control" type="date" name="fechaFin" value="$tomorrow" min="$tomorrow"/>
+                    <input class='control' type='date' name='fechaFin' value='$tomorrow' min='$tomorrow'/>
                 </div>
-                <div class="grupo-control"><button type="submit" name="Reservar">Reservar</button></div>
-            </fieldset>
-        EOS;
+                <div class='submit'><button type='submit' name='Reservar'>Reservar</button></div>
+				</div>
+            </div>";
         return $html;
     }
     

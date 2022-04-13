@@ -70,7 +70,7 @@ class FormularioActividad extends Form
                 <label>Selecciona la fecha para las clases:</label></br>
                 <input class='control' type='date' name='dia' value='$hoy' required/>
             </div>
-            <button type='submit' name='inscribir'>Inscribir</button>
+            <button type='submit' name='z'>Entrar</button>
         </fieldset>";
         return $html;
     }

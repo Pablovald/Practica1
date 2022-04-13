@@ -50,13 +50,13 @@ class Actividad
         $row = $conn->query($tablaActividad);
         if($row){
 	        $rs=$row->fetch_assoc();
-	        $Cont="<h3>Información del curso de "."$tituloPagina".":</h3>
+	        $Cont="<h3><span>Información</span> del curso de "."$tituloPagina"."</h3>
 	        <p>"."$rs[info]"."</p>
-	        <h4> Horarios disponibles </h4>
+	        <h3> <span>Horarios </span>disponibles </h3>
 	        <p> Lunes a Viernes de 16:00 a 18:00 </p>
 	        <p> Sabado y Domingo de 11:30 a 13:30</p>
 	        <p> Los cursos, por lo normal, se realizarán impartiendo una única clase semanal (ampliable a 2 semanales en el caso de los cursos completos). </p>
-	        <h4> Precios del curso </h4>";
+	        <h3> <span>Precios</span> del curso </h3>";
 	
 	        $row=$conn->query(sprintf("SELECT C.nombre_curso,C.precio FROM CursosActividades C WHERE C.nombre_actividad LIKE '%s'"
 								, $conn->real_escape_string($tituloPagina)));
