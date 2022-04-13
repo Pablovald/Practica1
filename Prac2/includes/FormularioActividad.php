@@ -28,50 +28,54 @@ class FormularioActividad extends Form
         $errorFechaNac = self::createMensajeError($errores, 'fechaNac', 'span', array('class' => 'error'));
         $errorTelefono = self::createMensajeError($errores, 'telefono', 'span', array('class' => 'error'));
         $html ="
-        <fieldset>
-            <legend>Formulario de inscripción</legend>
+        <div class='content'>
+		<legend>Formulario de <span>inscripción</span></legend></br>
+			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>
-                <label>Actividad:</label></br>
+                <label>Actividad:</label>
                 <input class='control' type='text' name='actividad' value='$nombreActividad' readonly/>
             </div>
             <div class='grupo-control'>
-                <label>Nombre completo:</label></br>
+                <label>Nombre completo:</label>
                 <input class='control' type='text' name='nombre' value='$nombreUsuario' required/>$errorNombreUsuario
             </div>
             <div class='grupo-control'>
-                <label>DNI:</label></br>
+                <label>DNI:</label>
                 <input class='control' type='text' name='dni' value='$dni' required/>$errorDni
             </div>
             <div class='grupo-control'>
-                <label>Correo:</label></br>
+                <label>Correo:</label>
                 <input class='control' type='email' name='correo' value='$correo' required/>$errorCorreo
             </div>
             <div class='grupo-control'>
-                <label>Fecha de Nacimiento:</label></br>
+                <label>Fecha de Nacimiento:</label>
                 <input class='control' type='date' name='fechaNac' value='$fechaNac' required/>$errorFechaNac
             </div>
             <div class='grupo-control'>
-                <label>Telefono:</label></br>
+                <label>Telefono:</label>
                 <input class='control' type='text' name='telefono' value='$telefono' required/>$errorTelefono
             </div>
-            <div class='grupo-control'>
-                <label>¿El alumno sabe nadar?</label></br>
-                <input class='control' type='radio' name='nadarSi' value='Si'/>
-                <label>Si</label>
-                <input class='control' type='radio' name='nadarNo' value='No'/>
-                <label>No</label>
-            </div>
-            <label for='curso'>Selecciona el tipo de curso al que quieres inscribirte:</label><br>
+			<div class='grupo-control'>
+            <label for='curso'>Selecciona el curso:</label>
             <select name='curso'>';
-            ".Actividad::cursoActividad($nombreActividad)."
-            </select><br>
+            ".self::cursoActividad()."
+            </select>
+			</div>
             <div class='grupo-control'>
-                <label>Selecciona la fecha para las clases:</label></br>
+                <label>Fechas clase:</label>
                 <input class='control' type='date' name='dia' value='$hoy' required/>
             </div>
-            <button type='submit' name='login'>Entrar</button>
-        </fieldset>";
+			<div class='seleccion'>
+                <label>¿El alumno sabe nadar?</label>
+                <div><input class='control' type='radio' name='nadarSi' value='Si'/>Si</div>
+                <div><input class='control' type='radio' name='nadarNo' value='No'/>No</div>	
+            </div>
+			<div class='submit'>
+            <button type='submit' name='login'>Enviar</button>
+			</div>
+			</div>
+        </div>";
         return $html;
     }
 

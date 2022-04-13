@@ -22,7 +22,7 @@ class Alojamiento
         $row = $conn->query($tablaActividad);
         if($row){
             $rs=$row->fetch_assoc();
-            $Cont="<h3>Información detallada del hotel "."$tituloPagina".":</h3>
+            $Cont="<h3><span>Información detallada</span> del hotel "."$tituloPagina"."</h3>
             <p>"."$rs[descripciondetallada]"."</p>";
             $contenidoPrincipal = <<<EOS
                 $Cont
