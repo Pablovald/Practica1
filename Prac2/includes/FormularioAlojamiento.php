@@ -10,8 +10,8 @@ class FormularioAlojamiento extends Form
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
-		$hoy = date('Y-m-d');
-		$tomorrow = date('Y-m-d',time()+84600);
+		$hoy = date('2022-04-01');
+		$tomorrow = date('2022-04-02');
         $nhabitaciones = $datos['nhabitaciones'] ?? '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -45,6 +45,10 @@ class FormularioAlojamiento extends Form
         $fechaini =$datos['fechaIni'] ?? null;
         $fechafin =$datos['fechaFin'] ?? null;
         $nombreAlojamiento = $_GET["alojamiento"];
+
+        if($fechaini>$fechafin){
+            $result['fechaIni'] = "La fecha de inicio no puede superar que la fecha de fin";
+        }
         
         if(count($result) === 0 && isset($_SESSION['login'])){
             Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin,$nombreAlojamiento, $result);
