@@ -59,7 +59,7 @@ class FormularioActividad extends Form
 			<div class='grupo-control'>
             <label for='curso'>Selecciona el curso:</label>
             <select name='curso'>';
-            ".self::cursoActividad()."
+            ".Actividad::cursoActividad($nombreActividad)."
             </select>
 			</div>
             <div class='grupo-control'>
