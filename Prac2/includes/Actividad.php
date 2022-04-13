@@ -12,6 +12,8 @@ class Actividad
 
     private $rutaFoto;
 
+    private $info;
+
     private function __construct()
     {
         
@@ -223,6 +225,18 @@ class Actividad
     public function setrutaFoto($rutaFoto)
     {
         $this->rutaFoto = $rutaFoto;
+
+        return $this;
+    }
+
+    public function getInfo()
+    {
+        return $this->Info;
+    }
+
+    public function setInfo($Info)
+    {
+        $this->Info = $Info;
 
         return $this;
     }
