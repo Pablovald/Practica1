@@ -20,5 +20,4 @@ else {
 echo $mensaje;
 return $destinoImagen;
 }
-print_r($_FILES);
 ?>
