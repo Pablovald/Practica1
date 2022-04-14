@@ -120,7 +120,7 @@ class FormularioActividad extends Form
                 Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result);
             }
             else{
-                $result[] = "Necesitas estar registrado en nuestra página web para inscribirte en alguna actividad. Si ya tienes una cuenta, inicia sesión.";
+                header("Location: actividad.php?actividad=".$nombreActividad."&estado=faltaLogin");
             }
         }
         return $result;
