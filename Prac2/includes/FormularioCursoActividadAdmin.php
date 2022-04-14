@@ -20,25 +20,29 @@ class FormularioCursoActividadAdmin extends Form
         $errorPrecio = self::createMensajeError($precio, 'descripcion', 'span', array('class' => 'error'));
 
         $html ="
-        <fieldset>
-            <legend>Formulario de añadir un curso asociado a una actividad</legend>
+        <div class='content'>
+            <legend>Formulario de <span>añadir un curso</span> asociado a una actividad</legend></br>
+			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>
-                <label>Nombre de la Actividad:</label></br>
+                <label>Nombre de la Actividad:</label>
                 <select name='nombre'>
                 ".Actividad::optionActividad()."
                 </select>
             </div>
             <div class='grupo-control'>
-                <label>Curso:</label></br>
+                <label>Curso:</label>
                 <input class='control' type='text' name='curso' value='$curso' required/>$errorCurso
             </div>
             <div class='grupo-control'>
-                <label>Precio:</label></br>
+                <label>Precio:</label>
                 <input class='control' type='number' name='precio' value='$precio' required/>$errorPrecio
             </div>
+			<div class='submit'>
             <button type='submit' name='Aniadir'>Añadir Curso</button>
-        </fieldset>";
+			</div>
+			</div>
+        </div>";
         return $html;
     }
 

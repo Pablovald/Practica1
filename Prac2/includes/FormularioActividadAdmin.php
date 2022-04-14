@@ -24,27 +24,30 @@ class FormularioActividadAdmin extends Form
         $errorInfo = self::createMensajeError($errores, 'info', 'span', array('class' => 'error'));
 
         $html ="
-        <fieldset>
-            <legend>Formulario de añadir una actividad</legend>
+        <div class='content'>
+            <legend>Formulario de <span>añadir una actividad</span></legend></br>
+			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>
-                <label>Nombre:</label></br>
+                <label>Nombre:</label>
                 <input class='control' type='text' name='nombre' value='$nombre' required/>$errorNombre
             </div>
             <div class='grupo-control'>
-                <label>Descripcion:</label></br>
+                <label>Descripcion:</label>
                 <input class='control' type='text' name='descripcion' value='$descripcion' required/>$errorDescripcion
             </div>
-            <div class='grupo-control'>
-                <label>Imagen:</label></br>
+            <div class='privacidad'>
+                <label>Imagen: </label>
                 <input class='control' type='file' name='imagen' value='$imagen' required/>$errorImagen
             </div>
             <div class='grupo-control'>
-                <label>Informacion detallada:</label></br>
+                <label>Informacion detallada:</label>
                 <input class='control' type='text' name='info' value='$info' required/>$errorInfo
             </div>
-            <button type='submit' name='Aniadir Actividad'>Añadir</button>
-        </fieldset>";
+			<div class='submit'>
+            <button type='submit' name='Añadir Actividad'>Añadir</button>
+			</div>
+        </div>";
         return $html;
     }
 
