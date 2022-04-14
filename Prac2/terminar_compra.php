@@ -1,7 +1,7 @@
 <?php
 include_once "funciones.php";
 
-terminarCompra();
+    terminarCompra();
 $tituloPagina = "Carrito";
 $tituloCabecera = "CARRITO";
 $contenidoPrincipal = <<<EOS

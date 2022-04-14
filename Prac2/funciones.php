@@ -11,6 +11,7 @@ function obtenerUsuario(){
 
     $idUsuario = $auxUsuario->fetch_assoc();
 
+    $auxUsuario->free();
     return $idUsuario;
 }
 
@@ -79,9 +80,12 @@ function obtenerProductosEnCarrito() { // obtenemos todos los productos que hay 
                         <td>
                             <form action="eliminar_del_carrito.php" method="post">
                                 <input type="hidden" name="id_producto" value="$contenido[id]">
+                                <input type="number" name="cantidad" min ="1"value="cantidad.select()">
                                 <input type="hidden" name="redireccionar_carrito">
-                                <button class="button is-danger">
+                                <link rel='stylesheet' href='carrito.css'>
+                                <button class="eliminar">
                                     <i class="fa fa-trash-o"></i>
+                                    <span>Eliminar</span>
                                 </button>
                             </form>
                         </td>
@@ -103,9 +107,10 @@ function obtenerProductosEnCarrito() { // obtenemos todos los productos que hay 
             </div>
         </div>
         EOS;
+        $row->free();
          }        
         
-    
+    $rs->free();
     return $ContenidoPrincipal;
 }
 
@@ -116,10 +121,10 @@ function estaEnCarrito($idProducto){
     $enCarrito = FALSE;
     $sentencia = $conn->query(sprintf("SELECT * FROM Carrito WHERE id_usuario = '$idUsuario[id]' AND id_producto = '$idProducto'")); // seleccionamos todos los elementos del carrito del 
     // usuario actual cuyo id de producto coincida con el que seleccionamos
-    //$rs = $sentencia->fetch_assoc();
     if($sentencia->num_rows >= 1) // si hay al menos un elemento, esta en el carrito
         $enCarrito = TRUE;
 
+    $sentencia->free();
     return $enCarrito;
 }
 
@@ -131,24 +136,25 @@ function terminarCompra(){
     return $row;
 }
 
-function quitarProductoDelCarrito($idProducto) // quitamos un producto del carrito
+function quitarProductoDelCarrito($idProducto, $cantidad) // quitamos un producto del carrito
 {
     $app = Aplicacion::getSingleton();
     $conn = $app->conexionBd();
     $idUsuario = obtenerUsuario();
     $row = $conn->query(sprintf("SELECT * FROM Carrito WHERE id_usuario = '$idUsuario[id]' AND id_producto = '$idProducto'"));
     $rs = $row->fetch_assoc();
-    if($rs['cantidad'] > 1){
-        $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad - 1 WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
+    if($rs['cantidad'] > $cantidad){
+        $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad - $cantidad WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
     }
     else {
         $sentencia = $conn->query(sprintf("DELETE FROM Carrito WHERE id_usuario = '$idUsuario[id]' AND id_producto = $idProducto"));
     }
-    //return $sentencia->execute([$idUsuario['id'], $idProducto]);
+
+    $row->free();
     return $sentencia;
 }
 
-function agregarProductoAlCarrito($idProducto) // agregamos el producto con id idProducto al carrito para el usuario con id sesion la sesion act
+function agregarProductoAlCarrito($idProducto, $cantidad) // agregamos el producto con id idProducto al carrito para el usuario con id sesion la sesion act
 {
     // Ligar el id del producto con el usuario a través de la sesión
     $app = Aplicacion::getSingleton();
@@ -156,10 +162,12 @@ function agregarProductoAlCarrito($idProducto) // agregamos el producto con id i
     $idUsuario = obtenerUsuario();
     $enCarrito = estaEnCarrito($idProducto);
     if($enCarrito){
-        $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad + 1 WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
+        $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad + $cantidad WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
     }
     else{
-        $sentencia = $conn->query(sprintf("INSERT INTO Carrito(id_usuario, id_producto, cantidad) VALUES ('$idUsuario[id]', '$idProducto', '1')"));
+        if($cantidad > 0) {
+            $sentencia = $conn->query(sprintf("INSERT INTO Carrito(id_usuario, id_producto, cantidad) VALUES ('$idUsuario[id]', '$idProducto', '$cantidad')"));
+        }
     }
     return $sentencia;
 }
