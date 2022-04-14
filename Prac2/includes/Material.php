@@ -38,30 +38,17 @@ class Material
             <p>"."$rs[desc_det]</p><br/>
             <p>"." <precio>Precio del producto: </precio>"." $rs[precio] "." €</p>
             <link rel='stylesheet' href='material.css'>
-            <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-            <label for='cantidad'>Cantidad de unidades a comprar:
-            </label>
             ";
-            if (productoYaEstaEnCarrito($rs['id'])) {
-                $Cont .= "
-                <form action='eliminar_del_carrito.php' method='post'>
-                    <input type='hidden' name='id_producto' value='$rs[id] '>
-                    <span class='button is-success'>
-                        <i class='fa fa-check'></i>&nbsp;En el carrito
-                    </span>
-                    <button class='button is-danger'>
-                        <i class='fa fa-trash-o'></i>&nbsp;Quitar
-                    </button>
-                </form>";
-             } else { 
+
                  $Cont .= "
                 <form action='agregar_al_carrito.php' method='post'>
-                    <input type='hidden' name='id_producto' value='$rs[id] '>
+                    <input type='hidden' name='id_producto' value='$rs[id]'>
+                    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
                     <button class='button is-primary'>
                         <i class='fa fa-cart-plus'></i>&nbsp;Agregar al carrito
                     </button>
                 </form>";
-            } 
+
             $Cont .= "</div>";
             $contenidoPrincipal = <<<EOS
                 $Cont
