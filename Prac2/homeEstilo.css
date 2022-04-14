@@ -38,6 +38,22 @@ nav a:hover{
 	color: orange;
 }
 
+.submenu{
+	display:none;
+	position:absolute;
+	background: orange;
+	width: 80%;
+}
+
+.submenu li a{
+	padding: 5px;
+	display: block;
+	color: white;
+}
+nav li:hover > ul{
+	display: block;
+}
+
 div.titulo{
 	color: white;
 	font: 190% Candara;
