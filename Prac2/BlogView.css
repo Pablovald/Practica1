@@ -164,3 +164,15 @@ div.slider img{
 	75% {margin-left: -300%;}
 	100% {margin-left: -300%;}
 	}
+
+	
+.info-blog img,iframe{
+	width: 667px;
+	height: 400px;
+	margin-left:350px;
+}
+
+.info-blog h1{
+	text-align:center;
+	color: #ffbf00;
+}

@@ -99,3 +99,29 @@ span{
     background: #ff8000;
 }
 
+.textbox{
+	display:flex;
+	flex-direction: column;
+	width: 30rem;
+	margin: 0.75rem 0;
+}
+
+.textbox label{
+	margin-bottom: 0.2rem;
+}
+
+textarea{
+	max-width: 100%;
+	height: 5rem;
+	max-height: 15rem;
+	padding-top: 0.5rem;
+	padding-left: 0.5rem;
+	border: 1px solid #ffbf00;
+	border-radius: 5px;
+}
+
+.privacidad{
+	display:flex;
+	justify-content: center;
+	margin-top: 1rem;
+}

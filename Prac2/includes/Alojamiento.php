@@ -39,30 +39,38 @@ class Alojamiento
         $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario)));
-        $rs1 = $conn->query(sprintf("SELECT * FROM ListaActividades"));
-        if($rs && $rs1){
+        $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario LIKE '%s'", $conn->real_escape_string($nombreUsuario)));
+        $rs1 =$conn->query(sprintf("SELECT id FROM Alojamiento a WHERE a.nombre LIKE '%s'", $conn->real_escape_string($nombreAlojamiento)));
+        if($rs&&$rs1){
             $idUsuario=$rs->fetch_assoc();
-            $capacidad = sprintf("SELECT * FROM ListaActividades LA WHERE LA.dia = '%s' AND LA.nombre = '%s' AND LA.curso = '%s'"
-                , $conn->real_escape_string($solicitud_dia)
-                , $conn->real_escape_string($nombreActividad)
-                , $conn->real_escape_string($cursoActividad));
-            $rs2 = $conn->query($capacidad);
+            $Alojamiento=$rs1->fetch_assoc();
+            $id=$Alojamiento['id'];
+            $rs2 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%s'", $conn->real_escape_string($id)));
             if($rs2){
-                if($rs2->num_rows < 5){
-                    $IDActividad = $rs1->num_rows + 1;
-                    $idUsuario = $usuario['id'];
-                    $insertarActividad=sprintf("INSERT INTO ListaActividades(nombre, ID, dia, idUsuario, curso) VALUES('%s', '%s', '%s', '%s', '%s')"
-                        , $conn->real_escape_string($nombreActividad)
-                        , $conn->real_escape_string($IDActividad)
-                        , $conn->real_escape_string($solicitud_dia)
-                        , $conn->real_escape_string($idUsuario)
-                        , $conn->real_escape_string($cursoActividad));
-                    $rs3 = $conn->query($insertarActividad);
+                $i=0;
+                $error=false;
+                while($i<$rs2->num_rows&&!$error){
+		    	    $act=$rs2->fetch_assoc();
+                    if($act['capacidad']<=0){
+                        $error=true;
+                        $diaError=$act['fecha'];
+                    }
+                    $i++;
+		        }
+                if(!$error){
+                    $usuario=$idUsuario['id'];
+                    $insertarReserva=sprintf("INSERT INTO listaAlojamiento(id, idUsuario, nombreAlojamiento, fechaini, fechafin,NumeroHabitacion) VALUES(NULL,'%s', '%s', '%s', '%s', '%s')"
+                        , $conn->real_escape_string($usuario)
+                        , $conn->real_escape_string($nombreAlojamiento)
+                        , $conn->real_escape_string($fechaini)
+                        , $conn->real_escape_string($fechafin)
+                        , $conn->real_escape_string($nhabitacion));
+                         $rs3 = $conn->query($insertarReserva);
                     if($rs3){
+                        $rs->free();
                         $rs1->free();
                         $rs2->free();
-                        $result = 'home.php';
+                        $result = "alojamiento.php?dia=".$fechaini."&estado=InscritoCorrectamente&alojamiento=".$nombreAlojamiento."";
                     }
                     else{
                         echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -70,7 +78,7 @@ class Alojamiento
                     }
                 }
                 else{
-                    $result[] = " ".$nombreActividad." del ".$cursoActividad." en ".$solicitud_dia." están agotados, por favor seleccione otra fecha";
+                    header("Location: alojamiento.php?dia=".$fechaini."&estado=NoPlazas&alojamiento=".$nombreAlojamiento."");
                 }
             }
             else{
