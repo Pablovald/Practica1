@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/config.php';
 function subirImagen($directorio){
 $nombreArchivo=$_FILES['imagen']['name'];
 $mensaje = "";
@@ -17,8 +17,7 @@ else {
           $mensaje="Archivo subido corectamente";
     }
 }
-echo $mensaje;
 return $destinoImagen;
 }
-print_r($_FILES);
+
 ?>

@@ -58,7 +58,7 @@ class FormularioActividad extends Form
             </div>
 			<div class='grupo-control'>
             <label for='curso'>Selecciona el curso:</label>
-            <select name='curso'>';
+            <select name='curso'>'
             ".Actividad::cursoActividad($nombreActividad)."
             </select>
 			</div>
@@ -115,11 +115,13 @@ class FormularioActividad extends Form
         }
 
 
-        if(count($result) === 0 && isset($_SESSION['login'])){
-            Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result);
-        }
-        else{
-            $result[] = "Necesitas estar registrado en nuestra página web para inscribirte en alguna actividad. Si ya tienes una cuenta, inicia sesión.";
+        if(count($result) === 0){
+            if(isset($_SESSION['login'])){
+                Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result);
+            }
+            else{
+                $result[] = "Necesitas estar registrado en nuestra página web para inscribirte en alguna actividad. Si ya tienes una cuenta, inicia sesión.";
+            }
         }
         return $result;
     }

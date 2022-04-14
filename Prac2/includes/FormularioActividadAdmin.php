@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/Form.php';
 require_once __DIR__.'/Actividad.php';
-
+require_once __DIR__.'/subidaImagenes.php';
 
 class FormularioActividadAdmin extends Form
 {
@@ -11,37 +11,39 @@ class FormularioActividadAdmin extends Form
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
-		$hoy = date('Y-m-d');
-		
         $nombre = $datos['nombre'] ?? '';
         $descripcion = $datos['descripcion'] ?? '';
-        $rutaFoto = $datos['rutaFoto'] ?? '';
+        $imagen = $datos['imagen'] ?? '';
         $info = $datos['info'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorNombre = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
         $errorDescripcion = self::createMensajeError($errores, 'descripcion', 'span', array('class' => 'error'));
-        $errorRutaFoto = self::createMensajeError($errores, 'rutaFoto', 'span', array('class' => 'error'));
+        $errorImagen = self::createMensajeError($errores, 'imagen', 'span', array('class' => 'error'));
         $errorInfo = self::createMensajeError($errores, 'info', 'span', array('class' => 'error'));
 
         $html ="
         <fieldset>
-            <legend>Formulario de inscripción</legend>
+            <legend>Formulario de añadir una actividad</legend>
             $htmlErroresGlobales
             <div class='grupo-control'>
-                <label>Nombre completo:</label></br>
+                <label>Nombre:</label></br>
                 <input class='control' type='text' name='nombre' value='$nombre' required/>$errorNombre
             </div>
             <div class='grupo-control'>
-                <label>DNI:</label></br>
+                <label>Descripcion:</label></br>
                 <input class='control' type='text' name='descripcion' value='$descripcion' required/>$errorDescripcion
             </div>
             <div class='grupo-control'>
-                <label>Correo:</label></br>
-                <input class='control' type='file' name='rutaFoto' value='$rutaFoto' required/>$errorRutaFoto
+                <label>Imagen:</label></br>
+                <input class='control' type='file' name='imagen' value='$imagen' required/>$errorImagen
             </div>
-            <button type='submit' name='Aniadir'>Añadir</button>
+            <div class='grupo-control'>
+                <label>Informacion detallada:</label></br>
+                <input class='control' type='text' name='info' value='$info' required/>$errorInfo
+            </div>
+            <button type='submit' name='Aniadir Actividad'>Añadir</button>
         </fieldset>";
         return $html;
     }
@@ -50,43 +52,39 @@ class FormularioActividadAdmin extends Form
     {
         $result = array();
 
-        $nombreActividad =$datos['actividad'] ?? null;
-        $nombre =$datos['nombre'] ?? null;
-        $dni =$datos['dni'] ?? null;
-        $correo =$datos['correo'] ?? null;
-        $fechaNac =$datos['fechaNac'] ?? null;
-        $telefono =$datos['telefono'] ?? null;
-        $curso =$datos['curso'] ?? null;
-        $dia =$datos['dia'] ?? null;
+        $nombre = $datos['nombre'] ?? null;
+        $descripcion = $datos['descripcion'] ?? null;
+        $rutaFoto = subirImagen('img/') ?? null;
+        $info = $datos['info'] ?? null;
 
         if(empty($nombre)){
             $result['nombre'] = "El nombre no puede estar vacio";
         }
-        if(empty($dni)){
-            $result['dni'] = "El dni no puede estar vacio";
+        if(empty($descripcion)){
+            $result['descripcion'] = "La descripcion no puede estar vacio";
         }
-        if(empty($correo)){
-            $result['correo'] = "El correo no puede estar vacio";
+        if(empty($rutaFoto)){
+            $result['imagen'] = "La imagen no puede estar vacio";
         }
-        if(empty($fechaNac)){
-            $result['fechaNac'] = "La fecha de nacimiento no puede estar vacio";
-        }
-        if(empty($telefono)){
-            $result['telefono'] = "El telefono no puede estar vacio";
-        }
-        if(empty($curso)){
-            $result['curso'] = "El curso no puede estar vacio";
-        }
-        if(empty($dia)){
-            $result['dia'] = "El curso no puede estar vacio";
+        if(empty($info)){
+            $result['info'] = "La informacion detallada no puede estar vacio";
         }
 
-
-        if(count($result) === 0 && isset($_SESSION['login'])){
-            Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result);
-        }
-        else{
-            $result[] = "Necesitas estar registrado en nuestra página web para inscribirte en alguna actividad. Si ya tienes una cuenta, inicia sesión.";
+        if(count($result) === 0){
+            if(isset($_SESSION['login'])){
+                if($_SESSION['esAdmin']){
+                    $actividad = Actividad::creaActividad($nombre, $descripcion, $rutaFoto, $info);
+                    if(!$actividad){
+                        $result[] ='No se ha podido crear la actividad';
+                    }
+                }
+                else{
+                    $result[] = "No eres Admin";
+                }
+            }
+            else{
+                $result[] = "Logeate primero";
+            }
         }
         return $result;
     }

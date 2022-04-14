@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__. '/Aplicacion.php';
+
 class entradaBlog{
     private $id;
     private $titulo;

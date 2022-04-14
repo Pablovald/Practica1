@@ -69,7 +69,7 @@ class Usuario
 
     public static function guarda($usuario)
     {
-        if ($usuario->id !== null) {
+        if ($usuario->id != null) {
             return self::actualiza($usuario);
         }
         return self::inserta($usuario);
@@ -98,7 +98,7 @@ class Usuario
         $result = false;
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("UPDATE Usuarios U SET nombreUsuario = '%s', nombre='%s', password='%s', rol='%s' WHERE U.id=%i"
+        $query=sprintf("UPDATE Usuarios U SET nombreUsuario = '%s', nombre='%s', password='%s', rol='%s' WHERE U.id='%i'"
             , $conn->real_escape_string($usuario->nombreUsuario)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)

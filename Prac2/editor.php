@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/formularioBlog.php';
+require_once __DIR__.'/includes/formularioBlog.php';
 $tituloPagina="Editor";
 $tituloCabecera="Editor";
 $form=new FormularioBlog();
