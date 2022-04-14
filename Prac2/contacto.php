@@ -1,5 +1,5 @@
 <head>
-<link rel="stylesheet" type="text/css" href="FormulariosEstilo.css" />
+<link rel="stylesheet" type="text/css" href="FormularioStyle.css" />
 </head>
 
 <?php
