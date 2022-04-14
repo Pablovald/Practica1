@@ -5,7 +5,6 @@ div.contenido{
 	margin: 0 30px;
 	float:left;
 	margin-top: 3%;
-	background-color:white;
 	margin-bottom: 20px;
 }
 
@@ -30,7 +29,7 @@ img{
 
 div.alinear{  
 	float: left;
-	background-color: white;
+	background-color:white;
 } 
 
 div.informacion{
@@ -65,4 +64,31 @@ div.precio{
 
 div.box-precio{
 	width: 150px;
+}
+
+div.fotoMaterial img{
+	float: right;
+	width: 350px;
+	height: 350px;
+	margin-right: 120px;
+	margin-top: -5px;
+}
+
+div.tituloInfo{
+	color: orange;
+}
+
+div.contenidoMaterial{
+	margin-top: 15px;
+	margin-left: 15px;
+	width: 650px;
+	height: 450px;
+	text-align: justify;
+}
+
+div.contenidoMaterial label{
+	color:orange;
+}
+precio{
+	color: orange;
 }

@@ -1,3 +1,6 @@
+<head>
+<link rel="stylesheet" type="text/css" href="materialEstilo.css" />
+</head>
 <?php
 
 require_once __DIR__.'/config.php';
@@ -25,14 +28,15 @@ class Material
         if($row){
             $rs=$row->fetch_assoc();
             $Cont="
-            <div id='imagen'>
-                <h3> $tituloPagina </h3>
-                <img src= $rs[imagen] width='350' height='350'>
+            <div class = 'fotoMaterial'>
+                <img src= $rs[imagen]>
             </div>
-            <div id='contenido'>
-            <p> Descripción detallada del producto: </p><br/>
+            <div class='contenidoMaterial'>
+            <div class = 'tituloInfo'>
+                Descripción detallada del producto: <br/>
+            </div>
             <p>"."$rs[desc_det]</p><br/>
-            <p>"." Precio del producto: "." $rs[precio] "." €</p>
+            <p>"." <precio>Precio del producto: </precio>"." $rs[precio] "." €</p>
             <link rel='stylesheet' href='material.css'>
             <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
             <label for='cantidad'>Cantidad de unidades a comprar:
