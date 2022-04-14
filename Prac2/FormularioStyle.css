@@ -125,3 +125,13 @@ textarea{
 	justify-content: center;
 	margin-top: 1rem;
 }
+
+img{
+	width: 667;
+	height: 400;
+}
+ 
+ a{
+	 text-decoration: none;
+	 color: orange;
+ }
