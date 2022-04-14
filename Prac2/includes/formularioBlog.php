@@ -29,7 +29,9 @@ class FormularioBlog extends Form
         $errorVideo = self::createMensajeError($errores, 'video', 'span', array('class' => 'error'));
 
         $html ="
-            <fieldset>
+            <div class = 'content'>
+            <legend> Editor <span> Publicación </span></legend></br>
+            <div class = 'formulario'>
                 $htmlErroresGlobales
                 <div class='grupo-control'>
                     <label>Titulo del artículo:</label> <input class='control' type='text' name='titulo' value='$titulo' />$errorTitulo
@@ -46,14 +48,15 @@ class FormularioBlog extends Form
                 <div class='grupo-control'>
                     <label>Texto del párrafo:</label> <input class='control' type='text' name='parrafo' value='$parrafo'/>$errorParrafo
                 </div>
-                <div class='grupo-control'>
+                <div class='seleccion'>
                     <label>Selecciona una imagen:</label> <input type='file' name='imagen' value='$imagen'/>$errorimagen
                 </div>
                 <div class='grupo-control'>
                     <label>Enlace al vídeo:</label> <input class='control' type='text' name='video' value='$video'/>$errorVideo
                 </div>
-                <div class='grupo-control'><button type='submit' name='subir'>Subir artículo al blog</button></div>
-            </fieldset>";
+                <div class='submit'><button type='submit' name='subir'>Subir artículo al blog</button></div>
+            </div>
+            </div>";
         return $html;
     }
 

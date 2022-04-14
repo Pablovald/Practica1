@@ -36,7 +36,7 @@ class FormularioActividadAdmin extends Form
                 <label>Descripcion:</label>
                 <input class='control' type='text' name='descripcion' value='$descripcion' required/>$errorDescripcion
             </div>
-            <div class='privacidad'>
+            <div class='seleccion'>
                 <label>Imagen: </label>
                 <input class='control' type='file' name='imagen' value='$imagen' required/>$errorImagen
             </div>
