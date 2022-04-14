@@ -74,6 +74,7 @@ class FormularioActividad extends Form
 			<div class='submit'>
             <button type='submit' name='login'>Enviar</button>
 			</div>
+            
 			</div>
         </div>";
         return $html;

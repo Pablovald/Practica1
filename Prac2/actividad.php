@@ -23,9 +23,10 @@ if(isset($_GET["estado"])){
             <h1>¡Inscrito correctamente en $nombreActividad de $cursoActividad en el dia $solicitud_dia!</h1>
         EOS;
         }
-        else if($estado == "NoPlazas"){
+        else if($estado == "fechaError"){
             $contenidoPrincipal .= <<<EOS
-            <h1>¡$nombreActividad de $cursoActividad en el dia $solicitud_dia están agotados, por favor seleccione otra fecha!</h1>
+            <h1>¡La fecha: "$solicitud_dia" no es válido!</h1>
+            <h1>¡Por favor selecciona una fecha válida!</h1>
         EOS;
         }
     }

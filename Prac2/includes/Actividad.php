@@ -32,6 +32,7 @@ class Actividad
         $this->Precio = $precio;
     }
 
+    //Muestra todas las actividades del BD
     public static function listadoActividades(){
         $contenido=NULL;
         $app = Aplicacion::getSingleton();
@@ -88,8 +89,10 @@ class Actividad
 		        }
                 $contenidoPrincipal = <<<EOS
                     $Cont
+                    <h3><span>Fechas</span> de clases disponibles</h3>
                 EOS;
-		        $row->free();
+                $row->free();
+                $contenidoPrincipal .= self::mostrarFechas($tituloPagina);
 	        }
 	        else{
 		        echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -103,35 +106,84 @@ class Actividad
         return $contenidoPrincipal;
     }
 
+    //Muestra las fechas disponibles para inscribirse en un curso de una actividad
+    private static function mostrarFechas($tituloPagina){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
 
+        $Cont=NULL;
+        $array1= array();
+        $fila = $conn->query(sprintf("SELECT C.Fecha, C.Curso FROM CapacidadActividad C WHERE C.Nombre LIKE '%s' AND C.Capacidad > 0"
+            , $conn->real_escape_string($tituloPagina)));
+        if($fila)
+        {
+            for($i=0;$i<$fila->num_rows;$i++){
+                $aux=$fila->fetch_assoc();
+                if(!isset($array1[$aux['Curso']])){
+                    $array1[$aux['Curso']] = array($aux['Fecha']);
+                }
+                else{
+                    array_push($array1[$aux['Curso']], $aux['Fecha']);
+                }
+            }
+            foreach($array1 as $key => $value){
+                $Cont.="<p>"."$key".": ".$value['0']."";
+                $i =0;
+                foreach($value as $aux){
+                    if($i != 0){
+                        $Cont.=", "."$aux"."";
+                    }
+                    $i++;
+                }
+                $Cont.= "</p>";
+            }
+            if(empty($array1)){
+                $Cont = "<p>No hay fechas disponibles.</p>";
+            }
+            $fila->free();
+        }
+        else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+	        exit();
+        }
+        return $Cont;
+    }
+
+    //Un usuario se inscribe en un curso de una actividad, puede ocurrir dos cosas: 1.La fecha no es valido 2.Se inscribe correctamente
     public static function inscribirActividad($nombreActividad, $solicitud_dia, $cursoActividad, &$result){
         $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario)));
-        $rs1 = $conn->query(sprintf("SELECT * FROM ListaActividades"));
-        if($rs && $rs1){
-            $capacidad = sprintf("SELECT * FROM ListaActividades LA WHERE LA.dia = '%s' AND LA.nombre = '%s' AND LA.curso = '%s'"
-                , $conn->real_escape_string($solicitud_dia)
-                , $conn->real_escape_string($nombreActividad)
-                , $conn->real_escape_string($cursoActividad));
-            $rs2 = $conn->query($capacidad);
-            if($rs2){
-                if($rs2->num_rows < 5){
-                    $usuario = $rs->fetch_assoc();
-                    $IDActividad = $rs1->num_rows + 1;
-                    $idUsuario = $usuario['id'];
-                    $insertarActividad=sprintf("INSERT INTO ListaActividades(nombre, ID, dia, idUsuario, curso) VALUES('%s', '%s', '%s', '%s', '%s')"
-                        , $conn->real_escape_string($nombreActividad)
-                        , $conn->real_escape_string($IDActividad)
-                        , $conn->real_escape_string($solicitud_dia)
-                        , $conn->real_escape_string($idUsuario)
-                        , $conn->real_escape_string($cursoActividad));
-                    $rs3 = $conn->query($insertarActividad);
-                    if($rs3){
-                        $rs1->free();
-                        $rs2->free();
-                        $result = "actividad.php?curso=".$cursoActividad."&dia=".$solicitud_dia."&estado=InscritoCorrectamente&actividad=".$nombreActividad."";
+        $rs1 = $conn->query(sprintf("SELECT C.Capacidad, C.ID FROM CapacidadActividad C WHERE C.Nombre='%s' AND C.Curso='%s' AND C.Fecha ='%s'"
+                                    , $conn->real_escape_string($nombreActividad)
+                                    , $conn->real_escape_string($cursoActividad)
+                                    , $conn->real_escape_string($solicitud_dia)));
+        if($rs1){
+            if($rs1->num_rows > 0){
+                $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario)));
+                if($rs){
+                    $filaUsuario = $rs->fetch_assoc();
+                    $idUsuario = $filaUsuario['id'];
+                    $rs->free();
+                    $rs = $conn->query(sprintf("INSERT INTO ListaActividades(nombre, ID, dia, idUsuario, curso) VALUES('%s', '%d', '%s', '%s', '%s')"
+                    , $conn->real_escape_string($nombreActividad)
+                    , $conn->insert_id
+                    , $conn->real_escape_string($solicitud_dia)
+                    , $conn->real_escape_string($idUsuario)
+                    , $conn->real_escape_string($cursoActividad)));
+                    if($rs){
+                        $filaCapacidadActividad = $rs1->fetch_assoc();
+                        $rs = $conn->query(sprintf("UPDATE CapacidadActividad C SET Capacidad = '%d' WHERE C.ID = '%d'"
+                                                    , $filaCapacidadActividad['Capacidad'] - 1
+                                                    , $filaCapacidadActividad['ID']));
+                        $rs1->free();                        
+                        if($rs){
+                            $result = "actividad.php?curso=".$cursoActividad."&dia=".$solicitud_dia."&estado=InscritoCorrectamente&actividad=".$nombreActividad."";
+                        }
+                        else{
+                            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+                            exit();
+                        }
                     }
                     else{
                         echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -139,17 +191,17 @@ class Actividad
                     }
                 }
                 else{
-                    header("Location: actividad.php?curso=".$cursoActividad."&dia=".$solicitud_dia."&estado=NoPlazas&actividad=".$nombreActividad."");
+                    echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+                    exit();
                 }
             }
             else{
-                echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-                exit();
+                header("Location: actividad.php?curso=".$cursoActividad."&dia=".$solicitud_dia."&estado=fechaError&actividad=".$nombreActividad."");
             }
         }
         else{
             echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-            exit();
+	        exit();
         }
     }
 
@@ -294,29 +346,29 @@ class Actividad
         return $result;
     }
 
-        //Busca una actividad
-        public static function buscaCursoActividad($nombre, $curso){
-            $app = Aplicacion::getSingleton();
-            $conn = $app->conexionBd();
-            $query = sprintf("SELECT * FROM CursosActividades C WHERE C.nombre_actividad = '%s'AND C.nombre_curso ='%s'"
-            , $conn->real_escape_string($nombre)
-            , $conn->real_escape_string($curso));
-            $rs = $conn->query($query);
-            $result = false;
-            if ($rs) {
-                if ( $rs->num_rows == 1) {
-                    $fila = $rs->fetch_assoc();
-                    $cursoActividad = new Actividad( $fila['nombre_actividad'], null, null, null, $fila['nombre_curso'], $fila['precio']);
-                    $cursoActividad->Id = $fila['id_curso'];
-                    $result = $cursoActividad;
-                }
-                $rs->free();
-            } else {
-                echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-                exit();
+    //Busca una actividad
+    public static function buscaCursoActividad($nombre, $curso){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM CursosActividades C WHERE C.nombre_actividad = '%s'AND C.nombre_curso ='%s'"
+        , $conn->real_escape_string($nombre)
+        , $conn->real_escape_string($curso));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ( $rs->num_rows == 1) {
+                $fila = $rs->fetch_assoc();
+                $cursoActividad = new Actividad( $fila['nombre_actividad'], null, null, null, $fila['nombre_curso'], $fila['precio']);
+                $cursoActividad->Id = $fila['id_curso'];
+                $result = $cursoActividad;
             }
-            return $result;
+            $rs->free();
+        } else {
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
         }
+        return $result;
+    }
 
     //Crea un curso asociado a una actividad
     public static function creaCursoActividad($nombre, $curso, $precio){
@@ -407,6 +459,7 @@ class Actividad
         }
     }
 
+    //Para el <select> del FormularioActividad
     public static function optionActividad(){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
