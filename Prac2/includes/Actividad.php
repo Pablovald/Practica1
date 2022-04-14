@@ -282,13 +282,11 @@ class Actividad
         , $actividad->Id);
         if ($conn->query($query)) {
             if ( $conn->affected_rows != 1) {
-                $error = "¡Error al actualizar la actividad:\"$actividad->Nombre\"!";
-                header("Location: Actividad_Admin.php?errorActualizarActividad=$error");
+                header("Location: Actividad_Admin.php?estadoAct=error&nombre=".$actividad->Nombre."");
             }
             else{
                 $result = $actividad;
-                $exito = "¡La actividad: \"$actividad->Nombre\" actualizado!";
-                header("Location: Actividad_Admin.php?actualizado=$exito");
+                header("Location: Actividad_Admin.php?estadoAct=exito&nombre=".$actividad->Nombre."");
             }
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -355,8 +353,7 @@ class Actividad
         , $conn->insert_id);
         if ( $conn->query($query) ) {
             $cursoActividad->id = $conn->insert_id;
-            $mensaje = "¡El curso: \"$cursoActividad->Curso\" asociado al actividad: \"$cursoActividad->Nombre\" se insertó correctamente!";
-            header("Location: Actividad_Admin.php?añadidoCurso=$mensaje");
+            header("Location: Actividad_Admin.php?estadoCur=exito&nombre=".$cursoActividad->Nombre."&curso=".$cursoActividad->Curso."");
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
@@ -378,12 +375,10 @@ class Actividad
         , $cursoActividad->Id);
         if ( $conn->query($query) ) {
             if ( $conn->affected_rows != 1) {
-                $error = "¡Error al actualizar el curso: \"$cursoActividad->Curso\" asociado al actividad: \"$cursoActividad->Nombre\"!";
-                header("Location: Actividad_Admin.php?errorActualizarCurso=$error");
+                header("Location: Actividad_Admin.php?estadoCur=errorAct&nombre=".$cursoActividad->Nombre."&curso=".$cursoActividad->Curso."");
             }
             else{
-                $exito = "¡El curso: \"$cursoActividad->Curso\" asociado al actividad: \"$cursoActividad->Nombre\" se actualizó correctamente!";
-                header("Location: Actividad_Admin.php?actualizadoCurso=$exito");
+                header("Location: Actividad_Admin.php?estadoCur=actualizado&nombre=".$cursoActividad->Nombre."&curso=".$cursoActividad->Curso."");
                 $result = $cursoActividad;
             }
         } else {

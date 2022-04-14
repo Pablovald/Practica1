@@ -46,10 +46,11 @@ class FormularioCursoActividadAdmin extends Form
     {
         $result = array();
 
+        $nombre = $datos['nombre'] ?? null;
         $curso = $datos['curso'] ?? null;
         $precio = $datos['precio'] ?? null;
         
-        if(empty($descripcion)){
+        if(empty($curso)){
             $result['curso'] = "El curso no puede estar vacio";
         }
         if(empty($precio)){
