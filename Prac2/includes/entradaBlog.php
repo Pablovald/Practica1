@@ -82,6 +82,81 @@ class entradaBlog{
 
     }
 
+    public static function blog(){
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaBlog_Main=sprintf("SELECT * FROM entradasBlog");
+        $rs = $conn->query($tablaBlog_Main);
+        $tableCont="<tr>";
+        $j=0;
+        for($i=1;$i<=$rs->num_rows;$i++){
+            $row=$conn->query(sprintf("SELECT * FROM entradasBlog B WHERE B.id = '$i'"));
+            $contenido=$row->fetch_assoc();
+            $intro=explode(' ',$contenido['intro'],16);
+            $intro[15]="...";
+            $rowCont =  "<td>
+            <div class = 'blog-contenedor'>
+                <div class = 'blog-box'>
+                    <div class = 'blog-img'>
+                    <a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."><img src= '$contenido[rutaImagen]'></a>
+                    </div>
+                    <div class = 'blog-text'>
+                    <h4>"."$contenido[titulo]"."</h4>
+            <p>".implode(' ',$intro)."<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."> Leer más</a></p>
+                    </div>
+                </div>
+            </div>
+            </td>";
+            if($j<3){	
+                $tableCont.=$rowCont;
+                $j++;
+            }
+            else{
+                $tableCont.="</tr>";
+                $tableCont.="<tr>";
+                $tableCont.=$rowCont;
+                $j=1;
+            }
+        }
+
+        $contenidoPrincipal = <<<EOS
+        <div class='cabecera'>
+            <p> En club Seawolf Deportes Naúticos os proporcionamos un blog con las noticias más extravagantes sobre deportes acuáticos </p>
+        </div>
+        <table align = "center">
+            $tableCont
+        </table>  
+        EOS;
+
+        $rs->free();
+        $row->free();
+        return $contenidoPrincipal;
+    }
+
+    public static function procesarEntradaBlog(&$tituloPagina, &$tituloCabecera){
+        $entrada = htmlspecialchars($_GET["entrada"]);
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaEntrada=sprintf("SELECT * FROM entradasBlog E WHERE E.id = $entrada ");
+        $row = $conn->query($tablaEntrada);
+        $rs=$row->fetch_assoc();
+        $tituloPagina=$rs['titulo'];
+        $tituloCabecera = strtoupper($tituloPagina);
+        $contenidoPrincipal = <<<EOS
+            <div class='info-blog'>
+                <h1>$rs[header1]</h1>
+                <p>$rs[intro]</p>
+                <img src=$rs[rutaImagen] alt="">
+                <h1>$rs[header2]</h1>
+                <p>$rs[parrafo]</p>
+                <iframe src="https://www.youtube.com/embed/$rs[video]" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            EOS;
+        $row->free();
+        return $contenidoPrincipal;
+    }
+
     /**
      * Get the value of id
      */ 
