@@ -62,10 +62,6 @@ class Alojamiento
 		        }
                 if(!$error){
                     $usuario=$idUsuario['id'];
-                    var_dump($conn->insert_id);
-                    var_dump($usuario);
-                    var_dump($nombreAlojamiento);
-
                     $rs3 = $conn->query(sprintf("INSERT INTO listaAlojamiento(id, idUsuario, nombreAlojamiento, fechaini, fechafin,NumeroHabitacion) VALUES('%d','%s', '%s', '%s', '%s', '%s')"
                         , $conn->insert_id
                         , $conn->real_escape_string($usuario)
@@ -77,6 +73,7 @@ class Alojamiento
                         $rs->free();
                         $rs1->free();
                         $rs2->free();
+                        $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario LIKE '%s'", $conn->real_escape_string($nombreUsuario)));
                         $result = "alojamiento.php?dia=".$fechaini."&estado=InscritoCorrectamente&alojamiento=".$nombreAlojamiento."";
                     }
                     else{

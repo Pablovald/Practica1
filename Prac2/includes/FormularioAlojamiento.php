@@ -15,12 +15,17 @@ class FormularioAlojamiento extends Form
         $semana = date('2022-04-06');
 		$semana2 = date('2022-04-07');
         $nhabitaciones = $datos['nhabitaciones'] ?? '';
+        $alojamiento = $_GET["alojamiento"] ?? '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
 
         $html = "<div class='content'>
                 $htmlErroresGlobales
 				<div class='formulario'>
+                <div class='grupo-control'>
+                    <label>Nombre Hotel:</label></br>
+                    <input class='control' type='text' name='alojamiento' value='$alojamiento' readonly/>
+                </div>
                 <div class='grupo-control'>
                     <label>Numero de habitaciones:</label></br>
                     <input class='control' type='number' name='nhabitaciones' value='1' min='1'/>
@@ -46,14 +51,14 @@ class FormularioAlojamiento extends Form
         $nhabitacion =$datos['nhabitaciones'] ?? null;
         $fechaini =$datos['fechaIni'] ?? null;
         $fechafin =$datos['fechaFin'] ?? null;
-        $nombreAlojamiento = $_GET["alojamiento"];
+        $alojamiento = $datos["alojamiento"];
 
         if($fechaini>=$fechafin){
             $result['fechaIni'] = "La fecha de inicio no puede superar que la fecha de fin";
         }
         if(count($result) == 0){
             if(isset($_SESSION['login'])){
-                Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin,$nombreAlojamiento, $result);
+                Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin, $alojamiento, $result);
             }
             else{
                 header("Location: actividad.php");
