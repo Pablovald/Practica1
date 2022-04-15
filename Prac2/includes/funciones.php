@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__.'/includes/Aplicacion.php';
-require_once __DIR__.'/includes/config.php';
+require_once __DIR__.'/Aplicacion.php';
+require_once __DIR__.'/config.php';
 
 function obtenerUsuario(){
     $app = Aplicacion::getSingleton();
@@ -143,11 +143,13 @@ function quitarProductoDelCarrito($idProducto, $cantidad) // quitamos un product
     $idUsuario = obtenerUsuario();
     $row = $conn->query(sprintf("SELECT * FROM Carrito WHERE id_usuario = '$idUsuario[id]' AND id_producto = '$idProducto'"));
     $rs = $row->fetch_assoc();
-    if($rs['cantidad'] > $cantidad){
-        $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad - $cantidad WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
-    }
-    else {
-        $sentencia = $conn->query(sprintf("DELETE FROM Carrito WHERE id_usuario = '$idUsuario[id]' AND id_producto = $idProducto"));
+    if($cantidad > 0) {
+        if($rs['cantidad'] > $cantidad){
+            $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad - $cantidad WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
+        }
+        else {
+            $sentencia = $conn->query(sprintf("DELETE FROM Carrito WHERE id_usuario = '$idUsuario[id]' AND id_producto = $idProducto"));
+        }
     }
 
     $row->free();
@@ -161,11 +163,11 @@ function agregarProductoAlCarrito($idProducto, $cantidad) // agregamos el produc
     $conn = $app->conexionBd();
     $idUsuario = obtenerUsuario();
     $enCarrito = estaEnCarrito($idProducto);
-    if($enCarrito){
-        $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad + $cantidad WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
-    }
-    else{
-        if($cantidad > 0) {
+    if($cantidad > 0) {
+        if($enCarrito){
+            $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad + $cantidad WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
+        }
+        else{
             $sentencia = $conn->query(sprintf("INSERT INTO Carrito(id_usuario, id_producto, cantidad) VALUES ('$idUsuario[id]', '$idProducto', '$cantidad')"));
         }
     }

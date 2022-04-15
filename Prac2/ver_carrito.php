@@ -1,5 +1,5 @@
 <?php
-include_once "funciones.php";
+include_once "includes/funciones.php";
 if(isset($_SESSION["login"])) {
     $contenidoPrincipal = obtenerProductosEnCarrito();
 }
