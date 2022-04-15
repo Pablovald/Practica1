@@ -48,7 +48,7 @@ class Alojamiento
             $idUsuario=$rs->fetch_assoc();
             $Alojamiento=$rs1->fetch_assoc();
             $id=$Alojamiento['id'];
-            $rs2 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%s'", $conn->real_escape_string($id)));
+            $rs2 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
             if($rs2){
                 $i=0;
                 $error=false;
@@ -62,13 +62,17 @@ class Alojamiento
 		        }
                 if(!$error){
                     $usuario=$idUsuario['id'];
-                    $insertarReserva=sprintf("INSERT INTO listaAlojamiento(id, idUsuario, nombreAlojamiento, fechaini, fechafin,NumeroHabitacion) VALUES(NULL,'%s', '%s', '%s', '%s', '%s')"
+                    var_dump($conn->insert_id);
+                    var_dump($usuario);
+                    var_dump($nombreAlojamiento);
+
+                    $rs3 = $conn->query(sprintf("INSERT INTO listaAlojamiento(id, idUsuario, nombreAlojamiento, fechaini, fechafin,NumeroHabitacion) VALUES('%d','%s', '%s', '%s', '%s', '%s')"
+                        , $conn->insert_id
                         , $conn->real_escape_string($usuario)
                         , $conn->real_escape_string($nombreAlojamiento)
                         , $conn->real_escape_string($fechaini)
                         , $conn->real_escape_string($fechafin)
-                        , $conn->real_escape_string($nhabitacion));
-                         $rs3 = $conn->query($insertarReserva);
+                        , $conn->real_escape_string($nhabitacion)));
                     if($rs3){
                         $rs->free();
                         $rs1->free();
