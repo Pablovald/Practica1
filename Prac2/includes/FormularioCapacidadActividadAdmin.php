@@ -3,31 +3,34 @@ require_once __DIR__.'/Form.php';
 require_once __DIR__.'/Actividad.php';
 
 
-class FormularioCursoActividadAdmin extends Form
+class FormularioCapacidadActividadAdmin extends Form
 {
     public function __construct() {
-        parent::__construct('formularioCursoActividadAdmin');
+        parent::__construct('formularioCapacidadActividadAdmin');
     }
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
+        $nombre = $datos['nombre'] ?? '';
         $curso = $datos['curso'] ?? '';
-        $precio = $datos['precio'] ?? '';
+        $fecha = $datos['fecha'] ?? '';
+        $capacidad = $datos['capacidad'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-        $errorCurso = self::createMensajeError($errores, 'descripcion', 'span', array('class' => 'error'));
-        $errorPrecio = self::createMensajeError($precio, 'descripcion', 'span', array('class' => 'error'));
+        $errorNombre = self::createMensajeError($nombre, 'capacidad', 'span', array('class' => 'error'));
+        $errorCurso = self::createMensajeError($nombre, 'curso', 'span', array('class' => 'error'));
+        $errorCapacidad = self::createMensajeError($errores, 'capacidad', 'span', array('class' => 'error'));
 
         $html ="
         <div class='content'>
-            <legend>Formulario de <span>añadir/actualizar un curso</span> asociado a una actividad</legend></br>
+            <legend>Formulario de <span>añadir/actualizar plazas para un curso</span></legend></br>
 			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>
                 <label>Nombre de la Actividad:</label>
                 <select name='nombre'>
-                ".Actividad::optionActividad()."
+                    ".Actividad::optionActividad()."
                 </select>
             </div>
             <div class='grupo-control'>
@@ -35,11 +38,15 @@ class FormularioCursoActividadAdmin extends Form
                 <input class='control' type='text' name='curso' value='$curso' required/>$errorCurso
             </div>
             <div class='grupo-control'>
-                <label>Precio:</label>
-                <input class='control' type='number' name='precio' value='$precio' min='1' required/>$errorPrecio
+                <label>Fecha:</label>
+                <input class='control' type='date' name='fecha' value='' required/>
+            </div>
+            <div class='grupo-control'>
+                <label>Plazas:</label>
+                <input class='control' type='number' name='capacidad' value='$capacidad' min='1' required/>$errorCapacidad 
             </div>
 			<div class='submit'>
-            <button type='submit' name='Aniadir'>Añadir Curso</button>
+                <button type='submit' name='Aniadir'>Añadir plazas</button>
 			</div>
 			</div>
         </div>";
@@ -52,20 +59,27 @@ class FormularioCursoActividadAdmin extends Form
 
         $nombre = $datos['nombre'] ?? null;
         $curso = $datos['curso'] ?? null;
-        $precio = $datos['precio'] ?? null;
+        $fecha = $datos['fecha'] ?? null;
+        $capacidad = $datos['capacidad'] ?? null;
         
+        if(empty($nombre)){
+            $result['nombre'] = "El nombre no puede estar vacio";
+        }
         if(empty($curso)){
             $result['curso'] = "El curso no puede estar vacio";
         }
-        if(empty($precio)){
-            $result['precio'] = "El precio no puede estar vacio";
+        if(empty($fecha)){
+            $result['fecha'] = "La fecha no puede estar vacia";
+        }
+        if(empty($capacidad)){
+            $result['capacidad'] = "La capacidad no puede estar vacia";
         }
 
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
                 if($_SESSION['esAdmin']){
-                    $actividad = Actividad::creaCursoActividad($nombre, $curso, $precio);
-                    if(!$actividad){
+                    $capacidadCurso = Actividad::creaCapacidadCurso($nombre, $curso, $capacidad, $fecha);
+                    if(!$capacidadCurso){
                         $result[] ='No se ha podido crear';
                     }
                 }

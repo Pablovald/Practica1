@@ -103,7 +103,7 @@ class FormularioActividad extends Form
             $result['correo'] = "El correo no puede estar vacio";
         }
         if(empty($fechaNac)){
-            $result['fechaNac'] = "La fecha de nacimiento no puede estar vacio";
+            $result['fechaNac'] = "La fecha de nacimiento no puede estar vacia";
         }
         if(empty($telefono)){
             $result['telefono'] = "El telefono no puede estar vacio";

@@ -25,7 +25,7 @@ class FormularioActividadAdmin extends Form
 
         $html ="
         <div class='content'>
-            <legend>Formulario de <span>añadir una actividad</span></legend></br>
+            <legend>Formulario de <span>añadir/actualizar una actividad</span></legend></br>
 			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>

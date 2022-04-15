@@ -25,7 +25,7 @@ if(isset($_GET["estado"])){
         }
         else if($estado == "fechaError"){
             $contenidoPrincipal .= <<<EOS
-            <h1>¡La fecha: "$solicitud_dia" no es válido!</h1>
+            <h1>¡La fecha: "$solicitud_dia" no es válida!</h1>
             <h1>¡Por favor selecciona una fecha válida!</h1>
         EOS;
         }

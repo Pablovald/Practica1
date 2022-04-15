@@ -22,7 +22,11 @@ class Actividad
 
     private $Precio;
 
-    private function __construct($nombre, $descripcion, $rutaFoto, $info, $curso, $precio)
+    private $Capacidad;
+
+    private $Fecha;
+
+    private function __construct($nombre, $descripcion, $rutaFoto, $info, $curso, $precio, $capacidad, $fecha)
     {
         $this->Nombre = $nombre;
         $this->Descripcion = $descripcion;
@@ -30,6 +34,8 @@ class Actividad
         $this->Info = $info;
         $this->Curso = $curso;
         $this->Precio = $precio;
+        $this->Capacidad = $capacidad;
+        $this->Fecha = $fecha;
     }
 
     //Muestra todas las actividades del BD
@@ -265,8 +271,8 @@ class Actividad
         if ($rs) {
             if ( $rs->num_rows == 1) {
                 $fila = $rs->fetch_assoc();
-                $actividad = new Actividad( $fila['Nombre'], $fila['Descripcion'], $fila['rutaFoto'], $fila['info'], null, null);
-                $actividad->Id = $fila['ID'];
+                $actividad = new Actividad( $fila['Nombre'], $fila['Descripcion'], $fila['rutaFoto'], $fila['info'], null, null, null, null);
+                $actividad->IDActividad_Main = $fila['ID'];
                 $result = $actividad;
             }
             $rs->free();
@@ -281,7 +287,7 @@ class Actividad
     public static function creaActividad($nombre, $descripcion, $rutaFoto, $info){
         $actividad = self::buscaActividad($nombre);
         if($actividad == false){
-            $actividad = new Actividad($nombre, $descripcion, $rutaFoto, $info, null, null);
+            $actividad = new Actividad($nombre, $descripcion, $rutaFoto, $info, null, null, null, null);
         }
         else{
             $actividad->Nombre = $nombre;
@@ -294,7 +300,7 @@ class Actividad
 
     //Lo guarda, si ya existe, lo actualiza
     public static function guardaActividad($actividad){
-        if ($actividad->Id != null) {
+        if ($actividad->IDActividad_Main != null) {
             return self::actualizaActividad($actividad);
         }
         return self::insertaActividad($actividad);
@@ -311,9 +317,8 @@ class Actividad
         , $conn->real_escape_string($actividad->RutaFoto)
         , $conn->real_escape_string($actividad->Info));
         if ( $conn->query($query) ) {
-            $actividad->id = $conn->insert_id;
-            $mensaje = "La actividad: $actividad->Nombre se inserto correctamente";
-            header("Location: Actividad_Admin.php?añadido=$mensaje");
+            $actividad->IDActividad_Main = $conn->insert_id;
+            header("Location: Actividad_Admin.php?estadoAct=exito&nombre=".$actividad->Nombre."");
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
@@ -331,7 +336,7 @@ class Actividad
         , $conn->real_escape_string($actividad->Descripcion)
         , $conn->real_escape_string($actividad->RutaFoto)
         , $conn->real_escape_string($actividad->Info)
-        , $actividad->Id);
+        , $actividad->IDActividad_Main);
         if ($conn->query($query)) {
             if ( $conn->affected_rows != 1) {
                 header("Location: Actividad_Admin.php?estadoAct=error&nombre=".$actividad->Nombre."");
@@ -358,8 +363,8 @@ class Actividad
         if ($rs) {
             if ( $rs->num_rows == 1) {
                 $fila = $rs->fetch_assoc();
-                $cursoActividad = new Actividad( $fila['nombre_actividad'], null, null, null, $fila['nombre_curso'], $fila['precio']);
-                $cursoActividad->Id = $fila['id_curso'];
+                $cursoActividad = new Actividad( $fila['nombre_actividad'], null, null, null, $fila['nombre_curso'], $fila['precio'], null, null);
+                $cursoActividad->IDActividad_Main = $fila['id_curso'];
                 $result = $cursoActividad;
             }
             $rs->free();
@@ -374,7 +379,7 @@ class Actividad
     public static function creaCursoActividad($nombre, $curso, $precio){
         $cursoActividad = self::buscaCursoActividad($nombre, $curso);
         if($cursoActividad == false){
-            $cursoActividad = new Actividad($nombre, null, null, null, $curso, $precio);
+            $cursoActividad = new Actividad($nombre, null, null, null, $curso, $precio, null, null);
         }
         else{
             $cursoActividad->Nombre = $nombre;
@@ -386,25 +391,25 @@ class Actividad
 
     //Guarda dicho curso, si ya existe, lo actualiza
     public static function guardaCursoActividad($cursoActividad){
-        if ($cursoActividad->Id != null) {
+        if ($cursoActividad->IDActividad_Main != null) {
             return self::actualizaCursoActividad($cursoActividad);
         }
         return self::insertaCursoActividad($cursoActividad);
     }
 
-    //Inserta informacion de una actividad en la BD
+    //Inserta informacion de un curso en la BD
     private static function insertaCursoActividad($cursoActividad){
         $Id = self::buscaActividad($cursoActividad->Nombre);
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query=sprintf("INSERT INTO CursosActividades(id_actividad, nombre_actividad, nombre_curso, precio, id_curso) VALUES ('%d', '%s', '%s', '%s', '%d')"
-        , $Id->Id
+        , $Id->IDActividad_Main
         , $conn->real_escape_string($cursoActividad->Nombre)
         , $conn->real_escape_string($cursoActividad->Curso)
         , $conn->real_escape_string($cursoActividad->Precio)
         , $conn->insert_id);
         if ( $conn->query($query) ) {
-            $cursoActividad->id = $conn->insert_id;
+            $cursoActividad->IDActividad_Main = $conn->insert_id;
             header("Location: Actividad_Admin.php?estadoCur=exito&nombre=".$cursoActividad->Nombre."&curso=".$cursoActividad->Curso."");
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -413,18 +418,18 @@ class Actividad
         return $cursoActividad;
     }
 
-    //Actualiza una actividad
+    //Actualiza un curso
     private static function actualizaCursoActividad($cursoActividad){
         $Id = self::buscaActividad($cursoActividad->Nombre);
         $result=false;
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query=sprintf("UPDATE  CursosActividades C SET id_actividad='%d', nombre_actividad='%s', nombre_curso='%s', precio='%s' WHERE C.id_curso='%d'"
-        , $Id->Id
+        , $Id->IDActividad_Main
         , $conn->real_escape_string($cursoActividad->Nombre)
         , $conn->real_escape_string($cursoActividad->Curso)
         , $conn->real_escape_string($cursoActividad->Precio)
-        , $cursoActividad->Id);
+        , $cursoActividad->IDActividad_Main);
         if ( $conn->query($query) ) {
             if ( $conn->affected_rows != 1) {
                 header("Location: Actividad_Admin.php?estadoCur=errorAct&nombre=".$cursoActividad->Nombre."&curso=".$cursoActividad->Curso."");
@@ -459,7 +464,7 @@ class Actividad
         }
     }
 
-    //Para el <select> del FormularioActividad
+    //Para el <select> del FormularioCursoActividadAdmin
     public static function optionActividad(){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
@@ -476,6 +481,190 @@ class Actividad
             echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
         }
+    }
+    
+    //Listado de cursos disponibles en la BD
+    public static function listadoCursos(){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $Cont=NULL;
+        $array= array();
+
+        $row=$conn->query(sprintf("SELECT C.nombre_actividad, C.nombre_curso, C.precio FROM CursosActividades C"));
+        if($row){
+            for($i=0;$i<$row->num_rows;$i++){
+                $aux=$row->fetch_assoc();
+                $valor = $aux['nombre_curso'];
+                $valor .= "(".$aux['precio']."€)";
+                if(!isset($array[$aux['nombre_actividad']])){
+                    $array[$aux['nombre_actividad']] = array($valor);
+                }
+                else{
+                    array_push($array[$aux['nombre_actividad']], $valor);
+                }
+            }
+            foreach($array as $key => $value){
+                $Cont.="<p>"."$key".": ".$value['0']."";
+                $i=0;
+                foreach($value as $aux){
+                    if($i != 0){
+                        $Cont.=", "."$aux"."";
+                    }
+                    $i++;
+                }
+                $Cont.= "</p>";
+            }
+            if(empty($array)){
+                $Cont = "<p>No existe ningun curso en la BD. Por favor inserte una</p>";
+            }
+            $row->free();
+        }else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $Cont;
+    }
+
+        //Listado de plazas disponibles en la BD
+    public static function listadoPlazas(){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+
+        $Cont=NULL;
+        
+        $row=$conn->query(sprintf("SELECT * FROM CapacidadActividad"));
+        if($row){
+            if($row->num_rows > 0){
+                $Cont = "<table >
+                            <tr>
+                            <th colspan='2'>Nombre</th>
+                            <th colspan='2'>Curso</th>
+                            <th colspan='2'>Fecha</th>
+                            <th colspan='2'>Plazas</th>
+                            </tr>";
+                for($i=0;$i<$row->num_rows;$i++){
+                    $fila = $row->fetch_assoc();
+                    $Cont .="<tr>
+                                <td>$fila[Nombre]<td>
+                                <td>$fila[Curso]<td>
+                                <td>$fila[Fecha]<td>
+                                <td>$fila[Capacidad]<td>
+                                </tr>
+                    ";
+                }
+                $Cont .= "</table>";
+            }
+            else{
+                $Cont = "<p>No existe hay plazas disponibles en la BD. Por favor inserte una</p>";
+            }
+            $row->free();
+        }else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $Cont;
+    }
+
+    //Busca una plazas de un curso
+    public static function buscaCapacidadCurso($nombre, $curso, $fecha){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM CapacidadActividad C WHERE C.Nombre = '%s'AND C.Curso ='%s' AND C.Fecha ='%s'"
+        , $conn->real_escape_string($nombre)
+        , $conn->real_escape_string($curso)
+        , $conn->real_escape_string($fecha));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ( $rs->num_rows == 1) {
+                $fila = $rs->fetch_assoc();
+                $capacidadCurso = new Actividad($fila['Nombre'], null, null, null, $fila['Curso'], null, $fila['Capacidad'], $fila['Fecha']);
+                $capacidadCurso->IDActividad_Main = $fila['ID'];
+                $result = $capacidadCurso;
+            }
+            $rs->free();
+        } else {
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $result;
+    }
+
+    //Crea un plazas para un curso asociado a una actividad
+    public static function creaCapacidadCurso($nombre, $curso, $capacidad, $fecha){
+        $capacidadCurso = self::buscaCapacidadCurso($nombre, $curso, $fecha);
+        if($capacidadCurso == false){
+            $capacidadCurso = new Actividad($nombre, null, null, null, $curso, null, $capacidad, $fecha);
+        }
+        else{
+            $capacidadCurso->Nombre = $nombre;
+            $capacidadCurso->Curso = $curso;
+            $capacidadCurso->Capacidad = $capacidad;
+            $capacidadCurso->Fecha= $fecha;
+        }
+        return self::guardaCapacidadCurso($capacidadCurso);
+    }
+
+    //Guarda dicho capacidad, si ya existe, lo actualiza
+    public static function guardaCapacidadCurso($capacidadCurso){
+        if ($capacidadCurso->IDActividad_Main != null) {
+            return self::actualizaCapacidadCurso($capacidadCurso);
+        }
+        return self::insertaCapacidadCurso($capacidadCurso);
+    }
+
+   //Inserta informacion de las plaszas de un curso en la BD
+    private static function insertaCapacidadCurso($capacidadCurso){
+        $cursoActividad = self::buscaCursoActividad($capacidadCurso->Nombre, $capacidadCurso->Curso);
+        //Si esta en la tabla de CursosActividades lo inserta
+        if($cursoActividad){
+            $app=Aplicacion::getSingleton();
+            $conn = $app->conexionBd();
+            $query=sprintf("INSERT INTO CapacidadActividad(ID, Curso, Nombre, Capacidad, Fecha) VALUES ('%d', '%s', '%s', '%d', '%s')"
+            , $conn->insert_id
+            , $conn->real_escape_string($capacidadCurso->Curso)
+            , $conn->real_escape_string($capacidadCurso->Nombre)
+            , $conn->real_escape_string($capacidadCurso->Capacidad)
+            , $conn->real_escape_string($capacidadCurso->Fecha));
+            if ( $conn->query($query) ) {
+                $capacidadCurso->IDActividad_Main = $conn->insert_id;
+                header("Location: Actividad_Admin.php?estadoCap=exito&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+            } else {
+                echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+                exit();
+            }
+        }
+        else{
+            header("Location: Actividad_Admin.php?estadoCap=error&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+        }
+
+        return $capacidadCurso;
+    }
+
+    //Actualiza la tabla de CapacidadActividad
+    private static function actualizaCapacidadCurso($capacidadCurso){
+        $result=false;
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query=sprintf("UPDATE CapacidadActividad C SET Curso='%s', Nombre='%s', Capacidad='%d', Fecha='%s' WHERE C.ID='%d'"
+        , $conn->real_escape_string($capacidadCurso->Curso)
+        , $conn->real_escape_string($capacidadCurso->Nombre)
+        , $conn->real_escape_string($capacidadCurso->Capacidad)
+        , $conn->real_escape_string($capacidadCurso->Fecha)
+        , $capacidadCurso->IDActividad_Main);
+        if ( $conn->query($query) ) {
+            if ( $conn->affected_rows != 1) {
+                header("Location: Actividad_Admin.php?estadoCap=errorAct&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+            }
+            else{
+                header("Location: Actividad_Admin.php?estadoCap=actualizado&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+                $result = $capacidadCurso;
+            }
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        }
+        return $result;
     }
 
     //Acontinuacion vienen los getters y los setters
@@ -559,6 +748,18 @@ class Actividad
     public function setPrecio($Precio)
     {
         $this->Precio = $Precio;
+
+        return $this;
+    }
+
+    public function getCapacidad()
+    {
+        return $this->Capacidad;
+    }
+
+    public function setCapacidad($Capacidad)
+    {
+        $this->Capacidad = $Capacidad;
 
         return $this;
     }
