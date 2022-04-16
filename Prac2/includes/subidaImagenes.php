@@ -1,5 +1,4 @@
 <?php
-namespace es\fdi\ucm\aw;
 function subirImagen($directorio){
 $nombreArchivo=$_FILES['imagen']['name'];
 $mensaje = "";

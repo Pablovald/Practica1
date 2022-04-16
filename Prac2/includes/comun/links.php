@@ -6,7 +6,7 @@
 	<?php
 		
 		if(isset($_SESSION["login"])){
-			if($_SESSION['esAdmin']){
+			if(isset($_SESSION['esAdmin'])){
 				$contenido = <<<EOF
 				<ul class="submenu">
 				<li><a href="Actividad_Admin.php">Añadir clases</a></li>
@@ -22,7 +22,7 @@
 	<li><a href=Materiales.php>Materiales</a>
 	<?php
 	if(isset($_SESSION["login"])){
-		if($_SESSION['esAdmin']){
+		if(isset($_SESSION['esAdmin'])){
 			$contenido2 = <<<EOF
 			<ul class="submenu">
 			<li><a href="Material_Admin.php">Añadir materiales</a></li>
