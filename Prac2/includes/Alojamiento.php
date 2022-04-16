@@ -44,24 +44,28 @@ class Alojamiento
             $idUsuario=$rs->fetch_assoc();
             $Alojamiento=$rs1->fetch_assoc();
             $id=$Alojamiento['id'];
-            $rs2 = $conn->query(sprintf("SELECT h.capacidad , h.fecha FROM Habitaciones h WHERE h.capacidad > 0 AND h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
+            $rs2 = $conn->query(sprintf("SELECT h.capacidad , h.fecha FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
             if($rs2){
                 $i=0;
                 $x=0;
-                while($i<$rs2->num_rows&&$x==0){
+                while($i<($rs2->num_rows-1)&&$x==0){
 		    	    $act=$rs2->fetch_assoc();
-                    if($act['capacidad']<=0){
+                    if($act['capacidad']<$nhabitacion){
                         $x++;
                         $diaError=$act['fecha'];
+                        $habitacionrestante=$act['capacidad'];
                     }
                     $i++;
 		        }
                 if($x==0){
-                    $rs5 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
+                    $rs5 = $conn->query(sprintf("SELECT h.capacidad, h.fecha FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
                     $j=0;
-                    while($j<$rs5->num_rows - 1){
+                    while($j<(($rs5->num_rows) - 1)){
                         $act=$rs5->fetch_assoc();
-                        $rs6 = $conn->query(sprintf("UPDATE Habitaciones SET capacidad = '%d' WHERE fecha BETWEEN '$fechaini' AND '$fechafin' AND idAlojamiento LIKE '%d'", $act['capacidad'] - 1, $id ));
+                        $rs6 = $conn->query(sprintf("UPDATE Habitaciones SET capacidad = '%d' WHERE fecha ='%s' AND idAlojamiento = '%d'",
+                         $act['capacidad'] - $nhabitacion,
+                         $conn->real_escape_string($act['fecha']),
+                         $id));
                         $j++;
                     }
                     $usuario=$idUsuario['id'];
@@ -77,7 +81,7 @@ class Alojamiento
                         $rs1->free();
                         $rs2->free();
                         $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario LIKE '%s'", $conn->real_escape_string($nombreUsuario)));
-                        $result = "alojamiento.php?dia=".$fechaini."&estado=InscritoCorrectamente&alojamiento=".$nombreAlojamiento."";
+                        $result = "alojamiento.php?diaini=".$fechaini."&estado=InscritoCorrectamente&alojamiento=".$nombreAlojamiento."&diafin=".$fechafin."";
                     }
                     else{
                         echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -85,7 +89,7 @@ class Alojamiento
                     }
                 }
                 else{
-                    header("Location: alojamiento.php?dia=".$fechaini."&estado=NoPlazas&alojamiento=".$nombreAlojamiento."");
+                    header("Location: alojamiento.php?dia=".$diaError."&estado=NoPlazas&alojamiento=".$nombreAlojamiento."&restante=".$habitacionrestante."");
                 }
             }
             else{

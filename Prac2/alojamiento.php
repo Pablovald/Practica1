@@ -16,17 +16,27 @@ if(isset($_GET["estado"])){
     $estado = htmlspecialchars($_GET["estado"]);
     if($estado == "InscritoCorrectamente"){
         $nombreAlojamiento = htmlspecialchars($_GET['alojamiento']);
-        $solicitud_dia = htmlspecialchars($_GET['dia']);
+        $solicitud_diaini = htmlspecialchars($_GET['diaini']);
+        $solicitud_diafin = htmlspecialchars($_GET['diafin']);
         $contenidoPrincipal .= <<<EOS
-        <h1>Inscrito correctamente en $nombreAlojamiento en el dia $solicitud_dia</h1>
+        <h1>Inscrito correctamente en $nombreAlojamiento entre los dias $solicitud_diaini y  $solicitud_diafin</h1>
     EOS;
     }
     else if($estado == "NoPlazas"){
+        $restante = htmlspecialchars($_GET['restante']);
         $nombreAlojamiento = htmlspecialchars($_GET['alojamiento']);
         $solicitud_dia = htmlspecialchars($_GET['dia']);
-        $contenidoPrincipal .= <<<EOS
+        if($restante==0){
+            $contenidoPrincipal .= <<<EOS
         <h1>$nombreAlojamiento en el dia $solicitud_dia están agotados, por favor seleccione otra fecha</h1>
-    EOS;
+        EOS;
+        }
+        else{
+            $contenidoPrincipal .= <<<EOS
+        <h1>$nombreAlojamiento solo quedan $restante habitaciones en el dia $solicitud_dia  </h1>
+        EOS;
+        }
+        
     }
     else if($estado == "faltaLogin"){
         $contenidoPrincipal .= <<<EOS
