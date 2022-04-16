@@ -35,5 +35,6 @@
 	
 	<li><a href=Alojamientos_Main.php>Alojamientos</a></li>
 	<li><a href=ver_carrito.php>Carrito</a></li>
+	<li><a href=perfil.php>Perfil</a></li>
 </ul>
 </nav>
