@@ -1,6 +1,5 @@
 <?php
-require __DIR__ . '/Form.php';
-require __DIR__ . '/entradaBlog.php';
+namespace es\fdi\ucm\aw;
 require __DIR__ . '/subidaImagenes.php';
 class FormularioBlog extends Form
 {

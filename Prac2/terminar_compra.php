@@ -1,7 +1,6 @@
 <?php
-include_once "includes/funciones.php";
 
-    terminarCompra();
+es\fdi\ucm\aw\terminarCompra();
 $tituloPagina = "Carrito";
 $tituloCabecera = "CARRITO";
 $contenidoPrincipal = <<<EOS

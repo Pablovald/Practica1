@@ -5,9 +5,9 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/formularioBlog.php';
+
 $tituloPagina="Editor";
 $tituloCabecera="Editor";
-$form=new FormularioBlog();
+$form=new es\fdi\ucm\aw\FormularioBlog();
 $contenidoPrincipal=$form->gestiona();
 include __DIR__.'/includes/plantillas/plantilla.php';

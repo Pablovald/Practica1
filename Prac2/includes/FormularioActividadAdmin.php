@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__.'/Form.php';
-require_once __DIR__.'/Actividad.php';
+namespace es\fdi\ucm\aw;
 require_once __DIR__.'/subidaImagenes.php';
 
 class FormularioActividadAdmin extends Form

@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__.'/Form.php';
-require_once __DIR__.'/Material.php';
+namespace es\fdi\ucm\aw;
 require_once __DIR__.'/subidaImagenes.php';
 
 class FormularioMaterialAdmin extends Form

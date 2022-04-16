@@ -1,10 +1,5 @@
-<head>
-<link rel="stylesheet" type="text/css" href="FormularioStyle.css" />
-</head>
-
 <?php
-//namespace es\fdi\ucm\aw;
-require_once __DIR__.'/Aplicacion.php';
+namespace es\fdi\ucm\aw;
 
 class Actividad
 {
@@ -764,3 +759,4 @@ class Actividad
         return $this;
     }
 }
+?>

@@ -1,22 +1,21 @@
+<head>
+<link rel="stylesheet" type="text/css" href="FormularioStyle.css" />
+</head>
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/Actividad.php';
-require_once __DIR__.'/includes/FormularioActividadAdmin.php';
-require_once __DIR__.'/includes/FormularioCursoActividadAdmin.php';
-require_once __DIR__.'/includes/FormularioCapacidadActividadAdmin.php';
 
 $tituloPagina = 'Actividades';
 $tituloCabecera = 'ACTIVIDADES';
 
-$cont = Actividad::listadoActividades();
+$cont = es\fdi\ucm\aw\Actividad::listadoActividades();
 $contenidoPrincipal = <<<EOS
 <h2>Actividades disponibles:</h2>
 <p>$cont</p>
 </br>
 EOS;
 
-$form = new FormularioActividadAdmin();
+$form = new es\fdi\ucm\aw\FormularioActividadAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoAct'])){
@@ -40,13 +39,13 @@ if(isset($_GET['estadoAct'])){
 }
 $contenidoPrincipal .="</br>";
 
-$cont =Actividad::listadoCursos();
+$cont = es\fdi\ucm\aw\Actividad::listadoCursos();
 $contenidoPrincipal .= <<<EOS
 <h2>Cursos disponibles:</h2>
 <p>$cont</p>
 </br>
 EOS;
-$form = new FormularioCursoActividadAdmin();
+$form = new es\fdi\ucm\aw\FormularioCursoActividadAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoCur'])){
@@ -71,13 +70,13 @@ if(isset($_GET['estadoCur'])){
 }
 $contenidoPrincipal .="</br>";
 
-$cont =Actividad::listadoPlazas();
+$cont = es\fdi\ucm\aw\Actividad::listadoPlazas();
 $contenidoPrincipal .= <<<EOS
 <h2>Plazas disponibles:</h2>
 <p>$cont</p>
 </br>
 EOS;
-$form = new FormularioCapacidadActividadAdmin();
+$form = new es\fdi\ucm\aw\FormularioCapacidadActividadAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoCap'])){
