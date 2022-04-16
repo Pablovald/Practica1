@@ -48,19 +48,26 @@ class Alojamiento
             $idUsuario=$rs->fetch_assoc();
             $Alojamiento=$rs1->fetch_assoc();
             $id=$Alojamiento['id'];
-            $rs2 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
+            $rs2 = $conn->query(sprintf("SELECT h.capacidad , h.fecha FROM Habitaciones h WHERE h.capacidad > 0 AND h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
             if($rs2){
                 $i=0;
-                $error=false;
+                $error=FALSE;
                 while($i<$rs2->num_rows&&!$error){
 		    	    $act=$rs2->fetch_assoc();
                     if($act['capacidad']<=0){
-                        $error=true;
+                        $error=TRUE;
                         $diaError=$act['fecha'];
                     }
                     $i++;
 		        }
                 if(!$error){
+                    $rs5 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
+                    $j=0;
+                    while($j<$rs5->num_rows - 1){
+                        $act=$rs5->fetch_assoc();
+                        $rs6 = $conn->query(sprintf("UPDATE Habitaciones SET capacidad = '%d' WHERE fecha BETWEEN '$fechaini' AND '$fechafin' AND idAlojamiento LIKE '%d'", $act['capacidad'] - 1, $id ));
+                        $j++;
+                    }
                     $usuario=$idUsuario['id'];
                     $rs3 = $conn->query(sprintf("INSERT INTO listaAlojamiento(id, idUsuario, nombreAlojamiento, fechaini, fechafin,NumeroHabitacion) VALUES('%d','%s', '%s', '%s', '%s', '%s')"
                         , $conn->insert_id
