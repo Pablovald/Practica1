@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__. '/includes/funciones.php';
-es\fdi\ucm\aw\terminarCompra();
+require_once __DIR__. '/includes/config.php';
+es\fdi\ucm\aw\Material::terminarCompra();
 $tituloPagina = "Carrito";
 $tituloCabecera = "CARRITO";
 $contenidoPrincipal = <<<EOS
