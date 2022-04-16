@@ -56,12 +56,12 @@ class FormularioAlojamiento extends Form
             $result['fechaIni'] = "La fecha de inicio no puede superar que la fecha de fin";
         }
         if(count($result) == 0){
+
             if(isset($_SESSION['login'])){
                 Alojamiento::inscribirAlojamiento($nhabitacion, $fechaini, $fechafin, $alojamiento, $result);
             }
             else{
-                header("Location: actividad.php");
-                $result[] = "Necesitas estar registrado en nuestra página web para reservar alojamientos. Si ya tienes una cuenta, inicia sesión.";
+                header("Location: alojamiento.php?&alojamiento=".$alojamiento."&estado=faltaLogin");
             }
         }
         return $result;

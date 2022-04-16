@@ -31,7 +31,7 @@ if(isset($_GET["estado"])){
     }
     else if($estado == "faltaLogin"){
         $contenidoPrincipal .= <<<EOS
-        <h1>¡Necesitas estar registrado en nuestra página web para inscribirte en alguna actividad!</h1>
+        <h1>¡Necesitas estar loggeado en nuestra página web para reservar alojamientos!</h1>
         <h1>Si ya tienes una cuenta, inicia sesión.</h1>
     EOS;
     }

@@ -47,16 +47,16 @@ class Alojamiento
             $rs2 = $conn->query(sprintf("SELECT h.capacidad , h.fecha FROM Habitaciones h WHERE h.capacidad > 0 AND h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
             if($rs2){
                 $i=0;
-                $error=FALSE;
-                while($i<$rs2->num_rows&&!$error){
+                $x=0;
+                while($i<$rs2->num_rows&&$x==0){
 		    	    $act=$rs2->fetch_assoc();
                     if($act['capacidad']<=0){
-                        $error=TRUE;
+                        $x++;
                         $diaError=$act['fecha'];
                     }
                     $i++;
 		        }
-                if(!$error){
+                if($x==0){
                     $rs5 = $conn->query(sprintf("SELECT capacidad FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
                     $j=0;
                     while($j<$rs5->num_rows - 1){
