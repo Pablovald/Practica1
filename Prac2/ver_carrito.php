@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__. '/includes/config.php';
+require_once __DIR__. '/includes/funciones.php';
 if(isset($_SESSION["login"])) {
     $contenidoPrincipal = es\fdi\ucm\aw\obtenerProductosEnCarrito();
 }

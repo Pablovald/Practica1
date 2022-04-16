@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__. '/includes/funciones.php';
 es\fdi\ucm\aw\terminarCompra();
 $tituloPagina = "Carrito";
 $tituloCabecera = "CARRITO";
