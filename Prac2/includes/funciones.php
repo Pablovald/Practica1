@@ -45,6 +45,9 @@ function obtenerProductosEnCarrito() { // obtenemos todos los productos que hay 
          else {
             $total = 0;
              $ContenidoPrincipal = <<< EOS
+             <head>
+             <link rel='stylesheet' type="text/css" href='carrito.css'>
+             </head>
             <div class='columns'>
                 <div class='column'>
                     <h2 class='is-size-2'>Mi carrito</h2>
@@ -82,7 +85,6 @@ function obtenerProductosEnCarrito() { // obtenemos todos los productos que hay 
                                 <input type="hidden" name="id_producto" value="$contenido[id]">
                                 <input type="number" name="cantidad" min ="1"value="cantidad.select()">
                                 <input type="hidden" name="redireccionar_carrito">
-                                <link rel='stylesheet' href='carrito.css'>
                                 <button class="eliminar">
                                     <i class="fa fa-trash-o"></i>
                                     <span>Eliminar</span>
