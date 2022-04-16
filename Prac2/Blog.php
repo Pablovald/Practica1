@@ -5,11 +5,11 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/entradaBlog.php';
+
 
 $tituloPagina = 'Blog';
 $tituloCabecera = 'BLOG';
-$contenidoPrincipal = entradaBlog::blog();
+$contenidoPrincipal = es\fdi\ucm\aw\entradaBlog::blog();
 
 
 include __DIR__.'/includes/plantillas/plantillaBlog.php';

@@ -1,11 +1,5 @@
-<head>
-<link rel="stylesheet" type="text/css" href="materialEstilo.css" />
-</head>
 <?php
-
-require_once __DIR__.'/config.php';
-require_once __DIR__. '/Aplicacion.php';
-include_once 'funciones.php';
+namespace es\fdi\ucm\aw;
 
 class Material
 {
@@ -228,3 +222,4 @@ class Material
     }
 
 }
+?>

@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__.'/Aplicacion.php';
-require_once __DIR__.'/config.php';
+namespace es\fdi\ucm\aw;
 
 function obtenerUsuario(){
     $app = Aplicacion::getSingleton();

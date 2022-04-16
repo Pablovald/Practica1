@@ -1,15 +1,14 @@
 <head>
 <link rel="stylesheet" type="text/css" href="FormularioStyle.css" />
 </head>
-
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/FormularioActividad.php';
-require_once __DIR__.'/includes/Actividad.php';
 
-$contenidoPrincipal = Actividad::infoActividad($tituloPagina, $tituloCabecera);
-$form = new FormularioActividad();
+
+
+$contenidoPrincipal = es\fdi\ucm\aw\Actividad::infoActividad($tituloPagina, $tituloCabecera);
+$form = new es\fdi\ucm\aw\FormularioActividad();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET["estado"])){

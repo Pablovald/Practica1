@@ -1,13 +1,13 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/FormularioRegistro.php';
+
 
 $tituloPagina = 'Registro';
 
 $tituloCabecera = 'Registro';
 
-$form = new FormularioRegistro();
+$form = new es\fdi\ucm\aw\FormularioRegistro();
 $htmlFormRegistro = $form->gestiona();
 $contenidoPrincipal = <<<EOS
 <div class="login">

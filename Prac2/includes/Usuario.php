@@ -1,6 +1,6 @@
 <?php
-//namespace es\fdi\ucm\aw;
-require_once __DIR__.'/Aplicacion.php';
+namespace es\fdi\ucm\aw;
+
 class Usuario
 {
     private $id;

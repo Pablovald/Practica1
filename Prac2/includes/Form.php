@@ -1,4 +1,5 @@
 <?php
+namespace es\fdi\ucm\aw;
 /**
  * Clase base para la gestión de formularios.
  *

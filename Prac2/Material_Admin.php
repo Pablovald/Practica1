@@ -1,14 +1,17 @@
+<head>
+<link rel="stylesheet" type="text/css" href="FormularioStyle.css" />
+<link rel="stylesheet" type="text/css" href="materialEstilo.css" />
+</head>
 <?php
 require_once __DIR__. '/includes/config.php';
-require_once __DIR__. '/includes/Material.php';
-require_once __DIR__. '/includes/FormularioMaterialAdmin.php';
 
-$cont = Material::materialMain($tituloPagina, $tituloCabecera);
+
+$cont = es\fdi\ucm\aw\Material::materialMain($tituloPagina, $tituloCabecera);
 $contenidoPrincipal = <<<EOS
 <p>$cont</p>
 EOS;
 
-$form = new FormularioMaterialAdmin();
+$form = new es\fdi\ucm\aw\FormularioMaterialAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoMat'])){

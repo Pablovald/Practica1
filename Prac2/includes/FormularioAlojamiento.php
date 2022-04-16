@@ -1,6 +1,5 @@
 <?php
-require_once __DIR__.'/Form.php';
-require_once __DIR__.'/Alojamiento.php';
+namespace es\fdi\ucm\aw;
 
 class FormularioAlojamiento extends Form
 {

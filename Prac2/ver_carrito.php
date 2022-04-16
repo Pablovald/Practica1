@@ -1,7 +1,6 @@
 <?php
-include_once "includes/funciones.php";
 if(isset($_SESSION["login"])) {
-    $contenidoPrincipal = obtenerProductosEnCarrito();
+    $contenidoPrincipal = es\fdi\ucm\aw\obtenerProductosEnCarrito();
 }
 
 else{

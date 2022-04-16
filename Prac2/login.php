@@ -1,12 +1,11 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/FormularioLogin.php';
 
 $tituloPagina = 'Login';
 $tituloCabecera = 'Login';
 
-$form = new FormularioLogin();
+$form = new es\fdi\ucm\aw\FormularioLogin();
 $htmlFormLogin = $form->gestiona();
 $contenidoPrincipal = <<<EOS
 <div class="login">
