@@ -15,6 +15,7 @@ class FormularioAlojamientoAdmin extends Form
         $imagen = $datos['imagen'] ?? '';
         $info = $datos['info'] ?? '';
         $nhabitacion = $datos['habitacion'] ?? '';
+        $precio = $datos['precio'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -22,6 +23,7 @@ class FormularioAlojamientoAdmin extends Form
         $errorDescripcion = self::createMensajeError($errores, 'descripcion', 'span', array('class' => 'error'));
         $errorImagen = self::createMensajeError($errores, 'imagen', 'span', array('class' => 'error'));
         $errorInfo = self::createMensajeError($errores, 'info', 'span', array('class' => 'error'));
+        $errorPrecio = self::createMensajeError($errores, 'precio', 'span', array('class' => 'error'));
 
         $html ="
         <div class='content'>
@@ -45,9 +47,13 @@ class FormularioAlojamientoAdmin extends Form
                 <input class='control' type='text' name='info' value='$info' required/>$errorInfo
             </div>
             <div class='grupo-control'>
-                    <label>Numero de habitaciones:</label></br>
-                    <input class='control' type='number' name='nhabitaciones' value='$nhabitacion' min='1'/>
-                </div>
+                <label>precio:</label>
+                <input class='control' type='number' name='info' value='$precio' required/>$errorPrecio
+            </div>
+            <div class='grupo-control'>
+                <label>Numero de habitaciones:</label>
+                <input class='control' type='number' name='nhabitaciones' value='$nhabitacion' min='1'/>
+            </div>
 			<div class='submit'>
             <button type='submit' name='Añadir Alojamiento'>Añadir</button>
 			</div>
@@ -80,7 +86,7 @@ class FormularioAlojamientoAdmin extends Form
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
                 if($_SESSION['esAdmin']){
-                    $alojamiento = Alojamiento::creaAlojamiento($nombre, $descripcion, $rutaFoto, $info);
+                    $alojamiento = Alojamiento::creaAlojamiento($nombre,$precio, $rutaFoto,$descripcion, $info);
                     if(!$alojamiento){
                         $result[] ='No se ha podido crear el alojamiento';
                     }

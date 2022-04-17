@@ -3,10 +3,22 @@ namespace es\fdi\ucm\aw;
 
 class Alojamiento
 {
+    private $nombre;
+    private $precio;
+    private $imagen;
+    private $descripcion;
+    private $descripciondetallada;
+    private $id;
 
-    private function __construct()
+    private function __construct($nombre,$precio,$rutaFoto,$descripcion,$descripciondetallada)
     {
-        
+
+        $this->nombre = $nombre;
+        $this->precio = $precio;
+        $this->imagen = $rutaFoto;
+        $this->descripcion = $descripcion;
+        $this->descripciondetallada = $descripciondetallada;
+
     }
 
    
@@ -48,7 +60,7 @@ class Alojamiento
             if($rs2){
                 $arrayfecha=array();
                 $arraycap=array();
-                for($i=0;i<$rs2->num_rows-1;$i++){
+                for($i=0;$i<$rs2->num_rows-1;$i++){
                     $act=$rs2->fetch_assoc();
                     if($act['capacidad']<$nhabitacion){
                         array_push($arrayfecha,$act['fecha']);
@@ -78,7 +90,7 @@ class Alojamiento
                         $rs->free();
                         $rs1->free();
                         $rs2->free();
-                        $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario LIKE '%s'", $conn->real_escape_string($nombreUsuario)));
+                        $rs5->free();
                         $result = "alojamiento.php?diaini=".$fechaini."&estado=InscritoCorrectamente&alojamiento=".$nombreAlojamiento."&diafin=".$fechafin."";
                     }
                     else{
@@ -88,10 +100,10 @@ class Alojamiento
                 }
                 else{
                     $diaError="";
-                    foreach($arrayfecha as $x ){
-                        $diaError+=$x +" ";
+                    for($i=0;$i<count($arrayfecha);$i++){
+                        $diaError.=$arrayfecha[$i]. ": ".$arraycap[$i]." habitaciones,";
                     }
-                    header("Location: alojamiento.php?dia=".$diaError."&estado=NoPlazas&alojamiento=".$nombreAlojamiento."&restante=".$habitacionrestante."");
+                    header("Location: alojamiento.php?dia=".$diaError."&estado=NoPlazas&alojamiento=".$nombreAlojamiento."");
                 }
             }
             else{
@@ -159,7 +171,7 @@ class Alojamiento
     public static function buscaAlojamiento($nombre){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM Alojamiento a WHERE a.nombre = '%s'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM Alojamiento WHERE nombre = '%s'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -178,17 +190,17 @@ class Alojamiento
     }
 
     //Crea un Alojamiento
-    public static function creaAlojamiento($nombre, $precio, $imagen, $descripcion, $desc_det){
+    public static function creaAlojamiento($nombre, $precio, $rutaFoto, $descripcion, $descripciondetallada){
         $alojamiento = self::buscaAlojamiento($nombre);
         if($alojamiento == false){
-            $alojamiento = new Alojamiento($nombre, $precio, $imagen, $descripcion, $desc_det);
+            $alojamiento = new Alojamiento($nombre, $precio, $rutaFoto, $descripcion, $descripciondetallada);
         }
         else{
             $alojamiento->nombre = $nombre;
             $alojamiento->precio = $precio;
-            $alojamiento->imagen = $imagen;
+            $alojamiento->rutaFoto = $rutaFoto;
             $alojamiento->descripcion = $descripcion;
-            $alojamiento->desc_det = $desc_det;
+            $alojamiento->descripciondetallada = $descripciondetallada;
         }
         return self::guardaAlojamiento($alojamiento);
     }
@@ -205,17 +217,16 @@ class Alojamiento
     private static function insertaAlojamiento($alojamiento){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO Materiales(id, nombre, precio, imagen, descripcion, desc_det) VALUES ('%d', '%s', '%d', '%s', '%s', '%s')"
+        $query=sprintf("INSERT INTO Alojamiento(nombre, id, descripcion, rutaFoto, descripciondetallada, precio) VALUES ('%d', '%s', '%d', '%s', '%s', '%s')"
+        ,$conn->real_escape_string($alojamiento->nombre)
         , $conn->insert_id
-        , $conn->real_escape_string($alojamiento->nombre)
-        , $conn->real_escape_string($alojamiento->precio)
-        , $conn->real_escape_string($alojamiento->imagen)
         , $conn->real_escape_string($alojamiento->descripcion)
-        , $conn->real_escape_string($alojamiento->desc_det));
+        , $conn->real_escape_string($alojamiento->rutaFoto)
+        , $conn->real_escape_string($alojamiento->descripciondetallada)
+        , $conn->real_escape_string($alojamiento->precio));
         if ( $conn->query($query) ) {
             $alojamiento->id = $conn->insert_id;
-            $mensaje = "El material: $alojamiento->nombre se inserto correctamente";
-            header("Location: Materiales.php?añadido=$mensaje");
+            header("Location: alojamiento.php?estado=exito&alojamiento=$alojamiento->nombre");
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
@@ -228,27 +239,38 @@ class Alojamiento
         $result=false;
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("UPDATE Materiales M SET nombre='%s', precio='%d', imagen='%s', descripcion='%s', desc_det='%s' WHERE M.id='%d'"
+        $query=sprintf("UPDATE Alojamiento  SET nombre='%s', precio='%d', rutaFoto='%s', descripcion='%s', descripciondetallada='%s' WHERE id='%d'"
         , $conn->real_escape_string($alojamiento->nombre)
         , $conn->real_escape_string($alojamiento->precio)
-        , $conn->real_escape_string($alojamiento->imagen)
+        , $conn->real_escape_string($alojamiento->rutaFoto)
         , $conn->real_escape_string($alojamiento->descripcion)
-        , $conn->real_escape_string($alojamiento->desc_det)
+        , $conn->real_escape_string($alojamiento->descripciondetallada)
         , $alojamiento->id);
         if ($conn->query($query)) {
             if ( $conn->affected_rows != 1) {
-                header("Location: Materiales.php?estadoAct=error&nombre=".$alojamiento->nombre."");
+                header("Location: alojamiento.php?estado=error&nombre=".$alojamiento->nombre."");
             }
             else{
                 $result = $alojamiento;
-                header("Location: Materiales.php?estadoAct=exito&nombre=".$alojamiento->nombre."");
+                header("Location: alojamiento.php?estado=actualizado&nombre=".$alojamiento->nombre."");
             }
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
         }
         return $result;
     }
+    public static function sacarFoto($nombreAlojamiento){
 
+        $conn=Aplicacion::getSingleton()->conexionBd();
+        $query=sprintf("SELECT rutaFoto FROM Alojamiento WHERE nombre = '%s'", $conn->real_escape_string($nombreAlojamiento));
+        $rs=$conn->query($query);
+        if ($rs) {
+            $result="<img src=".($rs->fetch_assoc())['rutaFoto'].">";
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        }
+        return $result;
+    }
 
 }
 ?>

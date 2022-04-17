@@ -6,6 +6,7 @@
 require_once __DIR__.'/includes/config.php';
 
 $contenidoPrincipal = es\fdi\ucm\aw\Alojamiento::infoAlojamiento($tituloPagina, $tituloCabecera);
+$contenidoPrincipal.=es\fdi\ucm\aw\Alojamiento::sacarFoto($_GET['alojamiento']);
 
 $form = new es\fdi\ucm\aw\FormularioAlojamiento();
 $htmlFormIns = $form->gestiona();
@@ -23,20 +24,12 @@ if(isset($_GET["estado"])){
     EOS;
     }
     else if($estado == "NoPlazas"){
-        $restante = htmlspecialchars($_GET['restante']);
         $nombreAlojamiento = htmlspecialchars($_GET['alojamiento']);
-        $solicitud_dia = htmlspecialchars($_GET['dia']);
-        if($restante==0){
-            $contenidoPrincipal .= <<<EOS
-        <h1>$nombreAlojamiento en el dia $solicitud_dia están agotados, por favor seleccione otra fecha</h1>
+        $dias = htmlspecialchars($_GET['dia']);
+
+        $contenidoPrincipal .= <<<EOS
+        <h1>$nombreAlojamiento no quedan plazas suficientes : $dias  </h1>
         EOS;
-        }
-        else{
-            $contenidoPrincipal .= <<<EOS
-        <h1>$nombreAlojamiento solo quedan $restante habitaciones en el dia $solicitud_dia  </h1>
-        EOS;
-        }
-        
     }
     else if($estado == "faltaLogin"){
         $contenidoPrincipal .= <<<EOS
