@@ -90,7 +90,10 @@ class FormularioBlog extends Form
             $result['imagen'] = 'Error al subir la imagen';
         }
 
-        $video = $datos['video'];
+        $video = substr($datos['video'],-11);
+        if (empty($video)) {
+            $result['video'] = 'Error al subir el video';
+        }
 
         if (count($result) === 0) {
             $entrada = entradaBlog::crea(

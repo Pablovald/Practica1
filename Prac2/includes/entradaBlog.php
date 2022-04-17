@@ -84,12 +84,14 @@ class entradaBlog{
     public static function blog(){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $tablaBlog_Main=sprintf("SELECT * FROM entradasBlog");
-        $rs = $conn->query($tablaBlog_Main);
+        $tablaBlog=sprintf("SELECT * FROM entradasBlog");
+        $numEntradas = $conn->query($tablaBlog)->num_rows;
+        $rs=$conn->query($tablaBlog);
         $tableCont="<tr>";
         $j=0;
-        for($i=1;$i<=$rs->num_rows;$i++){
-            $row=$conn->query(sprintf("SELECT * FROM entradasBlog B WHERE B.id = '$i'"));
+        for($i=0;$i<$numEntradas;$i++){
+            $aux=$rs->fetch_assoc();
+            $row=$conn->query(sprintf("SELECT * FROM entradasBlog B WHERE B.id = '$aux[id]'"));
             $contenido=$row->fetch_assoc();
             $intro=explode(' ',$contenido['intro'],16);
             $intro[15]="...";
