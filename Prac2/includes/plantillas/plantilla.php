@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link  rel="icon" href="img/favicon.png" type="image/png" />
-	<link rel="stylesheet" type="text/css" href="homeView.css" />
+	<link rel="stylesheet" type="text/css" href="HomeView.css" />
     <title><?= $tituloPagina ?></title>
 
 </head>

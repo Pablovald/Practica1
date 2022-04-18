@@ -1,6 +1,3 @@
-<head>
-<link rel="stylesheet" type="text/css" href="Perfil.css" />
-</head>
 
 <?php
 

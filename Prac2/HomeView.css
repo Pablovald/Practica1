@@ -147,3 +147,304 @@ div.contenedorValoracion textarea{
 	color:  orange;
 	weight: 400px;
 }
+
+/*Perfil*/
+.perfil, .body{
+	display:flex;
+	flex-wrap: wrap;
+	flex-direction:column;
+	align-items:center;
+}
+
+.portada{
+	display:block;
+	position:relative;
+	width: 80%;
+	height:17rem;
+	background:linear-gradient(45deg, yellow, red);
+	border-radius: 0 0 20px 20px;
+}
+
+.header{
+	justify-content: center;
+	background:linear-gradient(45deg, transparent, transparent);
+	width: 100%;
+	display:flex;
+	margin-bottom:5rem;
+}
+
+.avatar{
+	display:flex;
+	width: 180px;
+	height: 180px;
+	align-items:center;
+	justify-content: center;
+	border: 7px solid white;
+	background-color: grey;
+	border-radius: 50%;
+	position:absolute;
+	bottom:-40%;
+	left: calc(50% - 90px);
+	box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+}
+
+.body{
+	width: 90%;
+}
+
+.bio, .footer{
+	display:block;
+	padding: 1.5rem 2rem;
+	box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+	background-color:white;
+	border-radius: 15px;
+	text-align:center;
+	width:100%;
+}
+
+.bio{
+	margin-bottom: 1.5rem;
+}
+
+/*Material estilo*/
+div.contenido{
+	height: 510px;
+	width: 28%;
+	box-shadow: 0 0 7px #111;
+	margin: 0 30px;
+	float:left;
+	margin-top: 3%;
+	margin-bottom: 20px;
+}
+
+div.contenido:hover{
+	transition: transform .2s;
+	transform: scale(1.1);
+}
+
+div.card{
+	height: 200px;
+	width: 100%;
+	margin-bottom: 90px;
+}
+
+img{
+	margin: auto;
+	display: block;
+	height: 250px;
+	width: 250px;
+	margin-top: 2%;
+}
+
+div.alinear{  
+	float: left;
+	background-color:white;
+} 
+
+div.informacion{
+	height: 100px;
+	width: 100%;
+}
+
+div.informacion h4{
+	font-family: sans-serif;
+	font-size: 1.2em;
+	text-align: center;
+	margin-bottom: -10px;
+	color: #333;
+}
+
+div.informacion p{
+	font-family: sans-serif;
+	font-size: .9em;
+	text-align: center;
+	color: #555;
+}
+
+div.precio{
+	height: 190px;
+	width: 85%;
+	margin: auto;
+	font-family: sans-serif;
+	align-items: center;
+	justify-content: space-between;
+	display: flex;
+}
+
+div.box-precio{
+	width: 150px;
+}
+
+div.fotoMaterial img{
+	float: right;
+	width: 350px;
+	height: 350px;
+	margin-right: 120px;
+	margin-top: -5px;
+}
+
+div.tituloInfo{
+	color: orange;
+}
+
+div.contenidoMaterial{
+	margin-top: 15px;
+	margin-left: 15px;
+	width: 650px;
+	height: 450px;
+	text-align: justify;
+}
+
+div.contenidoMaterial label{
+	color:orange;
+}
+precio{
+	color: orange;
+}
+
+/*Formularios*/
+h3{
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.content{
+	padding: 3.5rem 0;
+}
+
+legend{
+	font-size: 1.5rem;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+span{
+	color: #ffbf00;
+}
+
+.formulario{
+	display:flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 100%;
+	max-width: 1000px;
+	padding: 0 1rem;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.grupo-control{
+	display: flex;
+	flex-direction: column;
+	width:20rem;
+	margin: 0.5rem 0;
+}
+
+.grupo-control label{
+	margin-bottom: 0.2rem;
+}
+
+.grupo-control input{
+	height: 2.2rem;
+	padding-left: 0.5rem;
+	border: 1px solid #ffbf00;
+	border-radius: 5px;
+}
+
+.grupo-control select{
+	height:2.2rem;
+	padding-left: 0.5rem;
+	border: 1px solid #ffbf00;
+	border-radius: 5px;
+}
+
+.seleccion{
+	display:flex;
+	flex-direction:column;
+	justify-content: space-around;
+	width: 20rem;
+	margin: 0.75rem 0;
+}
+
+.seleccion label{
+	margin-bottom: 0.2rem;
+}
+
+.seleccion div{
+	display:flex;
+	justify-content: flex-start;
+	padding:0.5rem;
+}
+
+.seleccion div input{
+	height: 1rem;
+	width: 1rem;
+	cursor: pointer;
+}
+
+.submit{
+	display:flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 1rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+.submit button{
+	background: #ffbf00;
+    border: 0;
+    text-transform: uppercase;
+    padding: 1em;
+}
+
+.submit button:hover{
+    background: #ff8000;
+}
+
+.textbox{
+	display:flex;
+	flex-direction: column;
+	width: 30rem;
+	margin: 0.75rem 0;
+}
+
+.textbox label{
+	margin-bottom: 0.2rem;
+}
+
+textarea{
+	max-width: 100%;
+	height: 5rem;
+	max-height: 15rem;
+	padding-top: 0.5rem;
+	padding-left: 0.5rem;
+	border: 1px solid #ffbf00;
+	border-radius: 5px;
+}
+
+.privacidad{
+	display:flex;
+	justify-content: center;
+	margin-top: 1rem;
+}
+
+/*img{
+	width: 667px;
+	height: 400px;
+}*/
+ 
+ a{
+	 text-decoration: none;
+	 color: orange;
+ }
+
+
+
+
+
+
+
+
