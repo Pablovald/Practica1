@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link  rel="icon" href="img/favicon.png" type="image/png" />
-	<link rel="stylesheet" type="text/css" href="homeEstilo.css" />
+	<link rel="stylesheet" type="text/css" href="homeView.css" />
     <title><?= $tituloPagina ?></title>
 
 </head>
@@ -21,6 +21,7 @@
 	</main>
 	<br/> <br/>
 <?php
+	require("includes/comun/valoracion.php");
 	require("includes/comun/pie.php");
 ?>
 </div>

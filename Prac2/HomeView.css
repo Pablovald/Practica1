@@ -136,3 +136,14 @@ div.mapa{
 	margin-right: 50px;
 }
 
+div.valoracion h3{
+	margin-left: 10px;
+	text-align: left;
+	font: 120% Candara;
+	color: orange;
+}
+
+div.contenedorValoracion textarea{
+	color:  orange;
+	weight: 400px;
+}
