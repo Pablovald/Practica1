@@ -34,7 +34,20 @@
 	}
 	?></li>
 
-	<li><a href=Alojamientos_Main.php>Alojamientos</a></li>
+	<li><a href=Alojamientos_Main.php>Alojamientos</a>
+	<?php
+	if(isset($_SESSION["login"])){
+		if(isset($_SESSION['esAdmin'])){
+			$contenido3 = <<<EOF
+			<ul class="submenu">
+			<li><a href="Alojamiento_Admin.php">Añadir alojamiento</a></li>
+			</ul></li>
+			EOF;
+			echo $contenido3;
+		}
+	}
+	?></li>
+
 	<li><a href=ver_carrito.php>Carrito</a></li>
 	<li><a href=perfil.php>Perfil</a></li>
 </ul>
