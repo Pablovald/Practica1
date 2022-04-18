@@ -31,11 +31,11 @@ button{
     color: transparent;
 }
 
-.carrito span{
+.carrito span2{
     transition: 400ms;
 }
 
-.carrito:hover span{
+.carrito:hover span2{
     margin-right: 30px;
 }
 
