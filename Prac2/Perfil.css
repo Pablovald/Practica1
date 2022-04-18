@@ -16,7 +16,7 @@
 
 .header{
 	justify-content: center;
-	background:linear-gradient(45deg, transparent, transparet);
+	background:linear-gradient(45deg, transparent, transparent);
 	width: 100%;
 	display:flex;
 	margin-bottom:5rem;

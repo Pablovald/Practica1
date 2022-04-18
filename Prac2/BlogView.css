@@ -43,7 +43,7 @@ div.blog-contenedor{
 	justify-content: center;
 	align-items: center;
 	margin: 20px 0px;
-	flex-wrap: flex;
+	flex-wrap: wrap;
 }
 
 div.blog-box{

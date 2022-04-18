@@ -27,7 +27,6 @@ button{
 .carrito i{
     position: absolute;
     margin-left: 90px;
-    column-fill: transparent;
     transition: 400ms;
     color: transparent;
 }
@@ -42,7 +41,6 @@ button{
 
 .carrito:hover i{
     margin-left: 45px;
-    column-fill: white;
     color:black;
 }
 
