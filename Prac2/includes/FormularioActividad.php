@@ -45,7 +45,8 @@ class FormularioActividad extends Form
             </div>
             <div class='grupo-control'>
                 <label>Correo:</label>
-                <input class='control' type='email' name='correo' value='$correo' required/>$errorCorreo
+                <input class='control' type='email' name='correo' value='$correo' id='campoEmail' required/>$errorCorreo
+                <p id='correoOK'>&#x2714;</p><p id='correoMal'>&#x274c;</p>
             </div>
             <div class='grupo-control'>
                 <label>Fecha de Nacimiento:</label>

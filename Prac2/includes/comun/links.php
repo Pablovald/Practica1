@@ -6,15 +6,13 @@
 	<?php
 		
 		if(isset($_SESSION["login"])){
-			if(isset($_SESSION['esAdmin'])){
+			if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
 				$contenido = <<<EOF
 				<ul class="submenu">
 				<li><a href="Actividad_Admin.php">Añadir clases</a></li>
 				</ul></li>
 			EOF;
-
 			echo $contenido;
-
 			}
 		}
 
@@ -23,13 +21,13 @@
 	
 	<?php
 	if(isset($_SESSION["login"])){
-		if(isset($_SESSION['esAdmin'])){
-			$contenido2 = <<<EOF
+		if(isset($_SESSION['esAdmin'])&& $_SESSION['esAdmin']){
+			$contenido = <<<EOF
 			<ul class="submenu">
 			<li><a href="Material_Admin.php">Añadir materiales</a></li>
 			</ul></li>
 			EOF;
-			echo $contenido2;
+			echo $contenido;
 		}
 	}
 	?></li>
@@ -37,18 +35,25 @@
 	<li><a href=Alojamientos_Main.php>Alojamientos</a>
 	<?php
 	if(isset($_SESSION["login"])){
-		if(isset($_SESSION['esAdmin'])){
-			$contenido3 = <<<EOF
+		if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
+			$contenido = <<<EOF
 			<ul class="submenu">
 			<li><a href="Alojamiento_Admin.php">Añadir alojamiento</a></li>
 			</ul></li>
 			EOF;
-			echo $contenido3;
+			echo $contenido;
 		}
 	}
 	?></li>
 
 	<li><a href=ver_carrito.php>Carrito</a></li>
-	<li><a href=perfil.php>Perfil</a></li>
+	<?php
+		if(isset($_SESSION["login"])){
+			$contenido = <<<EOF
+			<li><a href=Perfil.php?editar=false>Perfil</a></li>
+			EOF;
+			echo $contenido;
+		}
+	?>
 </ul>
 </nav>

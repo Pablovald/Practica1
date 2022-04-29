@@ -9,16 +9,81 @@ class Usuario
 
     private $nombre;
 
+    private $apellido;
+
     private $password;
 
     private $rol;
 
-    private function __construct($nombreUsuario, $nombre, $password, $rol)
+    private $FechaNac;
+
+    private $Telefono;
+
+    private $Nacionalidad;
+
+    private $RutaFoto;
+
+    private $correo;
+
+    private function __construct($nombreUsuario, $nombre, $apellido, $password, $rol, $FechaNac, $Telefono, $Nacionalidad, $RutaFoto, $correo)
     {
         $this->nombreUsuario= $nombreUsuario;
         $this->nombre = $nombre;
+        $this->apellido = $apellido;
         $this->password = $password;
         $this->rol = $rol;
+        $this->FechaNac = $FechaNac;
+        $this->Telefono = $Telefono;
+        $this->Nacionalidad = $Nacionalidad;
+        $this->RutaFoto = $RutaFoto;
+        $this->correo = $correo;
+    }
+
+    public static function infoUsuario($nombreUsuario){
+        $usuario = self::buscaUsuario($nombreUsuario);
+
+        $contenido;
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $rs = $conn->query("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->id);
+        if($rs){
+            $textoActividad = "<h1>Listado de actividades inscritas</h1>";
+            if($rs->num_rows == 0){
+                $textoActividad .= "<p>No se ha inscrito en ninguna de las actividades.</p>";
+            }
+            else{
+                for($i=0;$i<$rs->num_rows;$i++){
+                    $act=$rs->fetch_assoc();
+                    $textoActividad.="<p>$act[nombre]: $act[curso] en el dia $act[dia]</p>";
+                }
+            }
+            $rs->free();
+            $contenido = $textoActividad;
+            $rs = $conn->query("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->id);
+            if($rs){
+                $textoAlojamiento = "<h1>Listado de hoteles reservados</h1>";
+                if($rs->num_rows == 0){
+                    $textoAlojamiento .= "<p>No se ha inscrito en ningun hotel.</p>";
+                }
+                else{
+                    for($i=0;$i<$rs->num_rows;$i++){
+                        $act=$rs->fetch_assoc();
+                        $textoAlojamiento.="<p>$act[nombreAlojamiento]: $act[fechaini] - $act[fechafin] ($act[NumeroHabitacion] habitaciones)</p>";
+                    }
+                }
+                $rs->free();
+                $contenido .= $textoAlojamiento;
+            }
+            else{
+                echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+                exit();
+            }
+        }
+        else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $contenido;
     }
 
     public static function login($nombreUsuario, $password)
@@ -40,7 +105,8 @@ class Usuario
         if ($rs) {
             if ( $rs->num_rows == 1) {
                 $fila = $rs->fetch_assoc();
-                $user = new Usuario($fila['nombreUsuario'], $fila['nombre'], $fila['password'], $fila['rol']);
+                $user = new Usuario($fila['nombreUsuario'], $fila['nombre'], $fila['Apellido'], $fila['password'], $fila['rol'], $fila['FechaNac'],
+                                    $fila['Telefono'], $fila['Nacionalidad'], $fila['rutaFoto'], $fila['Correo']);
                 $user->id = $fila['id'];
                 $result = $user;
             }
@@ -58,9 +124,40 @@ class Usuario
         if ($user) {
             return false;
         }
-        $user = new Usuario($nombreUsuario, $nombre, self::hashPassword($password), $rol);
+        $user = new Usuario($nombreUsuario, $nombre, null, self::hashPassword($password), $rol, null, null, null, null, null);
         return self::guarda($user);
     }
+
+    public static function actualizaPerfil($nombreUsuario, $nombre, $apellido, $FechaNac, $Telefono, $Nacionalidad, $RutaFoto, $correo)
+    {
+        $result=false;
+        $usuario = self::buscaUsuario($nombreUsuario);
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query=sprintf("UPDATE Usuarios U SET nombre = '%s', apellido='%s', FechaNac='%s', Telefono='%s', Nacionalidad='%s', RutaFoto='%s', correo='%s' WHERE U.id='%d'"
+            , $conn->real_escape_string($nombre)
+            , $conn->real_escape_string($apellido)
+            , $conn->real_escape_string($FechaNac)
+            , $conn->real_escape_string($Telefono)
+            , $conn->real_escape_string($Nacionalidad)
+            , $conn->real_escape_string($RutaFoto)
+            , $conn->real_escape_string($correo)
+            , $usuario->id);
+        if ( $conn->query($query) ) {
+            if ( $conn->affected_rows != 1) {
+                header("Location: Perfil.php?editar=true&estado=error");
+            }
+            else{
+                $result = $usuario;
+                header("Location: Perfil.php?editar=true&estado=exito");
+            }
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        }
+        
+        return $result;
+    }
+
     
     private static function hashPassword($password)
     {
@@ -98,7 +195,7 @@ class Usuario
         $result = false;
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("UPDATE Usuarios U SET nombreUsuario = '%s', nombre='%s', password='%s', rol='%s' WHERE U.id='%i'"
+        $query=sprintf("UPDATE Usuarios U SET nombreUsuario = '%s', nombre='%s', password='%s', rol='%s' WHERE U.id='%d'"
             , $conn->real_escape_string($usuario->nombreUsuario)
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->password)
@@ -157,6 +254,40 @@ class Usuario
     public function getRol()
     {
         return $this->rol;
+    }
+
+    public function getFechaNac()
+    {
+        return $this->FechaNac;
+    }
+
+    public function getTelefono()
+    {
+        return $this->Telefono;
+    }
+
+    public function getNacionalidad()
+    {
+        return $this->Nacionalidad;
+    }
+
+    public function getRutaFoto()
+    {
+        $result = $this->RutaFoto;
+        if(!isset($result)){
+            $result = "";
+        }
+        return $this->RutaFoto;
+    }
+
+    public function getApellido()
+    {
+        return $this->apellido;
+    }
+
+    public function getCorreo()
+    {
+        return $this->correo;
     }
 
     public function compruebaPassword($password)
