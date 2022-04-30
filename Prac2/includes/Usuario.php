@@ -45,7 +45,7 @@ class Usuario
         $contenido;
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $rs = $conn->query("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->id);
+        $rs = $conn->query(sprintf("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->id));
         if($rs){
             $textoActividad = "<h1>Listado de actividades inscritas</h1>";
             if($rs->num_rows == 0){
@@ -59,7 +59,7 @@ class Usuario
             }
             $rs->free();
             $contenido = $textoActividad;
-            $rs = $conn->query("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->id);
+            $rs = $conn->query(sprintf("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->id));
             if($rs){
                 $textoAlojamiento = "<h1>Listado de hoteles reservados</h1>";
                 if($rs->num_rows == 0){
