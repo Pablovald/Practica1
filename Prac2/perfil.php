@@ -13,28 +13,26 @@ if($editar == "false"){
 	<div class='perfil'>
 		<div class='header'>
 			<div class='portada'>
-				<div>
-					<img src='". $usuario->getRutaFoto()."' alt='img-avatar'>
-				</div>
+					<img class = 'avatar' src='". $usuario->getRutaFoto()."' alt='img-avatar'>
 			</div>
 		</div>
 		<div class='body'>
 			<div class='bio'>
-				<h3>¡Bienvenido ". $usuario->getNombreUsuario()." a tu perfil!</h3>
-				<p>Descripción detalla del usuario</p>
-				<label>Nombre:<label>
-				<input type='text' value='". $usuario->getNombre()."' readonly></br>
-				<label>Apellido:<label>
-				<input type='text' value='". $usuario->getApellido()."' readonly></br>
-				<label>Correo:<label>
-				<input type='text' value='". $usuario->getCorreo()."' readonly></br>
-				<label>Telefono:<label>
-				<input type='text' value='". $usuario->getTelefono()."' readonly></br>
-				<label>Nacionalidad:<label>
-				<input type='text' value='". $usuario->getNacionalidad()."' readonly></br>
-				<label>Fecha de Nacimiento:<label>
-				<input type='text' value='". $usuario->getFechaNac()."' readonly></br>
-				<a href='Perfil.php?editar=true'>Editar</a>
+			<h3>¡Bienvenido ". $usuario->getNombreUsuario()." a tu perfil!</h3>
+			<p>Descripción detalla del usuario</p>
+			<div class='datos1'>
+				<li><span>Nombre: </span>". $usuario->getNombre()."</li>
+				<li><span>Apellido: </span>". $usuario->getApellido()."</li>
+				<li><span>Correo: </span>".  $usuario->getCorreo()."</li>
+			</div>
+			<div class='datos2'>
+				<li><span>Telefono: </span>".  $usuario->getTelefono()."</li>
+				<li><span>Nacionalidad: </span>".  $usuario->getNacionalidad()."</li>
+				<li><span>Fecha de nacimiento: </span>".  $usuario->getFechaNac()."</li>
+			</div>
+			<div class='datos3'>
+				<a class='adatos3' href='Perfil.php?editar=true'>Editar perfil <img class='icon-datos3' src='img/editar.png'></a>
+			</div>
 				</div>
 			<div class='footer'>
 				$listado
