@@ -94,18 +94,26 @@ class Usuario
         }
         else{
             $contenido = "<h1>Enlace para <span>añadir</span></h1>";
-            $contenido .= "<a href=editor.php>
-                                <input type=button value='Entrada de un blog'>
+            $contenido .= "<div class='submit'>
+							<a href=editor.php>
+							<button type='submit' name='Entrada'>Entrada de un blog</button>
                             </a>
+						</div>
+						<div class='submit'>
                             <a href=Actividad_Admin.php>
-                                <input type=button value='Actividad'>
+							<button type='submit' name='Actividad'>Actividad</button>
                             </a>
+						</div>
+						<div class='submit'>
                             <a href=Material_Admin.php>
-                                <input type=button value='Material'>
+							<button type='submit' name='Material'>Material</button>
                             </a>
+						</div>
+							<div class='submit'>
                             <a href=Alojamiento_Admin.php>
-                                <input type=button value='Alojamiento'>
+							<button type='submit' name='Alojamiento'>Alojamiento</button>
                             </a>
+						</div>
                             ";
         }
         return $contenido;
