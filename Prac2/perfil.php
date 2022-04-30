@@ -13,7 +13,7 @@ if($editar == "false"){
 	<div class='perfil'>
 		<div class='header'>
 			<div class='portada'>
-					<img class = 'avatar' src='". $usuario->getRutaFoto()."' alt='img-avatar'>
+					<img class = 'avatar' src='". $usuario->getRutaFoto()."' alt='Foto'>
 			</div>
 		</div>
 		<div class='body'>

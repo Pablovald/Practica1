@@ -47,7 +47,7 @@ class Usuario
         $conn = $app->conexionBd();
         $rs = $conn->query(sprintf("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->id));
         if($rs){
-            $textoActividad = "<h1>Listado de actividades inscritas</h1>";
+            $textoActividad = "<h1>Listado de <span>actividades</span> inscritas</h1>";
             if($rs->num_rows == 0){
                 $textoActividad .= "<p>No se ha inscrito en ninguna de las actividades.</p>";
             }
@@ -61,7 +61,7 @@ class Usuario
             $contenido = $textoActividad;
             $rs = $conn->query(sprintf("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->id));
             if($rs){
-                $textoAlojamiento = "<h1>Listado de hoteles reservados</h1>";
+                $textoAlojamiento = "<h1>Listado de <span>hoteles</span> reservados</h1>";
                 if($rs->num_rows == 0){
                     $textoAlojamiento .= "<p>No se ha inscrito en ningun hotel.</p>";
                 }
