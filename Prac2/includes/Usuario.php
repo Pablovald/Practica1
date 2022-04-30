@@ -39,40 +39,53 @@ class Usuario
         $this->correo = $correo;
     }
 
+    //Si no es admin, muestra todas las actividades y hoteles reservados por el usuario
+    //En caso contrario muestra diferentes enlaces para añadir por ejemplo nuevas actividades
     public static function infoUsuario($nombreUsuario){
         $usuario = self::buscaUsuario($nombreUsuario);
-
         $contenido;
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $rs = $conn->query(sprintf("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->id));
-        if($rs){
-            $textoActividad = "<h1>Listado de <span>actividades</span> inscritas</h1>";
-            if($rs->num_rows == 0){
-                $textoActividad .= "<p>No se ha inscrito en ninguna de las actividades.</p>";
-            }
-            else{
-                for($i=0;$i<$rs->num_rows;$i++){
-                    $act=$rs->fetch_assoc();
-                    $textoActividad.="<p>$act[nombre]: $act[curso] en el dia $act[dia]</p>";
-                }
-            }
-            $rs->free();
-            $contenido = $textoActividad;
-            $rs = $conn->query(sprintf("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->id));
+        if(!$_SESSION['esAdmin']){
+            $app = Aplicacion::getSingleton();
+            $conn = $app->conexionBd();
+            $rs = $conn->query(sprintf("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->id));
             if($rs){
-                $textoAlojamiento = "<h1>Listado de <span>hoteles</span> reservados</h1>";
+                $textoActividad = "<h1>Listado de <span>actividades</span> inscritas</h1>";
                 if($rs->num_rows == 0){
-                    $textoAlojamiento .= "<p>No se ha inscrito en ningun hotel.</p>";
+                    $textoActividad .= "<p>No se ha inscrito en ninguna de las actividades</p>";
                 }
                 else{
                     for($i=0;$i<$rs->num_rows;$i++){
                         $act=$rs->fetch_assoc();
-                        $textoAlojamiento.="<p>$act[nombreAlojamiento]: $act[fechaini] - $act[fechafin] ($act[NumeroHabitacion] habitaciones)</p>";
+                        $textoActividad.="<p>$act[nombre]: $act[curso] en el dia $act[dia]</p>";
                     }
                 }
                 $rs->free();
-                $contenido .= $textoAlojamiento;
+                $contenido = $textoActividad;
+                $rs = $conn->query(sprintf("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->id));
+                if($rs){
+                    $textoAlojamiento = "<h1>Listado de <span>hoteles</span> reservados</h1>";
+                    if($rs->num_rows == 0){
+                        $textoAlojamiento .= "<p>No se ha inscrito en ningun hotel</p>";
+                    }
+                    else{
+                        for($i=0;$i<$rs->num_rows;$i++){
+                            $act=$rs->fetch_assoc();
+                            $habitaciones = $act["NumeroHabitacion"];
+                            if($habitaciones > 1){
+                                $textoAlojamiento.="<p>$act[nombreAlojamiento]: $act[fechaini] - $act[fechafin] ($habitaciones habitaciones)</p>";
+                            }
+                            else{
+                                $textoAlojamiento.="<p>$act[nombreAlojamiento]: $act[fechaini] - $act[fechafin] ($habitaciones habitación)</p>";
+                            }
+                        }
+                    }
+                    $rs->free();
+                    $contenido .= $textoAlojamiento;
+                }
+                else{
+                    echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+                    exit();
+                }
             }
             else{
                 echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -80,8 +93,20 @@ class Usuario
             }
         }
         else{
-            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-            exit();
+            $contenido = "<h1>Enlace para <span>añadir</span></h1>";
+            $contenido .= "<a href=editor.php>
+                                <input type=button value='Entrada de un blog'>
+                            </a>
+                            <a href=Actividad_Admin.php>
+                                <input type=button value='Actividad'>
+                            </a>
+                            <a href=Material_Admin.php>
+                                <input type=button value='Material'>
+                            </a>
+                            <a href=Alojamiento_Admin.php>
+                                <input type=button value='Alojamiento'>
+                            </a>
+                            ";
         }
         return $contenido;
     }
@@ -128,6 +153,7 @@ class Usuario
         return self::guarda($user);
     }
 
+    //Actualiza los datos del Usuaroo
     public static function actualizaPerfil($nombreUsuario, $nombre, $apellido, $FechaNac, $Telefono, $Nacionalidad, $RutaFoto, $correo)
     {
         $result=false;
@@ -236,6 +262,7 @@ class Usuario
         return true;
     }
 
+    //Getters
     public function getId()
     {
         return $this->id;
