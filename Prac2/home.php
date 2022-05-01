@@ -24,10 +24,10 @@ $contenidoPrincipal = <<<EOS
 			</p>
 			<div class = "Navegacion">
 			<div class = "NavTitulo"> <h4> NAVEGA POR NUESTRO CONTENIDO </h4> </div>
-			<a href=Blog.php><img src= "img/blogNav.png"></a>
-			<a href=Actividades_Main.php><img src= "img/actNav.png"></a>
-			<a href=Materiales.php><img src= "img/matNav.png"></a>
-			<a href=Alojamientos_Main.php><img src= "img/alojNav.png"></a>
+			<a href=Blog.php><img src= "img/blogNav.png" alt=""></a>
+			<a href=Actividades_Main.php><img src= "img/actNav.png" alt=""></a>
+			<a href=Materiales.php><img src= "img/matNav.png" alt=""></a>
+			<a href=Alojamientos_Main.php><img src= "img/alojNav.png" alt=""></a>
 			Disponemos de ofertas en nuestros cursos impartidos este verano. ¡¡¡Pásate por ACTIVIDADES y apúntate al curso que más
 			te convenga!!!
 			</div>

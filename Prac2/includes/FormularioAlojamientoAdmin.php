@@ -14,7 +14,7 @@ class FormularioAlojamientoAdmin extends Form
         $descripcion = $datos['descripcion'] ?? '';
         $imagen = $datos['imagen'] ?? '';
         $info = $datos['info'] ?? '';
-        $nhabitacion = $datos['habitacion'] ?? '';
+        $nhabitacion = $datos['nhabitaciones'] ?? '';
         $precio = $datos['precio'] ?? '';
 
         // Se generan los mensajes de error si existen.
@@ -48,7 +48,7 @@ class FormularioAlojamientoAdmin extends Form
             </div>
             <div class='grupo-control'>
                 <label>precio:</label>
-                <input class='control' type='number' name='info' value='$precio' required/>$errorPrecio
+                <input class='control' type='number' name='precio' value='$precio' required/>$errorPrecio
             </div>
             <div class='grupo-control'>
                 <label>Numero de habitaciones:</label>
@@ -68,7 +68,9 @@ class FormularioAlojamientoAdmin extends Form
         $nombre = $datos['nombre'] ?? null;
         $descripcion = $datos['descripcion'] ?? null;
         $rutaFoto = subirImagen('img/') ?? null;
+        $nhabitacion = $datos['nhabitaciones'] ?? null;
         $info = $datos['info'] ?? null;
+        $precio = $datos['precio'] ?? null;
 
         if(empty($nombre)){
             $result['nombre'] = "El nombre no puede estar vacio";
@@ -78,6 +80,12 @@ class FormularioAlojamientoAdmin extends Form
         }
         if(empty($rutaFoto)){
             $result['imagen'] = "La imagen no puede estar vacio";
+        }
+        if(empty($nhabitacion)){
+            $result['nhabitacion'] = "El numero de habitaciones no puede estar vacio";
+        }
+        if(empty($precio)){
+            $result['precio'] = "El precio no puede estar vacio";
         }
         if(empty($info)){
             $result['info'] = "La informacion detallada no puede estar vacio";

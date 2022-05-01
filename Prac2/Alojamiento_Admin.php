@@ -4,7 +4,8 @@ require_once __DIR__. '/includes/config.php';
 $contenidoPrincipal = <<<EOS
 <h2>Formulario para insertar un nuevo alojamiento:</h2>
 EOS;
-$tituloCabecera="Formulario admin";
+$tituloCabecera="FORMULARIO ADMIN";
+$tituloPagina = 'Formulario admin';
 
 $form = new es\fdi\ucm\aw\FormularioAlojamientoAdmin();
 $htmlFormIns = $form->gestiona();

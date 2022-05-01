@@ -217,7 +217,7 @@ class Alojamiento
     private static function insertaAlojamiento($alojamiento){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO Alojamiento(nombre, id, descripcion, rutaFoto, descripciondetallada, precio) VALUES ('%d', '%s', '%d', '%s', '%s', '%s')"
+        $query=sprintf("INSERT INTO Alojamiento(nombre, id, descripcion, rutaFoto, descripciondetallada, precio) VALUES ('%s', '%d', '%s', '%s', '%s', '%d')"
         ,$conn->real_escape_string($alojamiento->nombre)
         , $conn->insert_id
         , $conn->real_escape_string($alojamiento->descripcion)
