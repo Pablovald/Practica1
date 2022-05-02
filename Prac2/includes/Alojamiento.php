@@ -5,7 +5,7 @@ class Alojamiento
 {
     private $nombre;
     private $precio;
-    private $imagen;
+    private $rutaFoto;
     private $descripcion;
     private $descripciondetallada;
     private $id;
@@ -15,7 +15,7 @@ class Alojamiento
 
         $this->nombre = $nombre;
         $this->precio = $precio;
-        $this->imagen = $rutaFoto;
+        $this->rutaFoto = $rutaFoto;
         $this->descripcion = $descripcion;
         $this->descripciondetallada = $descripciondetallada;
 
@@ -239,8 +239,7 @@ class Alojamiento
         $result=false;
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("UPDATE Alojamiento  SET nombre='%s', precio='%d', rutaFoto='%s', descripcion='%s', descripciondetallada='%s' WHERE id='%d'"
-        , $conn->real_escape_string($alojamiento->nombre)
+        $query=sprintf("UPDATE Alojamiento  SET  precio='%d', rutaFoto='%s', descripcion='%s', descripciondetallada='%s' WHERE id='%d'"
         , $conn->real_escape_string($alojamiento->precio)
         , $conn->real_escape_string($alojamiento->rutaFoto)
         , $conn->real_escape_string($alojamiento->descripcion)
@@ -248,11 +247,11 @@ class Alojamiento
         , $alojamiento->id);
         if ($conn->query($query)) {
             if ( $conn->affected_rows != 1) {
-                header("Location: alojamiento.php?estado=error&nombre=".$alojamiento->nombre."");
+                header("Location: alojamiento.php?estado=error&alojamiento=".$alojamiento->nombre."");
             }
             else{
                 $result = $alojamiento;
-                header("Location: alojamiento.php?estado=actualizado&nombre=".$alojamiento->nombre."");
+                header("Location: alojamiento.php?estado=actualizado&alojamiento=".$alojamiento->nombre."");
             }
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
@@ -272,10 +271,21 @@ class Alojamiento
         return $result;
     }
 
+    public static function actualizarInfoAlojamiento($nombre, $precio, $rutaFoto, $descripcion, $descripciondetallada){
+        
+       $alojamiento = self::buscaAlojamiento($nombre);
+       $alojamiento->precio = $precio;
+       $alojamiento->rutaFoto = $rutaFoto;
+       $alojamiento->descripcion = $descripcion;
+       $alojamiento->descripciondetallada = $descripciondetallada;
+
+        return self::guardaAlojamiento($alojamiento);
+    }
+
 
     public function getDescripcion()
     {
-        return $this->Descripcion;
+        return $this->descripcion;
     }
 
 
@@ -287,9 +297,13 @@ class Alojamiento
 
     public function getPrecio()
     {
-        return $this->Precio;
+        return $this->precio;
     }
 
+    public function getRutaFoto()
+    {
+        return $this->rutaFoto;
+    }
 
 }
 

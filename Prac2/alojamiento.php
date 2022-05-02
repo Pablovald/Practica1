@@ -12,7 +12,7 @@ $contenidoPrincipal .=$htmlFormIns;
         if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
             echo "
             <div class='submit'>
-                        <a class = 'login' href='includes/EditorAlojamiento.php?nombre=$_GET[alojamiento]'>Editar</a>
+                        <a class = 'login' href='/practica1/Prac2/EditorAdminAlojamiento.php?alojamiento=$_GET[alojamiento]'>Editar</a>
                     </div>
             </div>";
         }

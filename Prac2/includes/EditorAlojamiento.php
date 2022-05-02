@@ -1,7 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
 require_once __DIR__.'/subidaImagenes.php';
-
 class EditorAlojamiento extends Form
 {
     public function __construct() {
@@ -11,10 +10,10 @@ class EditorAlojamiento extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
 
-        $nombre =$_GET['nombre'];
+        $nombre =$_GET['alojamiento'];
         $alojamiento = Alojamiento::buscaAlojamiento($nombre);
         $descripcion =$alojamiento->getDescripcion();
-        $imagen = $datos['imagen'] ?? '';
+        $imagen = $alojamiento->getRutaFoto();
         $info =$alojamiento->getDescripcionDetallada();
         $precio =$alojamiento->getPrecio();
 
@@ -28,12 +27,12 @@ class EditorAlojamiento extends Form
 
         $html ="
         <div class='content'>
-            <legend>Formulario de <span>añadir/actualizar un alojamiento</span></legend></br>
+            <legend>Formulario de <span>actualizar un alojamiento</span></legend></br>
 			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>
                 <label>Nombre:</label>
-                <input class='control' type='text' name='nombre' value='$nombre' required/>$errorNombre
+                <input class='control' type='text' name='nombre' value='$nombre' readonly/>$errorNombre
             </div>
             <div class='grupo-control'>
                 <label>Descripcion:</label>
@@ -41,7 +40,7 @@ class EditorAlojamiento extends Form
             </div>
             <div class='seleccion'>
                 <label>Imagen: </label>
-                <input class='control' type='file' name='imagen' value='$imagen' required/>$errorImagen
+                <input class='control' type='file' name='imagen' value='$imagen' />$errorImagen
             </div>
             <div class='grupo-control'>
                 <label>Informacion detallada:</label>
@@ -52,7 +51,7 @@ class EditorAlojamiento extends Form
                 <input class='control' type='number' name='precio' value='$precio' required/>$errorPrecio
             </div>
 			<div class='submit'>
-            <button type='submit' name='Añadir Alojamiento'>Añadir</button>
+            <button type='submit' name='Añadir Alojamiento'>actualizar</button>
 			</div>
         </div>";
         return $html;
@@ -64,8 +63,7 @@ class EditorAlojamiento extends Form
 
         $nombre = $datos['nombre'] ?? null;
         $descripcion = $datos['descripcion'] ?? null;
-        $rutaFoto = subirImagen('img/') ?? null;
-        $nhabitacion = $datos['nhabitaciones'] ?? null;
+        $rutaFoto = subirImagen('img/') ?? $datos['imagen'];
         $info = $datos['info'] ?? null;
         $precio = $datos['precio'] ?? null;
 
@@ -78,9 +76,6 @@ class EditorAlojamiento extends Form
         if(empty($rutaFoto)){
             $result['imagen'] = "La imagen no puede estar vacio";
         }
-        if(empty($nhabitacion)){
-            $result['nhabitacion'] = "El numero de habitaciones no puede estar vacio";
-        }
         if(empty($precio)){
             $result['precio'] = "El precio no puede estar vacio";
         }
@@ -91,10 +86,7 @@ class EditorAlojamiento extends Form
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
                 if($_SESSION['esAdmin']){
-                    $alojamiento = Alojamiento::creaAlojamiento($nombre,$precio, $rutaFoto,$descripcion, $info);
-                    if(!$alojamiento){
-                        $result[] ='No se ha podido crear el alojamiento';
-                    }
+                    $alojamiento = Alojamiento::actualizarInfoAlojamiento($nombre,$precio, $rutaFoto,$descripcion, $info);
                 }
                 else{
                     $result[] = "No eres Admin";
