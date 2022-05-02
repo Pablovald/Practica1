@@ -272,5 +272,26 @@ class Alojamiento
         return $result;
     }
 
+
+    public function getDescripcion()
+    {
+        return $this->Descripcion;
+    }
+
+
+    public function getDescripcionDetallada()
+    {
+        return $this->descripciondetallada;
+    }
+
+
+    public function getPrecio()
+    {
+        return $this->Precio;
+    }
+
+
 }
+
+
 ?>

@@ -8,6 +8,15 @@ $form = new es\fdi\ucm\aw\FormularioAlojamiento();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 
+	if (isset($_SESSION["login"]) && ($_SESSION["login"]===true)) {
+        if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
+            echo "
+            <div class='submit'>
+                        <a class = 'login' href='includes/EditorAlojamiento.php?nombre=$_GET[alojamiento]'>Editar</a>
+                    </div>
+            </div>";
+        }
+    }
 if(isset($_GET["estado"])){
     
     $estado = htmlspecialchars($_GET["estado"]);
