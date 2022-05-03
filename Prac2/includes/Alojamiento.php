@@ -9,8 +9,11 @@ class Alojamiento
     private $descripcion;
     private $descripciondetallada;
     private $id;
+    private $capacidad;
+    private $fecha;
+    private $IDAlojamiento_Main;
 
-    private function __construct($nombre,$precio,$rutaFoto,$descripcion,$descripciondetallada)
+    private function __construct($nombre,$precio,$rutaFoto,$descripcion,$descripciondetallada,$capacidad,$fecha)
     {
 
         $this->nombre = $nombre;
@@ -18,7 +21,8 @@ class Alojamiento
         $this->rutaFoto = $rutaFoto;
         $this->descripcion = $descripcion;
         $this->descripciondetallada = $descripciondetallada;
-
+        $this->$capacidad=$capacidad;
+        $this->$fecha=$fecha;
     }
 
    
@@ -127,7 +131,8 @@ class Alojamiento
         if($rs)
         {
 	        for($i=1;$i<=$rs->num_rows;$i++){
-		        $row=$conn->query(sprintf("SELECT * FROM Alojamiento A WHERE A.id = '$i'"));
+                $id=$rs->fetch_assoc();
+		        $row=$conn->query(sprintf("SELECT * FROM Alojamiento A WHERE A.id = '$id[id]'"));
 		        if($row)
 		        {
                     $contenido=$row->fetch_assoc();
@@ -177,7 +182,7 @@ class Alojamiento
         if ($rs) {
             if ( $rs->num_rows == 1) {
                 $fila = $rs->fetch_assoc();
-                $alojamiento = new Alojamiento($fila['nombre'], $fila['precio'], $fila['rutaFoto'], $fila['descripcion'], $fila['descripciondetallada']);  
+                $alojamiento = new Alojamiento($fila['nombre'], $fila['precio'], $fila['rutaFoto'], $fila['descripcion'], $fila['descripciondetallada'],null,null);  
                 $alojamiento->id = $fila['id'];
                 $result = $alojamiento;
             }
@@ -193,7 +198,7 @@ class Alojamiento
     public static function creaAlojamiento($nombre, $precio, $rutaFoto, $descripcion, $descripciondetallada){
         $alojamiento = self::buscaAlojamiento($nombre);
         if($alojamiento == false){
-            $alojamiento = new Alojamiento($nombre, $precio, $rutaFoto, $descripcion, $descripciondetallada);
+            $alojamiento = new Alojamiento($nombre, $precio, $rutaFoto, $descripcion, $descripciondetallada,null,null);
         }
         else{
             $alojamiento->nombre = $nombre;
@@ -280,6 +285,147 @@ class Alojamiento
        $alojamiento->descripciondetallada = $descripciondetallada;
 
         return self::guardaAlojamiento($alojamiento);
+    }
+
+    public static function listadoCapacidad(){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $Cont=NULL;
+        $row=$conn->query(sprintf("SELECT * FROM Habitaciones ORDER BY nombre_alojamiento,fecha "));
+        if($row){
+            if($row->num_rows > 0){
+                $Cont = "<table >
+                            <tr>
+                            <th colspan='2'>Nombre</th>
+                            <th colspan='2'>Fecha</th>
+                            <th colspan='2'>Plazas</th>
+                            </tr>";
+                for($i=0;$i<$row->num_rows;$i++){
+                    $fila = $row->fetch_assoc();
+                    $Cont .="<tr>
+                                <td>$fila[nombre_alojamiento]<td>
+                                <td>$fila[fecha]<td>
+                                <td>$fila[capacidad]<td>
+                                </tr>
+                    ";
+                }
+                $Cont .= "</table>";
+            }
+            else{
+                $Cont = "<p>No existe hay plazas disponibles en la BD. Por favor inserte una</p>";
+            }
+            $row->free();
+        }else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $Cont;
+    }
+
+    public static function optionAlojamiento(){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $row=$conn->query(sprintf("SELECT * FROM Alojamiento"));
+        if($row){
+            $ret="";
+            for($i=0;$i<$row->num_rows;$i++){
+                $act=$row->fetch_assoc();
+                $ret.="<option>"."$act[nombre]"."</option>";
+            }
+            $row->free();
+            return $ret;
+        }else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+    }
+    public static function CapacidadAlojamiento($nombre, $capacidad, $fecha){
+        $capacidadAlojamiento = self::buscaCapacidadAlojamiento($nombre,$fecha);
+        if($capacidadAlojamiento == false){
+            $capacidadAlojamiento = new Alojamiento($nombre, null, null, null, null, null, null);
+            $capacidadAlojamiento->capacidad = $capacidad;
+            $capacidadAlojamiento->fecha= $fecha;
+        }
+        else{
+            $capacidadAlojamiento->nombre = $nombre;
+            $capacidadAlojamiento->capacidad = $capacidad;
+            $capacidadAlojamiento->fecha= $fecha;
+        }
+        return self::guardaCapacidadAlojamiento($capacidadAlojamiento);
+    }
+
+    public static function buscaCapacidadAlojamiento($nombre,  $fecha){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM Habitaciones WHERE nombre_alojamiento = '%s'AND fecha ='%s'"
+        , $conn->real_escape_string($nombre)
+        , $conn->real_escape_string($fecha));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ( $rs->num_rows == 1) {
+                $fila = $rs->fetch_assoc();
+                $capacidadAlojamiento = new Alojamiento($fila['nombre_alojamiento'], null, null, null, null, $fila['capacidad'], $fila['fecha']);
+                $capacidadAlojamiento->IDAlojamiento_Main = $fila['ID'];
+                $result = $capacidadAlojamiento;
+            }
+            $rs->free();
+        } else {
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $result;
+    }
+
+    private static function insertaCapacidadAlojamiento($capacidadAlojamiento){
+
+
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query=sprintf("INSERT INTO Habitaciones(ID,nombre_alojamiento, capacidad, fecha) VALUES ('%d', '%s', '%d', '%s')"
+        , $conn->insert_id
+        , $conn->real_escape_string($capacidadAlojamiento->nombre)
+        , $conn->real_escape_string($capacidadAlojamiento->capacidad)
+        , $conn->real_escape_string($capacidadAlojamiento->fecha));
+        if ( $conn->query($query) ) {
+            $capacidadAlojamiento->IDAlojamiento_Main = $conn->insert_id;
+            header("Location: Alojamiento_Admin.php?estadoCap=exito&nombre=".$capacidadAlojamiento->nombre."&capacidad=".$capacidadCurso->capacidad."&fecha=".$capacidadCurso->fecha."");
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+             }
+        return $capacidadAlojamiento;
+        }
+
+    //Actualiza la tabla de CapacidadActividad
+    private static function actualizaCapacidadAlojamiento($capacidadAlojamiento){
+        $result=false;
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query=sprintf("UPDATE Habitaciones SET nombre_alojamiento='%s', capacidad='%d', fecha='%s' WHERE ID='%d'"
+        , $conn->real_escape_string($capacidadAlojamiento->nombre)
+        , $conn->real_escape_string($capacidadAlojamiento->capacidad)
+        , $conn->real_escape_string($capacidadAlojamiento->fecha)
+        , $capacidadAlojamiento->IDAlojamiento_Main);
+        if ( $conn->query($query) ) {
+            if ( $conn->affected_rows != 1) {
+                header("Location: Alojamiento_Admin.php?estadoCap=errorAct&nombre=".$capacidadAlojamiento->nombre."&capacidad=".$capacidadAlojamiento->capacidad."&fecha=".$capacidadAlojamiento->fecha."");
+            }
+            else{
+                header("Location: Alojamiento_Admin.php?estadoCap=actualizado&nombre=".$capacidadAlojamiento->nombre."&capacidad=".$capacidadAlojamiento->capacidad."&fecha=".$capacidadAlojamiento->fecha."");
+                $result = $capacidadAlojamiento;
+            }
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        }
+        return $result;
+    }
+
+    public static function guardaCapacidadAlojamiento($capacidadAlojamiento){
+        if ($capacidadAlojamiento->IDAlojamiento_Main != null) {
+            return self::actualizaCapacidadAlojamiento($capacidadAlojamiento);
+        }
+        return self::insertaCapacidadAlojamiento($capacidadAlojamiento);
     }
 
 

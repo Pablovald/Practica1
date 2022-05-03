@@ -16,12 +16,13 @@ $contenidoPrincipal .=$htmlFormIns;
                     </div>
             </div>";
         }
+
     }
 if(isset($_GET["estado"])){
     
     $estado = htmlspecialchars($_GET["estado"]);
+    $nombreAlojamiento = htmlspecialchars($_GET['alojamiento']);
     if($estado == "InscritoCorrectamente"){
-        $nombreAlojamiento = htmlspecialchars($_GET['alojamiento']);
         $solicitud_diaini = htmlspecialchars($_GET['diaini']);
         $solicitud_diafin = htmlspecialchars($_GET['diafin']);
         $contenidoPrincipal .= <<<EOS
@@ -29,9 +30,7 @@ if(isset($_GET["estado"])){
     EOS;
     }
     else if($estado == "NoPlazas"){
-        $nombreAlojamiento = htmlspecialchars($_GET['alojamiento']);
         $dias = htmlspecialchars($_GET['dia']);
-
         $contenidoPrincipal .= <<<EOS
         <h1>$nombreAlojamiento no quedan plazas suficientes : $dias  </h1>
         EOS;
@@ -42,6 +41,17 @@ if(isset($_GET["estado"])){
         <h1>Si ya tienes una cuenta, inicia sesión.</h1>
     EOS;
     }
+    else if($estado == 'error'){
+        $contenidoPrincipal .= <<<EOS
+        <h1>¡Error al actualizar el alojamiento: '$nombreAlojamiento'!<h1>
+        EOS;
+    }
+    else if($estado == 'actualizado'){
+        $contenidoPrincipal .= <<<EOS
+        <h1>El alojamiento $nombreAlojamiento se actualizo correctamente!<h1>
+        EOS;
+    }
+    
 }
 
 include __DIR__.'/includes/plantillas/plantilla.php';

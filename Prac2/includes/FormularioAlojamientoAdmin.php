@@ -27,7 +27,7 @@ class FormularioAlojamientoAdmin extends Form
 
         $html ="
         <div class='content'>
-            <legend>Formulario de <span>añadir/actualizar un alojamiento</span></legend></br>
+            <legend>Formulario para <span>añadir un alojamiento</span></legend></br>
 			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>

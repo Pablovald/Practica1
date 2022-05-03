@@ -60,10 +60,9 @@ class EditorAlojamiento extends Form
     protected function procesaFormulario($datos)
     {
         $result = array();
-
         $nombre = $datos['nombre'] ?? null;
         $descripcion = $datos['descripcion'] ?? null;
-        $rutaFoto = subirImagen('img/') ?? $datos['imagen'];
+        $rutaFoto = subirImagen('img/') ?? $null;
         $info = $datos['info'] ?? null;
         $precio = $datos['precio'] ?? null;
 
