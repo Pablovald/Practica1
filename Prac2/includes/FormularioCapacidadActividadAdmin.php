@@ -10,7 +10,7 @@ class FormularioCapacidadActividadAdmin extends Form
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
-        $nombre = $datos['nombre'] ?? '';
+        $nombre = $_GET['actividad'];
         $curso = $datos['curso'] ?? '';
         $fecha = $datos['fecha'] ?? '';
         $capacidad = $datos['capacidad'] ?? '';
@@ -28,14 +28,12 @@ class FormularioCapacidadActividadAdmin extends Form
             $htmlErroresGlobales
             <div class='grupo-control'>
                 <label>Nombre de la Actividad:</label>
-                <select name='nombre' id='campoActividad'>
-                ".Actividad::optionActividad()."
-                </select>
+                <input class='control' type='text' name='nombre' value='$nombre' readonly/>
             </div>
             <div class='grupo-control'>
                 <label>Curso:</label>
                 <select name='curso' id='campoCurso'>
-                ".Actividad::cursosDeActividadUno()."
+                ".Actividad::cursosDeActividadDinamico($nombre)."
                 </select>
             </div>
             <div class='grupo-control'>

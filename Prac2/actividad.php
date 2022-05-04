@@ -40,14 +40,19 @@ if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']
     $contenidoPrincipal .= <<<EOS
     <div class='submit'>
         <a href='ActualizarActividadAdmin.php?actividad=$_GET[actividad]'>
-            <button type='submit' name='Aniadir'>Editar actividad</button>
+            <button type='submit'>Actualizar Actividad</button>
         </a>
         
     </div>
     <div class='submit'>
         <a href='ActualizarCursoAdmin.php?actividad=$_GET[actividad]'>
-            <button type='submit' name='Aniadir'>Editar Cursos</button>
+            <button type='submit'>Actualizar Cursos</button>
         </a>
+    </div>
+    <div class='submit'>
+    <a href='Actualizar_InsertarCapacidadAdmin.php?actividad=$_GET[actividad]'>
+        <button type='submit'>Actualizar/Insertar Capacidad</button>
+    </a>
     </div>
     EOS;
 }

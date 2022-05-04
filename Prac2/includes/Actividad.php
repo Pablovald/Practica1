@@ -605,14 +605,15 @@ class Actividad
         return $Cont;
     }
 
-        //Listado de plazas disponibles en la BD
-    public static function listadoPlazas(){
+        //Listado de plazas disponibles de una actividad en la BD
+    public static function listadoPlazas($nombre){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 
         $Cont=NULL;
         
-        $row=$conn->query(sprintf("SELECT * FROM CapacidadActividad"));
+        $row=$conn->query(sprintf("SELECT * FROM CapacidadActividad WHERE Nombre='%s'"  
+        , $conn->real_escape_string($nombre)));
         if($row){
             if($row->num_rows > 0){
                 $Cont = "<table >
@@ -707,14 +708,14 @@ class Actividad
             , $conn->real_escape_string($capacidadCurso->Fecha));
             if ( $conn->query($query) ) {
                 $capacidadCurso->IDActividad_Main = $conn->insert_id;
-                header("Location: Actividad_Admin.php?estadoCap=exito&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+                header("Location: Actualizar_InsertarCapacidadAdmin.php?estadoCap=exito&actividad=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
             } else {
                 echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
                 exit();
             }
         }
         else{
-            header("Location: Actividad_Admin.php?estadoCap=error&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+            header("Location: Actualizar_InsertarCapacidadAdmin.php?estadoCap=error&actividad=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
         }
         return $capacidadCurso;
     }
@@ -732,10 +733,10 @@ class Actividad
         , $capacidadCurso->IDActividad_Main);
         if ( $conn->query($query) ) {
             if ( $conn->affected_rows != 1) {
-                header("Location: Actividad_Admin.php?estadoCap=errorAct&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+                header("Location: Actualizar_InsertarCapacidadAdmin.php?estadoCap=errorAct&actividad=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
             }
             else{
-                header("Location: Actividad_Admin.php?estadoCap=actualizado&nombre=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
+                header("Location: Actualizar_InsertarCapacidadAdmin.php?estadoCap=actualizado&actividad=".$capacidadCurso->Nombre."&curso=".$capacidadCurso->Curso."&capacidad=".$capacidadCurso->Capacidad."&fecha=".$capacidadCurso->Fecha."");
                 $result = $capacidadCurso;
             }
         } else {
