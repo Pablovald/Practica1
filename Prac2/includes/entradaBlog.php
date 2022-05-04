@@ -185,12 +185,12 @@ class entradaBlog{
                 header("Location: Blog_Admin.php?estado=error&nombre=".$nombre."");
             }
             else{
-                $result = $nombre;
+
                 header("Location: Blog_Admin.php?estado=eliminado&nombre=".$nombre."");
             }
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
         }
-        return $result;
+
     }
 }
