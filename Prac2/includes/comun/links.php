@@ -39,6 +39,7 @@
 			$contenido = <<<EOF
 			<ul class="submenu">
 			<li><a href="Material_Admin.php">Añadir materiales</a></li>
+			<li><a href="BorraMaterial.php">Eliminar un material</a></li>
 			</ul></li>
 			EOF;
 			echo $contenido;
