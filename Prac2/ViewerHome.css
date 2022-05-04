@@ -476,6 +476,21 @@ textarea{
  }
 
 
+/*Entradas blog*/
+ .entr-img{
+	 width: 500px;
+	height: 300px;
+ }
+ 
+ .iframe{
+	margin: auto;
+	display: block;
+	height: 250px;
+	width: 400px;
+	margin-top: 2%;
+ }
+
+
 
 
 

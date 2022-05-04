@@ -145,12 +145,12 @@ class entradaBlog{
         $tituloCabecera = strtoupper($tituloPagina);
         $contenidoPrincipal = <<<EOS
             <div class='info-blog'>
-                <h1>$rs[header1]</h1>
+                <h3>$rs[header1]</h3>
                 <p>$rs[intro]</p>
-                <img src=$rs[rutaImagen] alt="">
-                <h1>$rs[header2]</h1>
+                <img class='entr-img' src=$rs[rutaImagen] alt=""> </br> </br>
+                <h3>$rs[header2]</h3>
                 <p>$rs[parrafo]</p>
-                <iframe src="https://www.youtube.com/embed/$rs[video]" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+                <iframe class='iframe' src="https://www.youtube.com/embed/$rs[video]" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
                 encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             EOS;
