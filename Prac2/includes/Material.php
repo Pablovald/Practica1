@@ -368,8 +368,8 @@ class Material
             if($rs['cantidad'] > $cantidad){
                 $sentencia = $conn->query(sprintf("UPDATE Carrito SET cantidad=cantidad - $cantidad WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
             }
-            else {
-                $sentencia = $conn->query(sprintf("DELETE FROM Carrito WHERE id_usuario = '$idUsuario[id]' AND id_producto = $idProducto"));
+            else { // si intentamos quitar más de los que tenemos, mostraremos un mensaje de error
+                echo '<script>alert("No posees suficientes unidades del artículo. Por favor, selecciona una cantidad válida")</script>';
             }
         }
     
