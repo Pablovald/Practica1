@@ -157,4 +157,40 @@ class entradaBlog{
         $row->free();
         return $contenidoPrincipal;
     }
+    public static function listadoEntrada(){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $row=$conn->query(sprintf("SELECT * FROM entradasBlog"));
+        if($row){
+            $ret="";
+            for($i=0;$i<$row->num_rows;$i++){
+                $act=$row->fetch_assoc();
+                $ret.="<option>"."$act[titulo]"."</option>";
+            }
+            $row->free();
+            return $ret;
+        }else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+    }
+
+    public static function borrarEntrada($nombre){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query=(sprintf("DELETE FROM entradasBlog WHERE titulo= '%s'",$conn->real_escape_string($nombre)));
+
+        if ($conn->query($query)) {
+            if ( $conn->affected_rows != 1) {
+                header("Location: Blog_Admin.php?estado=error&nombre=".$nombre."");
+            }
+            else{
+                $result = $nombre;
+                header("Location: Blog_Admin.php?estado=eliminado&nombre=".$nombre."");
+            }
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        }
+        return $result;
+    }
 }
