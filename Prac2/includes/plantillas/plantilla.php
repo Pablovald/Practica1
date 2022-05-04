@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
 	<title><?= $tituloPagina ?></title>
 	<link rel="icon" href="img/favicon.png" type="image/png" />
-	<link rel="stylesheet" type="text/css" href="ViewerHome.css" />
+	<link rel="stylesheet" type="text/css" href="VistaPrincipal.css" />
 </head>
 <body>
 <div id="contenedor">
