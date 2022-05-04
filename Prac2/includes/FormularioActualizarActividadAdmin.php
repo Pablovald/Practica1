@@ -2,18 +2,20 @@
 namespace es\fdi\ucm\aw;
 require_once __DIR__.'/subidaImagenes.php';
 
-class FormularioActividadAdmin extends Form
+class FormularioActualizarActividadAdmin extends Form
 {
     public function __construct() {
-        parent::__construct('formularioActividadAdmin');
+        parent::__construct('formularioActualizarActividadAdmin');
     }
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
-        $nombre = $datos['nombre'] ?? '';
-        $descripcion = $datos['descripcion'] ?? '';
-        $imagen = $datos['imagen'] ?? '';
-        $info = $datos['info'] ?? '';
+
+        $nombre = $_GET['actividad'];
+        $actividad = Actividad::buscaActividad($nombre);
+        $descripcion = $actividad->getDescripcion();
+        $imagen = $actividad->getrutaFoto();
+        $info = $actividad->getInfo();
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -29,7 +31,7 @@ class FormularioActividadAdmin extends Form
             $htmlErroresGlobales
             <div class='grupo-control'>
                 <label>Nombre:</label>
-                <input class='control' type='text' name='nombre' value='$nombre' required/>$errorNombre
+                <input class='control' type='text' name='nombre' value='$nombre' readonly/>$errorNombre
             </div>
             <div class='grupo-control'>
                 <label>Descripcion:</label>
@@ -44,7 +46,7 @@ class FormularioActividadAdmin extends Form
                 <input class='control' type='text' name='info' value='$info' required/>$errorInfo
             </div>
 			<div class='submit'>
-            <button type='submit' name='Añadir Actividad'>Añadir</button>
+            <button type='submit' name='Añadir Actividad'>Actualizar</button>
 			</div>
         </div>";
         return $html;
@@ -75,7 +77,7 @@ class FormularioActividadAdmin extends Form
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
                 if($_SESSION['esAdmin']){
-                    $actividad = Actividad::insertaActividad($nombre, $descripcion, $rutaFoto, $info);
+                    $actividad = Actividad::creaActividad($nombre, $descripcion, $rutaFoto, $info);
                     if(!$actividad){
                         $result[] ='No se ha podido crear la actividad';
                     }

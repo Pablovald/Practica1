@@ -20,17 +20,12 @@ if(isset($_GET['estadoAct'])){
     $nombre = htmlspecialchars($_GET["nombre"]);
     if($estadoAct == "error"){
         $contenidoPrincipal .= <<<EOS
-        <h1>¡Error al actualizar la actividad: "$nombre"!<h1>
+        <h1>¡La actividad: "$nombre" ya existe!<h1>
         EOS;
     }
     else if($estadoAct == "exito"){
         $contenidoPrincipal .= <<<EOS
         <h1>¡La actividad: "$nombre" se insertó correctamente!<h1>
-        EOS;
-    }
-    else if($estadoAct == "actualizado"){
-        $contenidoPrincipal .= <<<EOS
-        <h1>¡La actividad: "$nombre" se actualizó correctamente!<h1>
         EOS;
     }
 }
@@ -54,6 +49,12 @@ if(isset($_GET['estadoCur'])){
         <h1>¡El curso: "$curso" asociado al actividad: "$nombre" se insertó correctamente!<h1>
         EOS;
     }
+    else if($estadoCur == "error"){
+        $contenidoPrincipal .= <<<EOS
+        <h1>¡Error!</h1>
+        <h1>¡El curso: "$curso" asociado al actividad: "$nombre" ya existe!<h1>
+        EOS;
+    }
     else if($estadoCur == "actualizado"){
         $contenidoPrincipal .= <<<EOS
         <h1>¡El curso: "$curso" asociado al actividad: "$nombre" se actualizó correctamente!<h1>
@@ -64,6 +65,7 @@ if(isset($_GET['estadoCur'])){
         <h1>¡Error al actualizar el curso: "$curso" asociado al actividad: "$nombre"!<h1>
         EOS;
     }
+
 }
 $contenidoPrincipal .="</br>";
 
@@ -100,6 +102,12 @@ if(isset($_GET['estadoCap'])){
     else if($estadoCap == "error"){
         $contenidoPrincipal .= <<<EOS
         <h1>¡Error el curso: "$curso" asociado al actividad: "$nombre" no existe en la BD!<h1>
+        EOS;
+    }
+    else if($estadoCap == "errorCap"){
+        $contenidoPrincipal .= <<<EOS
+        <h1>¡El curso: "$curso" asociado al actividad : "$nombre" con fecha "$fecha" ya esta en la BD!<h1>
+        <h1>¡Por favor, elige otra fecha!
         EOS;
     }
 }
