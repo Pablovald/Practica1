@@ -39,6 +39,53 @@ class Usuario
         $this->correo = $correo;
     }
 
+    //Muestra el perfil de un usuario
+    public static function perfilUsuario($nombreUsuario){
+        $usuario = self::buscaUsuario($nombreUsuario);
+        $listado = self::infoUsuario($nombreUsuario);
+        $contenidoPrincipal = "
+        <div class='perfil'>
+            <div class='header'>
+                <div class='portada'>
+                        <img class = 'avatar' src='". $usuario->RutaFoto."' alt='Foto'>
+                </div>
+            </div>
+            <div class='body'>
+                <div class='bio'>
+                <h3>¡Bienvenido ". $usuario->nombreUsuario." a tu perfil!</h3>
+                <p>Descripción detalla del usuario</p>
+                <div class='datos1'>
+                    <li><span>Nombre: </span>". $usuario->nombre."</li>
+                    <li><span>Apellido: </span>". $usuario->apellido."</li>
+                    <li><span>Correo: </span>".  $usuario->correo."</li>
+                </div>
+                <div class='datos2'>
+                    <li><span>Telefono: </span>".  $usuario->Telefono."</li>
+                    <li><span>Nacionalidad: </span>".  $usuario->Nacionalidad."</li>
+                    <li><span>Fecha de nacimiento: </span>".  $usuario->FechaNac."</li>
+                </div>
+                <div class='datos3'>
+                    <a class='adatos3' href='Perfil.php?editar=true'>Editar perfil <img class='icon-datos3' src='img/editar.png'></a>
+                </div>
+                    </div>
+                <div class='footer'>
+                    $listado
+                </div>
+                <div class='datos'>
+                    <h1>Valoraciones</h1>
+                    <p>Valoración 1</p>
+                    <p>Valoracion 2</p>
+                </div>
+            </div>
+            </div>
+            </div>
+            
+        </div>
+        ";
+
+        return $contenidoPrincipal;
+    }
+
     //Si no es admin, muestra todas las actividades y hoteles reservados por el usuario
     //En caso contrario muestra diferentes enlaces para añadir por ejemplo nuevas actividades
     public static function infoUsuario($nombreUsuario){
