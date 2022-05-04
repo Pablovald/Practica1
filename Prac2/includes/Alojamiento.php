@@ -138,7 +138,7 @@ class Alojamiento
                     $contenido=$row->fetch_assoc();
                     $url=rawurlencode("$contenido[nombre]");
                     $leftCont =  "<div><td>
-                        <a href ="."alojamiento.php?alojamiento=".$url."><img src= '$contenido[rutaFoto]' width='667' height='400'> </a>
+                        <a href ="."alojamiento.php?alojamiento=".$url."><img class='img-pag-prin' src= '$contenido[rutaFoto]'> </a>
                             </td></div>";
                     $rightCont = "<div><td>
                     <h2><a href = "."alojamiento.php?alojamiento=".$url.">"."$contenido[nombre]"." </a></h2>
