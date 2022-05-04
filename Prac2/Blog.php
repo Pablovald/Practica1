@@ -1,11 +1,11 @@
 <?php
-
+namespace es\fdi\ucm\aw;
 require_once __DIR__.'/includes/config.php';
 
 
 $tituloPagina = 'Blog';
 $tituloCabecera = 'BLOG';
-$contenidoPrincipal = es\fdi\ucm\aw\entradaBlog::blog();
+$contenidoPrincipal = entradaBlog::blog();
 
 
 include __DIR__.'/includes/plantillas/plantillaBlog.php';
