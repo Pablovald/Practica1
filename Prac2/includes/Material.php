@@ -46,7 +46,7 @@ class Material
             </div>
             <p>"."$rs[desc_det]</p><br/>
             <p>"." <precio>Precio del producto: </precio>"." $rs[precio] "." €</p>
-            <link rel='stylesheet' href='material.css'>
+            <link rel='stylesheet' href='css/material.css'>
             ";
 
                  $Cont .= "
@@ -265,7 +265,7 @@ class Material
                 $total = 0;
                  $ContenidoPrincipal = <<< EOS
                  <head>
-                 <link rel='stylesheet' type="text/css" href='carrito.css'>
+                 <link rel='stylesheet' type="text/css" href='css/carrito.css'>
                  </head>
                 <div class='columns'>
                     <div class='column'>
