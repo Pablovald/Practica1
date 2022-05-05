@@ -421,6 +421,26 @@ class Alojamiento
         return $result;
     }
 
+    public static function borrarAlojamiento($nombre){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query=(sprintf("DELETE FROM Alojamiento WHERE nombre= '%s'",$conn->real_escape_string($nombre)));
+        $query2=(sprintf("DELETE FROM Habitaciones WHERE nombre_alojamiento= '%s'",$conn->real_escape_string($nombre)));
+        $query3=(sprintf("DELETE FROM listaAlojamiento WHERE nombreAlojamiento= '%s'",$conn->real_escape_string($nombre)));
+
+        if ($conn->query($query)&&$conn->query($query2)&&$conn->query($query3)) {
+            if ( $conn->affected_rows != 1) {
+                header("Location: Alojamiento_Admin.php?estado=error&nombre=".$nombre."");
+            }
+            else{
+                header("Location: Alojamiento_Admin.php?estado=eliminado&nombre=".$nombre."");
+            }
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        }
+
+    }
+
     public static function guardaCapacidadAlojamiento($capacidadAlojamiento){
         if ($capacidadAlojamiento->IDAlojamiento_Main != null) {
             return self::actualizaCapacidadAlojamiento($capacidadAlojamiento);
