@@ -187,15 +187,23 @@ $(document).ready(function() {
 
 	});
 	
+	//El precio y la hora se cambia segun el curso
 	$("#campoCurso").change(function(){
-
 		var url = "comprobarUsuario.php?actividad=" + $("#campoActividad").val() + "&curso=" +  $("#campoCurso").val();
 		$.get( url , function( data ) {
 			var arrayDeNum = data.split(' ');
 			$("#campoHora").val(arrayDeNum[0]);
 			$("#campoPrecio").val(arrayDeNum[1]);
 		  });
+	});
 
+	//Borrar una actividad
+	$("#borrarActividad").click(function(){
+		var url = "comprobarUsuario.php?nombre=" + $("#nombreActividad").val() + "&estado=borrarActividad";
+		$.get( url , function( data ) {
+			alert("¡La actividad: '" + $("#nombreActividad").val() + "' se borro correctamente!");
+			window.location.href = "Actividades_Main.php";
+		  });
 	});
 
 	// Comprueba si es un DNI correcto (entre 5 y 8 letras seguidas de la letra que corresponda).

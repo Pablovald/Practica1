@@ -32,7 +32,7 @@ class FormularioCapacidadActividadAdmin extends Form
             </div>
             <div class='grupo-control'>
                 <label>Curso:</label>
-                <select name='curso' id='campoCurso'>
+                <select name='curso'>
                 ".Actividad::cursosDeActividadDinamico($nombre)."
                 </select>
             </div>

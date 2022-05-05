@@ -98,7 +98,7 @@ class Usuario
             if($rs){
                 $textoActividad = "<h1>Listado de <span>actividades</span> inscritas</h1>";
                 if($rs->num_rows == 0){
-                    $textoActividad .= "<p>No se ha inscrito en ninguna de las actividades</p>";
+                    $textoActividad .= "<p>No has inscrito en ninguna de las actividades</p>";
                 }
                 else{
                     for($i=0;$i<$rs->num_rows;$i++){
@@ -112,7 +112,7 @@ class Usuario
                 if($rs){
                     $textoAlojamiento = "<h1>Listado de <span>hoteles</span> reservados</h1>";
                     if($rs->num_rows == 0){
-                        $textoAlojamiento .= "<p>No se ha inscrito en ningun hotel</p>";
+                        $textoAlojamiento .= "<p>No has inscrito en ningun hotel</p>";
                     }
                     else{
                         for($i=0;$i<$rs->num_rows;$i++){

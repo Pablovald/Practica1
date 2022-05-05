@@ -22,12 +22,12 @@ class FormularioActualizarCursoActividadAdmin extends Form
         $actividad = $_GET['actividad'];
         $html ="
         <div class='content'>
-            <legend>Formulario de <span>insertar un curso</span> asociado a una actividad</legend></br>
+            <legend>Formulario de <span>actualizar un curso</span> asociado a una actividad</legend></br>
 			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>
-                <label>Nombre de la Actividad:</label>
-                <input class='control' type='text' name='nombre' value='$nombre'readonly/>
+                <label>Nombre de la Actividad :</label>
+                <input class='control' type='text' name='nombre' value='$nombre' id='campoActividad' readonly/>
                 </select>
             </div>
             <div class='grupo-control'>

@@ -824,6 +824,16 @@ class Actividad
         return $cont;
     }
 
+    //Borra una actividad y todo lo relacionado
+    public static function borrarActividad($nombre){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $rs = $conn->query(sprintf("DELETE FROM Actividades A WHERE A.Nombre = '%s'", $conn->real_escape_string($nombre)));
+        $rs = $conn->query(sprintf("DELETE FROM CursosActividades C WHERE C.nombre_actividad = '%s'", $conn->real_escape_string($nombre)));
+        $rs = $conn->query(sprintf("DELETE FROM CapacidadActividad U WHERE U.Nombre = '%s'", $conn->real_escape_string($nombre)));
+        $rs = $conn->query(sprintf("DELETE FROM ListaActividades L WHERE L.nombre = '%s'", $conn->real_escape_string($nombre)));
+    }
+
 
     //Acontinuacion vienen los getters y los setters
     public function getId()

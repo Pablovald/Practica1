@@ -23,5 +23,11 @@
 			echo $cursos;
 		}
 	}
-	
+	if(isset($_REQUEST["estado"])){
+		$estado = $_REQUEST["estado"];
+		if(strcmp($estado, "borrarActividad") == 0){
+			es\fdi\ucm\aw\Actividad::borrarActividad($_REQUEST["nombre"]);
+		}
+
+	}
 ?>

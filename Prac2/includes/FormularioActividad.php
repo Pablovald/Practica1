@@ -35,14 +35,14 @@ class FormularioActividad extends Form
             $htmlErroresGlobales
             <div class='grupo-control'>
                 <label>Actividad:</label>
-                <input class='control' type='text' name='actividad' value='$nombreActividad' readonly/>
+                <input class='control' type='text' name='actividad' value='$nombreActividad' id='nombreActividad'readonly/>
             </div>
             <div class='grupo-control'>
                 <label>Nombre completo:</label>
                 <input class='control' type='text' name='nombre' value='$nombreUsuario' required/>$errorNombreUsuario
             </div>
             <div class='grupo-control'>
-                <label>DNI:</label>
+                <label>DNI/NIE:</label>
                 <input class='control' type='text' name='dni' value='$dni' id='campoDNI' required/>$errorDni
                 <p id='DNIOK'>&#x2714;</p><p id='DNIMal'>&#x274c;</p>
             </div>
