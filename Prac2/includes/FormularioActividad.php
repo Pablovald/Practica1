@@ -18,7 +18,9 @@ class FormularioActividad extends Form
         $fechaNac = $datos['fechaNac'] ?? '';
         $telefono = $datos['telefono'] ?? '';
         $nombreActividad = $_GET["actividad"] ?? '';
-
+        $cursos = "";
+        $horas = "";
+        Actividad::selectCursoHoraActividad($nombreActividad, $cursos, $horas);
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
@@ -41,7 +43,8 @@ class FormularioActividad extends Form
             </div>
             <div class='grupo-control'>
                 <label>DNI:</label>
-                <input class='control' type='text' name='dni' value='$dni' required/>$errorDni
+                <input class='control' type='text' name='dni' value='$dni' id='campoDNI' required/>$errorDni
+                <p id='DNIOK'>&#x2714;</p><p id='DNIMal'>&#x274c;</p>
             </div>
             <div class='grupo-control'>
                 <label>Correo:</label>
@@ -54,14 +57,21 @@ class FormularioActividad extends Form
             </div>
             <div class='grupo-control'>
                 <label>Telefono:</label>
-                <input class='control' type='text' name='telefono' value='$telefono' required/>$errorTelefono
+                <input class='control' type='number' name='telefono' value='$telefono' id='campoTelefono' required/>$errorTelefono
+                <p id='telefonoOK'>&#x2714;</p><p id='telefonoMal'>&#x274c;</p>
             </div>
 			<div class='grupo-control'>
-            <label for='curso'>Selecciona el curso:</label>
-            <select name='curso'>'
-            ".Actividad::cursoActividad($nombreActividad)."
-            </select>
+                <label for='curso'>Selecciona el curso:</label>
+                <select name='curso'>'
+                ".$cursos."
+                </select>
 			</div>
+            <div class='grupo-control'>
+                <label>Horas:</label>
+                <select name='horas'>'
+                ".$horas."
+                </select>
+            </div>
             <div class='grupo-control'>
                 <label>Fechas clase:</label>
                 <input class='control' type='date' name='dia' value='$hoy' required/>
@@ -92,6 +102,7 @@ class FormularioActividad extends Form
         $telefono =$datos['telefono'] ?? null;
         $curso =$datos['curso'] ?? null;
         $dia =$datos['dia'] ?? null;
+        $horas =$datos['horas'] ?? null;
 
         if(empty($nombre)){
             $result['nombre'] = "El nombre no puede estar vacio";
@@ -114,11 +125,13 @@ class FormularioActividad extends Form
         if(empty($dia)){
             $result['dia'] = "El curso no puede estar vacio";
         }
-
+        if(empty($horas)){
+            $result['dia'] = "El hora no puede estar vacio";
+        }
 
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
-                Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result);
+                Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result, $horas);
             }
             else{
                 header("Location: actividad.php?actividad=".$nombreActividad."&estado=faltaLogin");

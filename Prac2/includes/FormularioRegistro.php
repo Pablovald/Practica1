@@ -22,16 +22,18 @@ class FormularioRegistro extends Form
         $html = <<<EOS
             $htmlErroresGlobales
             <div class="grupo-control">
-                <input class="control" type="text" name="nombreUsuario" placeholder="Nombre de usuario"value="$nombreUsuario" />$errorNombreUsuario
+                <input class="control" type="text" name="nombreUsuario" placeholder="Nombre de usuario" id="campoUser" value="$nombreUsuario" required/>$errorNombreUsuario
+                <p id="userOK">&#x2714;</p><p id="userMal">&#x274c;</p>
             </div>
             <div class="grupo-control">
-                <input class="control" type="text" name="nombre" placeholder="Nombre completo" value="$nombre" />$errorNombre
+                <input class="control" type="text" name="nombre" placeholder="Nombre completo" id="campoUserName" value="$nombre" required/>$errorNombre
+                <p id="userNameOK">&#x2714;</p><p id="userNameMal">&#x274c;</p>
             </div>
             <div class="grupo-control">
-                <input class="control" type="password" name="password" placeholder="Contraseña"/>$errorPassword
+                <input class="control" type="password" name="password" placeholder="Contraseña" id="campoPass1" required/>$errorPassword
             </div>
             <div class="grupo-control">
-                <input class="control" type="password" name="password2" placeholder="Reintroduce tu contraseña"/>$errorPassword2
+                <input class="control" type="password" name="password2" placeholder="Reintroduce tu contraseña" id="campoPass2" required/>$errorPassword2
             </div>
             <div class="grupo-control"><button type="submit" name="registro">Registrar</button></div>
         EOS;

@@ -1,13 +1,11 @@
 <?php
-
 require_once __DIR__.'/includes/config.php';
-
-
 
 $contenidoPrincipal = es\fdi\ucm\aw\Actividad::infoActividad($tituloPagina, $tituloCabecera);
 $form = new es\fdi\ucm\aw\FormularioActividad();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
+//Mensaje relacionado con inscripcion de una actividad
 if(isset($_GET["estado"])){
     $estado = htmlspecialchars($_GET["estado"]);
     if(isset($_GET["actividad"]) && isset($_GET["dia"]) && isset($_GET["curso"])){
@@ -19,10 +17,14 @@ if(isset($_GET["estado"])){
             <h1>¡Inscrito correctamente en $nombreActividad de $cursoActividad en el dia $solicitud_dia!</h1>
         EOS;
         }
-        else if($estado == "fechaError"){
+        else if($estado == "error"){
             $contenidoPrincipal .= <<<EOS
-            <h1>¡La fecha: "$solicitud_dia" no es válida!</h1>
-            <h1>¡Por favor selecciona una fecha válida!</h1>
+            <h1>¡La fecha: "$solicitud_dia" no es válida o que la hora seleccionada no es válida!</h1>
+        EOS;
+        }
+        else if($estado == "capacidadError"){
+            $contenidoPrincipal .= <<<EOS
+            <h1>¡Para la fecha: "$solicitud_dia" no quedan plazas!</h1>
         EOS;
         }
     }
@@ -33,5 +35,27 @@ if(isset($_GET["estado"])){
     EOS;
     }
 }
+
+if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
+    $contenidoPrincipal .= <<<EOS
+    <div class='submit'>
+        <a href='ActualizarActividadAdmin.php?actividad=$_GET[actividad]'>
+            <button type='submit'>Actualizar Actividad</button>
+        </a>
+        
+    </div>
+    <div class='submit'>
+        <a href='ActualizarCursoAdmin.php?actividad=$_GET[actividad]'>
+            <button type='submit'>Actualizar Cursos</button>
+        </a>
+    </div>
+    <div class='submit'>
+    <a href='Actualizar_InsertarCapacidadAdmin.php?actividad=$_GET[actividad]'>
+        <button type='submit'>Actualizar/Insertar Capacidad</button>
+    </a>
+    </div>
+    EOS;
+}
+
 
 include __DIR__.'/includes/plantillas/plantilla.php';

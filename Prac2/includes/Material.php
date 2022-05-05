@@ -395,5 +395,44 @@ class Material
         return $sentencia;
     }
 
+    public static function totalMateriales()
+    {
+        $mat = array();
+
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaMaterial_Main=sprintf("SELECT * FROM Materiales");
+        $rs =$conn->query($tablaMaterial_Main);
+        $tableCont="<tr>";
+        $j=0;
+        for($i=1;$i<=$rs->num_rows;$i++){
+            $row=$conn->query(sprintf("SELECT * FROM Materiales M WHERE M.id = '$i'"));
+            $contenido=$row->fetch_assoc();
+            array_push($mat, $contenido["nombre"]);
+            $row->free();
+        }
+
+        return $mat;
+    }
+
+    public static function borrarMaterial($id_producto){
+        // primero debemos eliminar el material de todas las tablas de carritos en las que aparezca
+        // una vez borrado de todos los carritos, podemos proceder a eliminarlo de la tabla de materiales (haria falta también resetear el auto_increment)
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $sentencia=$conn->query(sprintf("DELETE FROM Carrito C WHERE '$id_producto' = C.id_producto")); // borramos todas las filas en las que aparece
+
+        $sentencia2=$conn->query(sprintf("DELETE FROM Materiales M WHERE '$id_producto' = M.id"));
+    }
+
+    public static function sacaIdProducto($nombre){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $row=$conn->query(sprintf("SELECT id FROM Materiales M WHERE M.nombre = '$nombre'"));
+        $id_prod = $row->fetch_assoc();
+
+        return $id_prod;
+    }
+
 }
 ?>

@@ -1,7 +1,21 @@
 <nav>
 <ul>
 	<li><a href=home.php>Home</a></li>
-    <li><a href=Blog.php>Blog</a></li>
+    <li><a href=Blog.php>Blog</a>
+	<?php
+		
+		if(isset($_SESSION["login"])){
+			if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
+				$contenido = <<<EOF
+				<ul class="submenu">
+				<li><a href="Blog_Admin.php">eliminar entradas</a></li>
+				</ul></li>
+			EOF;
+			echo $contenido;
+			}
+		}
+
+	?></li>
     <li><a href=Actividades_Main.php>Actividades</a>
 	<?php
 		
@@ -25,6 +39,7 @@
 			$contenido = <<<EOF
 			<ul class="submenu">
 			<li><a href="Material_Admin.php">Añadir materiales</a></li>
+			<li><a href="BorraMaterial.php">Eliminar un material</a></li>
 			</ul></li>
 			EOF;
 			echo $contenido;
