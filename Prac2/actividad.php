@@ -56,6 +56,12 @@ if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']
     </div>
     </div>
         <div class='submit'>
+        <a href='EliminarCursoAdmin.php?actividad=$_GET[actividad]'>
+        <button type='submit'>Eliminar Curso</button>
+        </a>
+    </div>
+    </div>
+        <div class='submit'>
         <button id='borrarActividad'>Borrar Actividad</button>
     </div>
     EOS;

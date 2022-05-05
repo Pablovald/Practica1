@@ -201,8 +201,10 @@ $(document).ready(function() {
 	$("#borrarActividad").click(function(){
 		var url = "comprobarUsuario.php?nombre=" + $("#nombreActividad").val() + "&estado=borrarActividad";
 		$.get( url , function( data ) {
-			alert("¡La actividad: '" + $("#nombreActividad").val() + "' se borro correctamente!");
-			window.location.href = "Actividades_Main.php";
+			if(data == "exito"){
+				alert("¡La actividad: '" + $("#nombreActividad").val() + "' se borro correctamente!");
+				window.location.href = "Actividades_Main.php";
+			}
 		  });
 	});
 

@@ -832,8 +832,24 @@ class Actividad
         $rs = $conn->query(sprintf("DELETE FROM CursosActividades C WHERE C.nombre_actividad = '%s'", $conn->real_escape_string($nombre)));
         $rs = $conn->query(sprintf("DELETE FROM CapacidadActividad U WHERE U.Nombre = '%s'", $conn->real_escape_string($nombre)));
         $rs = $conn->query(sprintf("DELETE FROM ListaActividades L WHERE L.nombre = '%s'", $conn->real_escape_string($nombre)));
+        return "exito";
     }
 
+    //Borrar el curso seleccionado
+    public static function borrarCursosActividad($nombre, $curso){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $rs = $conn->query(sprintf("DELETE FROM CursosActividades C WHERE C.nombre_actividad = '%s' AND C.nombre_curso='%s'"
+        , $conn->real_escape_string($nombre)
+        , $conn->real_escape_string($curso)));
+        $rs = $conn->query(sprintf("DELETE FROM CapacidadActividad U WHERE U.Nombre = '%s' AND U.Curso='%s'"
+        , $conn->real_escape_string($nombre)
+        , $conn->real_escape_string($curso)));
+        $rs = $conn->query(sprintf("DELETE FROM ListaActividades L WHERE L.nombre = '%s' AND L.curso='%s'"
+        , $conn->real_escape_string($nombre)
+        , $conn->real_escape_string($curso)));
+        header("Location: EliminarCursoAdmin.php?estadoElim=exito&actividad=".$nombre."&curso=".$curso."");
+    }
 
     //Acontinuacion vienen los getters y los setters
     public function getId()
