@@ -24,7 +24,6 @@ class FormularioPerfil extends Form
         $errorNombre = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
         $errorApellido = self::createMensajeError($errores, 'apellido', 'span', array('class' => 'error'));
         $errorFechaNac = self::createMensajeError($errores, 'fechaNac', 'span', array('class' => 'error'));
-        $errorNacionalidad = self::createMensajeError($errores, 'nacionalidad', 'span', array('class' => 'error'));
         $errorTelefono = self::createMensajeError($errores, 'telefono', 'span', array('class' => 'error'));
         $errorImagen = self::createMensajeError($errores, 'imagen', 'span', array('class' => 'error'));
         $errorCorreo = self::createMensajeError($errores, 'correo', 'span', array('class' => 'error'));
@@ -44,7 +43,8 @@ class FormularioPerfil extends Form
             </div>
             <div class='grupo-control'>
                 <label>Correo:</label>
-                <input class='control' type='text' name='correo' value='$correo' required/>$errorCorreo
+                <input class='control' type='text' name='correo' value='$correo' id='campoEmail' required/>$errorCorreo
+                <p id='correoOK'>&#x2714;</p><p id='correoMal'>&#x274c;</p>
             </div>
             <div class='grupo-control'>
             <label>Fecha de Nacimiento:</label>
@@ -52,11 +52,14 @@ class FormularioPerfil extends Form
             </div>
             <div class='grupo-control'>
                 <label>Teléfono:</label>
-                <input class='control' type='text' name='telefono' value='$telefono' required/>$errorTelefono
+                <input class='control' type='text' name='telefono' value='$telefono' id='campoTelefono' required/>$errorTelefono
+                <p id='telefonoOK'>&#x2714;</p><p id='telefonoMal'>&#x274c;</p>
             </div>
             <div class='grupo-control'>
                 <label>Nacionalidad:</label>
-                <input class='control' type='text' name='nacionalidad' value='$nacionalidad' required/>$errorNacionalidad
+                <select name='nacionalidad'>
+                ".Usuario::nacionalidad($usuario)."
+                </select>
             </div>
             <div class='seleccion'>
                 <label>Imagen del avatar: </label>

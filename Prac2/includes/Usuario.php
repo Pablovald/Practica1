@@ -1,6 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
-
+require 'Comentarios.php';
 class Usuario
 {
     private $id;
@@ -43,6 +43,7 @@ class Usuario
     public static function perfilUsuario($nombreUsuario){
         $usuario = self::buscaUsuario($nombreUsuario);
         $listado = self::infoUsuario($nombreUsuario);
+        $comentarios=Comentario::mostrarTodosPerfil(self::buscaIdDelUsuario($_SESSION['nombreUsuario']));
         $contenidoPrincipal = "
         <div class='perfil'>
             <div class='header'>
@@ -71,10 +72,9 @@ class Usuario
                 <div class='footer'>
                     $listado
                 </div>
-                <div class='datos'>
-                    <h1>Valoraciones</h1>
-                    <p>Valoración 1</p>
-                    <p>Valoracion 2</p>
+                <div class='footer2'>
+                    <h1>Comentarios</h1>".
+                    $comentarios."
                 </div>
             </div>
             </div>
@@ -315,6 +315,40 @@ class Usuario
             return false;
         }
         return true;
+    }
+    public static function buscaIdDelUsuario($nombreUsuario)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario = '%s'", $conn->real_escape_string($nombreUsuario));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ( $rs->num_rows == 1) {
+                $fila = $rs->fetch_assoc();
+                $result = $fila['id'];
+            }
+            $rs->free();
+        } else {
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $result;
+    }
+
+    //Diferentes paises para seleccionar la nacionalidad
+    public static function nacionalidad($usuario){
+        $result= "";
+        $paises = array("Afganistán","Albania","Alemania","Andorra","Angola","Antigua y Barbuda","Arabia Saudita","Argelia","Argentina","Armenia","Australia","Austria","Azerbaiyán","Bahamas","Bangladés","Barbados","Baréin","Bélgica","Belice","Benín","Bielorrusia","Birmania","Bolivia","Bosnia y Herzegovina","Botsuana","Brasil","Brunéi","Bulgaria","Burkina Faso","Burundi","Bután","Cabo Verde","Camboya","Camerún","Canadá","Catar","Chad","Chile","China","Chipre","Ciudad del Vaticano","Colombia","Comoras","Corea del Norte","Corea del Sur","Costa de Marfil","Costa Rica","Croacia","Cuba","Dinamarca","Dominica","Ecuador","Egipto","El Salvador","Emiratos Árabes Unidos","Eritrea","Eslovaquia","Eslovenia","España","Estados Unidos","Estonia","Etiopía","Filipinas","Finlandia","Fiyi","Francia","Gabón","Gambia","Georgia","Ghana","Granada","Grecia","Guatemala","Guyana","Guinea","Guinea ecuatorial","Guinea-Bisáu","Haití","Honduras","Hungría","India","Indonesia","Irak","Irán","Irlanda","Islandia","Islas Marshall","Islas Salomón","Israel","Italia","Jamaica","Japón","Jordania","Kazajistán","Kenia","Kirguistán","Kiribati","Kuwait","Laos","Lesoto","Letonia","Líbano","Liberia","Libia","Liechtenstein","Lituania","Luxemburgo","Madagascar","Malasia","Malaui","Maldivas","Malí","Malta","Marruecos","Mauricio","Mauritania","México","Micronesia","Moldavia","Mónaco","Mongolia","Montenegro","Mozambique","Namibia","Nauru","Nepal","Nicaragua","Níger","Nigeria","Noruega","Nueva Zelanda","Omán","Países Bajos","Pakistán","Palaos","Palestina","Panamá","Papúa Nueva Guinea","Paraguay","Perú","Polonia","Portugal","Reino Unido","República Centroafricana","República Checa","República de Macedonia","República del Congo","República Democrática del Congo","República Dominicana","República Sudafricana","Ruanda","Rumanía","Rusia","Samoa","San Cristóbal y Nieves","San Marino","San Vicente y las Granadinas","Santa Lucía","Santo Tomé y Príncipe","Senegal","Serbia","Seychelles","Sierra Leona","Singapur","Siria","Somalia","Sri Lanka","Suazilandia","Sudán","Sudán del Sur","Suecia","Suiza","Surinam","Tailandia","Tanzania","Tayikistán","Timor Oriental","Togo","Tonga","Trinidad y Tobago","Túnez","Turkmenistán","Turquía","Tuvalu","Ucrania","Uganda","Uruguay","Uzbekistán","Vanuatu","Venezuela","Vietnam","Yemen","Yibuti","Zambia","Zimbabue");
+        foreach($paises as $i){
+            if(strcmp($i, $usuario->Nacionalidad) == 0){
+                $result .= "<option selected='selected'>".$i."</option>";
+            }
+            else{
+                $result .= "<option>".$i."</option>";
+            }
+        }
+        return $result;
     }
 
     //Getters

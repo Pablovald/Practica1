@@ -10,6 +10,10 @@ $(document).ready(function() {
 	$("#telefonoMal").hide();
 	$("#DNIOK").hide();
 	$("#DNIMal").hide();
+	$("#insertarNombreActividadOK").hide();
+	$("#insertarNombreActividadMal").hide();
+	$("#campoNombreCursoOK").hide();
+	$("#campoNombreCursoMal").hide();
 
 	$("#campoEmail").change(function(){
 		const campo = $("#campoEmail"); // referencia jquery al campo
@@ -187,6 +191,61 @@ $(document).ready(function() {
 
 	});
 	
+	//Comprueba si el nombre de la actividad ya existe en la BD o no
+	$("#insertarNombreActividad").change(function(){
+		const campo = $("#insertarNombreActividad"); // referencia jquery al campo
+		campo[0].setCustomValidity(""); // limpia validaciones previas
+
+		// validación html5, porque el campo es <input type="email" ...>
+		const esNombreValido = campo[0].checkValidity();
+		var url = "comprobarUsuario.php?actividad=" + $("#insertarNombreActividad").val();
+		$.get( url , function( data ) {
+			if (esNombreValido && data == "disponible") {
+				// el correo es válido y acaba por @ucm.es: marcamos y limpiamos quejas
+			
+				// tu código aquí: coloca la marca correcta
+				$("#insertarNombreActividadMal").hide();
+				$("#insertarNombreActividadOK").show();
+				campo[0].setCustomValidity("");
+			} else {			
+				// correo invalido: ponemos una marca y nos quejamos
+	
+				// tu código aquí: coloca la marca correcta
+				$("#insertarNombreActividadOK").hide();
+				$("#insertarNombreActividadMal").show();
+				campo[0].setCustomValidity(
+					"¡La actividad ya existe!");
+			}
+		  });
+	});
+	
+	$("#campoNombreCurso").change(function(){
+		const campo = $("#campoNombreCurso"); // referencia jquery al campo
+		campo[0].setCustomValidity(""); // limpia validaciones previas
+
+		// validación html5, porque el campo es <input type="email" ...>
+		const esNombreValido = campo[0].checkValidity();
+		var url = "comprobarUsuario.php?actividad=" + $("#campoNombreCursoActividad").val() +"&curso=" + $("#campoNombreCurso").val() + "&usuario=admin";
+		$.get( url , function( data ) {
+			if (esNombreValido && data == "disponible") {
+				// el correo es válido y acaba por @ucm.es: marcamos y limpiamos quejas
+			
+				// tu código aquí: coloca la marca correcta
+				$("#campoNombreCursoMal").hide();
+				$("#campoNombreCursoOK").show();
+				campo[0].setCustomValidity("");
+			} else {			
+				// correo invalido: ponemos una marca y nos quejamos
+	
+				// tu código aquí: coloca la marca correcta
+				$("#campoNombreCursoOK").hide();
+				$("#campoNombreCursoMal").show();
+				campo[0].setCustomValidity(
+					"¡El curso ya existe!");
+			}
+		  });
+	});
+
 	//El precio y la hora se cambia segun el curso
 	$("#campoCurso").change(function(){
 		var url = "comprobarUsuario.php?actividad=" + $("#campoActividad").val() + "&curso=" +  $("#campoCurso").val();

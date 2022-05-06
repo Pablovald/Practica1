@@ -26,17 +26,18 @@ class FormularioCursoActividadAdmin extends Form
             $htmlErroresGlobales
             <div class='grupo-control'>
                 <label>Nombre de la Actividad:</label>
-                <select name='nombre'>
+                <select name='nombre' id='campoNombreCursoActividad'>
                 ".Actividad::optionActividad()."
                 </select>
             </div>
             <div class='grupo-control'>
                 <label>Curso:</label>
-                <input class='control' type='text' name='curso' value='$curso' required/>$errorCurso
+                <input class='control' type='text' name='curso' value='$curso' id ='campoNombreCurso'required/>$errorCurso
+                <p id='campoNombreCursoOK'>&#x2714;</p><p id='campoNombreCursoMal'>&#x274c;</p>
             </div>
             <div class='grupo-control'>
                 <label>Hora:</label>
-                <input class='control' type='number' name='hora' value='$hora' min='1' required/>$errorHora
+                <input class='control' type='number' name='hora' value='$hora' min='0' required/>$errorHora
             </div>
             <div class='grupo-control'>
                 <label>Precio:</label>

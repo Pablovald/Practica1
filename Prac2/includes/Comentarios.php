@@ -31,7 +31,7 @@ class Comentario{
     private static function inserta($comentario){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO Comentarios(idUsuario,ubicacion,titulo,texto,editado) VALUES ('%s', '%s', '%s','%d')"
+        $query=sprintf("INSERT INTO Comentarios(idUsuario,ubicacion,titulo,texto,editado) VALUES ('%s', '%s', '%s','%s', '%d')"
         , $conn->real_escape_string($comentario->idUsuario)
         , $conn->real_escape_string($comentario->ubicacion)
         , $conn->real_escape_string($comentario->titulo)
@@ -68,20 +68,69 @@ class Comentario{
     return $actualizado;
 
     }
-    public static function mostrarComentario($ubicacion){
+    public static function mostrarComentarioBlog($rs){
+        $comentarios="
+		<div class='contenedor'>
+        <div class='caja-comentario'>
+			<div class='caja-top-comentario'>
+				<div class='perfil-comentario'>
+					<div class='foto-comentario'>
+						<img class='foto-comentario-img' src=$rs[rutaFoto]>
+					</div>
+					<div class='nombre-user-cometario'>
+						<h1>$rs[titulo]</h1>
+						<p class='comen'>@$rs[nombreUsuario]</p>
+					</div>
+				</div>
+				<div class='reseñas-comentario'>
+				</div>
+			</div>
+			<div class='comentarios-comentario'>
+				<p>$rs[texto]</p>
+			</div>
+        </div>
+		</div>
+        ";
+        return $comentarios;
+    }
+    public static function mostrarTodos($ubicacion){
+        $comentarios="";
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $tablaComentarios=sprintf("SELECT * FROM Comentarios C LEFT JOIN Usuarios U ON U.id = C.idUsuario WHERE C.ubicacion = '$ubicacion' ");
+        $tablaComentarios=sprintf("SELECT C.*,U.nombreUsuario,U.rutaFoto FROM Comentarios C RIGHT JOIN Usuarios U ON U.id = C.idUsuario WHERE C.ubicacion = '$ubicacion' ");
         $row=$conn->query($tablaComentarios);
-        $rs=$row->fetch_assoc();
+        $numCom=$row->num_rows;
+        for($i=0;$i<$numCom;$i++){
+            $rs=$row->fetch_assoc();
+            $comentarios.=Comentario::mostrarComentarioBlog($rs);
+        }
+
+        $row->free();
+        return $comentarios;
+    }
+    public static function mostrarComentarioPerfil($rs){
         $comentarios=<<<EOS
         <div>
+            <p>Comentado en el artículo $rs[ubicacion]</p>
             <p>$rs[titulo]</p>
-            <p>$rs[nombreUsuario]</p>
             <p>$rs[texto]</p>
         </div>
         EOS;
-        $row->free();
         return $comentarios;
+    }
+    public static function mostrarTodosPerfil($idUsuario){
+        $comentarios="";
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaComentarios=sprintf("SELECT C.* FROM Comentarios C JOIN Usuarios U ON C.idUsuario = U.id WHERE $idUsuario = C.idUsuario ");
+        $row=$conn->query($tablaComentarios);
+        $numCom=$row->num_rows;
+        for($i=0;$i<$numCom;$i++){
+            $rs=$row->fetch_assoc();
+            $comentarios.=Comentario::mostrarComentarioPerfil($rs);
+        }
+
+        $row->free();
+        return $comentarios; 
     }
 }

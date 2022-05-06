@@ -10,11 +10,34 @@
 		}
 	}
 	if(isset($_REQUEST["actividad"])){
-		$cursos = es\fdi\ucm\aw\Actividad::buscaCursoActividad($_REQUEST["actividad"], $_REQUEST["curso"]);
-		if(!empty($cursos)){
-			$horas = $cursos->getHoras();
-			$precio = $cursos->getPrecio();
-			echo "".$horas." ".$precio."";
+		if(isset($_REQUEST["curso"])){
+			$cursos = es\fdi\ucm\aw\Actividad::buscaCursoActividad($_REQUEST["actividad"], $_REQUEST["curso"]);
+			if(isset($_REQUEST["usuario"])){
+				if(strcmp($_REQUEST["usuario"], "admin") == 0){
+					if($cursos == false){
+						echo "disponible";
+					}
+					else{
+						echo "existe";
+					}
+				}
+			}
+			else{
+				if(!empty($cursos)){
+					$horas = $cursos->getHoras();
+					$precio = $cursos->getPrecio();
+					echo "".$horas." ".$precio."";
+				}
+			}
+		}
+		else{
+			$cursos = es\fdi\ucm\aw\Actividad::buscaActividad($_REQUEST["actividad"]);
+			if($cursos == false){
+				echo "disponible";
+			}
+			else{
+				echo "existe";
+			}
 		}
 	}
 	if(isset($_REQUEST["capacidad"])){
