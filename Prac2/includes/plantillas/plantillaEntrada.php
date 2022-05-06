@@ -22,6 +22,11 @@
 		</div>
 		</article>
 		<article>
+			<div>
+				<?=$formularioComentario?>
+			</div>
+		</article>
+		<article>
 			<div class = "comentarios">
 				<?=$comentarios ?>
 			</div>

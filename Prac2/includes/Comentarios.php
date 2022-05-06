@@ -68,12 +68,7 @@ class Comentario{
     return $actualizado;
 
     }
-    public static function mostrarComentario($ubicacion){
-        $app=Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $tablaComentarios=sprintf("SELECT * FROM Comentarios C LEFT JOIN Usuarios U ON U.id = C.idUsuario WHERE C.ubicacion = '$ubicacion' ");
-        $row=$conn->query($tablaComentarios);
-        $rs=$row->fetch_assoc();
+    public static function mostrarComentario($rs){
         $comentarios=<<<EOS
         <div>
             <p>$rs[titulo]</p>
@@ -81,7 +76,19 @@ class Comentario{
             <p>$rs[texto]</p>
         </div>
         EOS;
-        $row->free();
         return $comentarios;
+    }
+    public static function mostrarTodos($ubicacion,&$comentarios){
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaComentarios=sprintf("SELECT C.*,U.nombreUsuario FROM Comentarios C RIGHT JOIN Usuarios U ON U.id = C.idUsuario WHERE C.ubicacion = '$ubicacion' ");
+        $row=$conn->query($tablaComentarios);
+        $numCom=$row->num_rows;
+        for($i=0;$i<$numCom;$i++){
+            $rs=$row->fetch_assoc();
+            $comentarios.=Comentario::mostrarComentario($rs);
+        }
+
+        $row->free();
     }
 }
