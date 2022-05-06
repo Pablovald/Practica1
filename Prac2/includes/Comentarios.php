@@ -69,14 +69,28 @@ class Comentario{
 
     }
     public static function mostrarComentarioBlog($rs){
-        $comentarios=<<<EOS
-        <div>
-            <img src=$rs[rutaFoto]>
-            <p>$rs[titulo]</p>
-            <p>$rs[nombreUsuario]</p>
-            <p>$rs[texto]</p>
+        $comentarios="
+		<div class='contenedor'>
+        <div class='caja-comentario'>
+			<div class='caja-top-comentario'>
+				<div class='perfil-comentario'>
+					<div class='foto-comentario'>
+						<img class='foto-comentario-img' src=$rs[rutaFoto]>
+					</div>
+					<div class='nombre-user-cometario'>
+						<h1>$rs[titulo]</h1>
+						<p class='comen'>@$rs[nombreUsuario]</p>
+					</div>
+				</div>
+				<div class='reseñas-comentario'>
+				</div>
+			</div>
+			<div class='comentarios-comentario'>
+				<p>$rs[texto]</p>
+			</div>
         </div>
-        EOS;
+		</div>
+        ";
         return $comentarios;
     }
     public static function mostrarTodos($ubicacion){

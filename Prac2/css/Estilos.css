@@ -203,6 +203,17 @@ div.contenedorValoracion textarea{
 	width:100%;
 }
 
+.footer2{
+	margin-top: 25px;
+	display:block;
+	padding: 1.5rem 2rem;
+	box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+	background-color:white;
+	border-radius: 15px;
+	text-align:center;
+	width:100%;
+}
+
 .bio{
 	margin-bottom: 1.5rem;
 }
@@ -488,4 +499,62 @@ textarea{
 	height: 250px;
 	width: 400px;
 	margin-top: 2%;
+ }
+ 
+ /*Comentarios*/
+ .contenedor{
+	 display:flex;
+	 flex-wrap:wrap;
+	 width: 100%;
+	 align-items:center;
+	 justify-content:center;
+	 background-color:#DEDEDE;
+	 
+ }
+ .caja-comentario{
+	 width:1500px;
+	 box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+	 background-color:white;
+	 padding: 10px;
+	 margin: 15px;
+	 cursor:pointer;
+ }
+ 
+ .foto-comentario{
+	 width: 50px;
+	 height: 50px;
+	 border-radius: 50%;
+	 overflow: hidden;
+	 margin-right:30px;
+	 margin-top:-20px;
+ }
+ 
+ .foto-comentario-img{
+	 width:100%;
+	 height:100%; 
+ }
+ 
+ .perfil-comentario{
+	 display:flex;
+	 align-items:center;
+ }
+ 
+ .nombre-user-cometario{
+	 margin-top:-10px;
+ }
+ 
+ .comen{
+	 color: #979797;
+	 font-size:1.1rem;
+ }
+ 
+ .comentarios-comentario{
+	 color: #4b4b4b;
+ }
+ 
+ .caja-top-comentario{
+	 display:flex;
+	 justify-content:space-between;
+	 align-items:center;
+	 margin-bottom: -10px;
  }

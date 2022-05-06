@@ -72,7 +72,7 @@ class Usuario
                 <div class='footer'>
                     $listado
                 </div>
-                <div class='datos'>
+                <div class='footer2'>
                     <h1>Comentarios</h1>".
                     $comentarios."
                 </div>
