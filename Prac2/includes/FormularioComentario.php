@@ -4,7 +4,8 @@ namespace es\fdi\ucm\aw;
 
 class FormularioComentario extends Form{
     public function __construct(){
-        parent::__construct('FormularioComentario');
+        $opciones['action']="procesarEntradaBlog.php?entrada=".htmlspecialchars($_GET['entrada']);
+        parent::__construct('FormularioComentario',$opciones);
     }
 
     protected function generaCamposFormulario($datos, $errores = array()){ 
@@ -20,8 +21,8 @@ class FormularioComentario extends Form{
         <div class="grupo-control">
             <input class="control" type="text" name="titulo" placeholder="Titulo" id="campoTitulo" value="$titulo" required/>$errorTitulo      
         </div>
-        <div class="grupo-control">
-            <textarea" name="texto" placeholder="Comentario" id="campoTexto" required/>$errorTexto
+        <div>
+            <textarea name="texto" placeholder="Comentario" id="campoTexto" required></textarea>$errorTexto
         </div>
         <div class="grupo-control"><button type="submit" name="comentar">Publicar comentario</button></div>
     EOS;  
@@ -38,11 +39,19 @@ class FormularioComentario extends Form{
         }
         $texto = $_POST['texto'] ?? null;
         if (empty($texto)) {
-            $result['texto'] = 'La texto no puede estar vacía.';
+            $result['texto'] = 'El comentario no puede estar vacío.';
         }
         if (count($result) === 0) {
-            $entrada = htmlspecialchars($_GET["entrada"]);
-           $result[] = 'procesarEntradaBlog.php?entrada='.$entrada;
+            $idUser=Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']);
+            $entrada = htmlspecialchars($_GET['entrada']);
+            $ubicacion=entradaBlog::nombreEntrada($entrada);
+            $coment=Comentario::crea($idUser,$ubicacion,$titulo,$texto,false);
+            if(!$entrada){
+                $result[]="Error al publicar el comentario";
+            }else{
+                $result[] = "Comentario publicado con éxito";
+            }
+           
         }
         return $result;
     }

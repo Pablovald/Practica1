@@ -31,7 +31,7 @@ class Comentario{
     private static function inserta($comentario){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO Comentarios(idUsuario,ubicacion,titulo,texto,editado) VALUES ('%s', '%s', '%s','%d')"
+        $query=sprintf("INSERT INTO Comentarios(idUsuario,ubicacion,titulo,texto,editado) VALUES ('%s', '%s', '%s','%s', '%d')"
         , $conn->real_escape_string($comentario->idUsuario)
         , $conn->real_escape_string($comentario->ubicacion)
         , $conn->real_escape_string($comentario->titulo)
@@ -71,6 +71,7 @@ class Comentario{
     public static function mostrarComentario($rs){
         $comentarios=<<<EOS
         <div>
+            <img src=$rs[rutaFoto]>
             <p>$rs[titulo]</p>
             <p>$rs[nombreUsuario]</p>
             <p>$rs[texto]</p>
@@ -81,7 +82,7 @@ class Comentario{
     public static function mostrarTodos($ubicacion,&$comentarios){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $tablaComentarios=sprintf("SELECT C.*,U.nombreUsuario FROM Comentarios C RIGHT JOIN Usuarios U ON U.id = C.idUsuario WHERE C.ubicacion = '$ubicacion' ");
+        $tablaComentarios=sprintf("SELECT C.*,U.nombreUsuario,U.rutaFoto FROM Comentarios C RIGHT JOIN Usuarios U ON U.id = C.idUsuario WHERE C.ubicacion = '$ubicacion' ");
         $row=$conn->query($tablaComentarios);
         $numCom=$row->num_rows;
         for($i=0;$i<$numCom;$i++){

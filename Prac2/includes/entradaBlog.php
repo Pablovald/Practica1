@@ -135,7 +135,7 @@ class entradaBlog{
     }
 
     public static function procesarEntradaBlog(&$tituloPagina, &$tituloCabecera){
-        $entrada = htmlspecialchars($_GET["entrada"]);
+        $entrada = htmlspecialchars($_GET['entrada']);
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $tablaEntrada=sprintf("SELECT * FROM entradasBlog E WHERE E.id = $entrada ");
@@ -192,5 +192,13 @@ class entradaBlog{
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
         }
 
+    }
+    public static function nombreEntrada($id){
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tabla=sprintf("SELECT titulo FROM entradasBlog WHERE id = '$id'");
+        $row = $conn->query($tabla);
+        $rs=$row->fetch_assoc();
+        return $rs['titulo'];
     }
 }
