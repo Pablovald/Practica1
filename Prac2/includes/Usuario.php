@@ -1,6 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
-
+require 'Comentarios.php';
 class Usuario
 {
     private $id;
@@ -43,6 +43,7 @@ class Usuario
     public static function perfilUsuario($nombreUsuario){
         $usuario = self::buscaUsuario($nombreUsuario);
         $listado = self::infoUsuario($nombreUsuario);
+        $comentarios=Comentario::mostrarTodosPerfil(self::buscaIdDelUsuario($_SESSION['nombreUsuario']));
         $contenidoPrincipal = "
         <div class='perfil'>
             <div class='header'>
@@ -72,9 +73,8 @@ class Usuario
                     $listado
                 </div>
                 <div class='datos'>
-                    <h1>Valoraciones</h1>
-                    <p>Valoración 1</p>
-                    <p>Valoracion 2</p>
+                    <h1>Comentarios</h1>".
+                    $comentarios."
                 </div>
             </div>
             </div>

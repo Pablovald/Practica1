@@ -68,7 +68,7 @@ class Comentario{
     return $actualizado;
 
     }
-    public static function mostrarComentario($rs){
+    public static function mostrarComentarioBlog($rs){
         $comentarios=<<<EOS
         <div>
             <img src=$rs[rutaFoto]>
@@ -79,7 +79,8 @@ class Comentario{
         EOS;
         return $comentarios;
     }
-    public static function mostrarTodos($ubicacion,&$comentarios){
+    public static function mostrarTodos($ubicacion){
+        $comentarios="";
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $tablaComentarios=sprintf("SELECT C.*,U.nombreUsuario,U.rutaFoto FROM Comentarios C RIGHT JOIN Usuarios U ON U.id = C.idUsuario WHERE C.ubicacion = '$ubicacion' ");
@@ -87,9 +88,35 @@ class Comentario{
         $numCom=$row->num_rows;
         for($i=0;$i<$numCom;$i++){
             $rs=$row->fetch_assoc();
-            $comentarios.=Comentario::mostrarComentario($rs);
+            $comentarios.=Comentario::mostrarComentarioBlog($rs);
         }
 
         $row->free();
+        return $comentarios;
+    }
+    public static function mostrarComentarioPerfil($rs){
+        $comentarios=<<<EOS
+        <div>
+            <p>Comentado en el artículo $rs[ubicacion]</p>
+            <p>$rs[titulo]</p>
+            <p>$rs[texto]</p>
+        </div>
+        EOS;
+        return $comentarios;
+    }
+    public static function mostrarTodosPerfil($idUsuario){
+        $comentarios="";
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaComentarios=sprintf("SELECT C.* FROM Comentarios C JOIN Usuarios U ON C.idUsuario = U.id WHERE $idUsuario = C.idUsuario ");
+        $row=$conn->query($tablaComentarios);
+        $numCom=$row->num_rows;
+        for($i=0;$i<$numCom;$i++){
+            $rs=$row->fetch_assoc();
+            $comentarios.=Comentario::mostrarComentarioPerfil($rs);
+        }
+
+        $row->free();
+        return $comentarios; 
     }
 }
