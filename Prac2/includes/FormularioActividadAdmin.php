@@ -29,7 +29,8 @@ class FormularioActividadAdmin extends Form
             $htmlErroresGlobales
             <div class='grupo-control'>
                 <label>Nombre:</label>
-                <input class='control' type='text' name='nombre' value='$nombre' required/>$errorNombre
+                <input class='control' type='text' name='nombre' value='$nombre' id = 'insertarNombreActividad'required/>$errorNombre
+                <p id='insertarNombreActividadOK'>&#x2714;</p><p id='insertarNombreActividadMal'>&#x274c;</p>
             </div>
             <div class='grupo-control'>
                 <label>Descripcion:</label>
