@@ -2,10 +2,10 @@
 namespace es\fdi\ucm\aw;
 
 
-class FormularioActualizarCursoActividadAdmin extends Form
+class FormularioEliminarCursoActividadAdmin extends Form
 {
     public function __construct() {
-        parent::__construct('formularioActualizarCursoActividadAdmin');
+        parent::__construct('formularioEliminarCursoActividadAdmin');
     }
     
     protected function generaCamposFormulario($datos, $errores = array())
@@ -33,20 +33,11 @@ class FormularioActualizarCursoActividadAdmin extends Form
             <div class='grupo-control'>
                 <label>Curso:</label>
                 <select name='curso' id='campoCurso'>
-                ".Actividad::cursosDeActividad($nombre, $hora, $precio)."
+                ".Actividad::cursosDeActividadDinamico($nombre)."
                 </select>
             </div>
-            <div class='grupo-control'>
-                <label>Hora:</label>
-                <input class='control' type='number' name='hora' value='$hora' min='1' id='campoHora' required/>$errorHora
-            </div>
-            <div class='grupo-control'>
-                <label>Precio:</label>
-                <input class='control' type='number' name='precio' value='$precio' min='1' id='campoPrecio' required/>$errorPrecio
-            </div>
-			<div class='submit'>
-            <button type='submit' name='Aniadir'>Actualizar Curso</button>
-			</div>
+			    <div class='submit'>
+                <button type='submit' name='Aniadir'>Eliminar Curso</button>
 			</div>
         </div>";
         return $html;
@@ -58,8 +49,6 @@ class FormularioActualizarCursoActividadAdmin extends Form
 
         $nombre = $datos['nombre'] ?? null;
         $curso = $datos['curso'] ?? null;
-        $precio = $datos['precio'] ?? null;
-        $hora = $datos['hora'] ?? null;
 
         if(empty($nombre)){
             $result['nombre'] = "El nombre no puede estar vacio";
@@ -67,17 +56,11 @@ class FormularioActualizarCursoActividadAdmin extends Form
         if(empty($curso)){
             $result['curso'] = "El curso no puede estar vacio";
         }
-        if(empty($precio)){
-            $result['precio'] = "El precio no puede estar vacio";
-        }
-        if(empty($hora)){
-            $result['hora'] = "La hora no puede estar vacio";
-        }
 
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
                 if($_SESSION['esAdmin']){
-                    $actividad = Actividad::creaCursoActividad($nombre, $curso, $precio, $hora);
+                    $actividad = Actividad::borrarCursosActividad($nombre, $curso);
                     if(!$actividad){
                         $result[] ='No se ha podido crear';
                     }

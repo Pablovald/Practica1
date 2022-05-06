@@ -13,9 +13,9 @@ class FormularioActualizarActividadAdmin extends Form
 
         $nombre = $_GET['actividad'];
         $actividad = Actividad::buscaActividad($nombre);
-        $descripcion = $actividad->getDescripcion();
+        $descripcion = (isset($datos['descripcion'])) ? $datos['descripcion'] : $actividad->getDescripcion();
         $imagen = $actividad->getrutaFoto();
-        $info = $actividad->getInfo();
+        $info = (isset($datos['info'])) ? $datos['info'] :$actividad->getInfo();
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -42,7 +42,7 @@ class FormularioActualizarActividadAdmin extends Form
                 <input class='control' type='file' name='imagen' value='$imagen' required/>$errorImagen
             </div>
             <div class='grupo-control'>
-                <label>Informacion detallada:</label>
+                <label>Información detallada:</label>
                 <input class='control' type='text' name='info' value='$info' required/>$errorInfo
             </div>
 			<div class='submit'>
