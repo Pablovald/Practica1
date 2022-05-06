@@ -201,4 +201,88 @@ class entradaBlog{
         $rs=$row->fetch_assoc();
         return $rs['titulo'];
     }
+
+
+    public static function buscaEntrada($id){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM entradasBlog WHERE id = $id");
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ( $rs->num_rows == 1) {
+                $fila = $rs->fetch_assoc();
+                $alojamiento = new entradaBlog($fila['titulo'], $fila['header1'], $fila['intro'], $fila['header2'], $fila['parrafo'],$fila['rutaImagen'],$fila['video']);  
+                $alojamiento->id = $fila['id'];
+                $result = $alojamiento;
+            }
+            $rs->free();
+        } else {
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $result;
+    }
+
+    public static function actualizarEntrada($id,$titulo,$header1,$intro,$header2,$parrafo,$imagen,$video){
+        $app=Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query=sprintf("UPDATE entradasBlog E SET titulo = '%s', header1='%s', intro='%s', header2='%s', parrafo='%s', rutaImagen='%s', video='%s' WHERE E.id=$id"
+        , $conn->real_escape_string($titulo)
+        , $conn->real_escape_string($header1)
+        , $conn->real_escape_string($intro)
+        , $conn->real_escape_string($header2)
+        , $conn->real_escape_string($parrafo)
+        , $conn->real_escape_string($imagen)
+        , $conn->real_escape_string($video));
+        if ($conn->query($query)) {
+            if ( $conn->affected_rows != 1) {
+                header("Location: ActualizarEntradaAdmin.php?estadoAct=error&entrada=".$id."");
+            }
+            else{
+                
+                header("Location: ActualizarEntradaAdmin.php?estadoAct=actualizado&entrada=".$id."");
+            }
+        } else {
+            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        }
+    }
+
+
+
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    public function getHeader1()
+    {
+        return $this->header1;
+    }
+
+    public function getIntro()
+    {
+        return $this->intro;
+    }
+
+    public function getHeader2()
+    {
+        return $this->header2;
+    }
+
+    public function getParrafo()
+    {
+        return $this->parrafo;
+    }
+
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
 }
