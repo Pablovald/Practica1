@@ -18,9 +18,6 @@ class FormularioActividad extends Form
         $fechaNac = $datos['fechaNac'] ?? '';
         $telefono = $datos['telefono'] ?? '';
         $nombreActividad = $_GET["actividad"] ?? '';
-        $cursos = "";
-        $horas = "";
-        Actividad::selectCursoHoraActividad($nombreActividad, $cursos, $horas);
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorNombreUsuario = self::createMensajeError($errores, 'nombreUsuario', 'span', array('class' => 'error'));
@@ -63,15 +60,9 @@ class FormularioActividad extends Form
 			<div class='grupo-control'>
                 <label for='curso'>Selecciona el curso:</label>
                 <select name='curso'>'
-                ".$cursos."
+                ".Actividad::cursosDeActividadDinamico($nombreActividad)."
                 </select>
 			</div>
-            <div class='grupo-control'>
-                <label>Horas:</label>
-                <select name='horas'>'
-                ".$horas."
-                </select>
-            </div>
             <div class='grupo-control'>
                 <label>Fechas clase:</label>
                 <input class='control' type='date' name='dia' value='$hoy' required/>
@@ -102,7 +93,6 @@ class FormularioActividad extends Form
         $telefono =$datos['telefono'] ?? null;
         $curso =$datos['curso'] ?? null;
         $dia =$datos['dia'] ?? null;
-        $horas =$datos['horas'] ?? null;
 
         if(empty($nombre)){
             $result['nombre'] = "El nombre no puede estar vacio";
@@ -125,13 +115,10 @@ class FormularioActividad extends Form
         if(empty($dia)){
             $result['dia'] = "El curso no puede estar vacio";
         }
-        if(empty($horas)){
-            $result['dia'] = "El hora no puede estar vacio";
-        }
 
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
-                Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result, $horas);
+                Actividad::inscribirActividad($nombreActividad, $dia, $curso, $result);
             }
             else{
                 header("Location: actividad.php?actividad=".$nombreActividad."&estado=faltaLogin");

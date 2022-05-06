@@ -8,6 +8,7 @@ $tituloCabecera = 'PERFIL';
 $editar = htmlspecialchars($_GET['editar']);
 if($editar == "false"){
 	$contenidoPrincipal = es\fdi\ucm\aw\Usuario::perfilUsuario($_SESSION['nombreUsuario']);
+	
 }
 else{
 	$tituloPagina = 'Modificación del perfil';

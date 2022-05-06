@@ -167,15 +167,14 @@ class Actividad
     }
 
     //Un usuario se inscribe en un curso de una actividad, puede ocurrir: 1.La fecha no es valido 2.No quedan plazan 3.Inscrito correctamente
-    public static function inscribirActividad($nombreActividad, $solicitud_dia, $cursoActividad, &$result, $horas){
+    public static function inscribirActividad($nombreActividad, $solicitud_dia, $cursoActividad, &$result){
         $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $rs1 = $conn->query(sprintf("SELECT C.Capacidad, C.ID FROM CapacidadActividad C JOIN CursosActividades CUA ON C.Curso = CUA.nombre_curso AND C.Nombre = CUA.nombre_actividad WHERE C.Nombre='%s' AND C.Curso='%s' AND C.Fecha ='%s' AND CUA.horas ='%d'"
+        $rs1 = $conn->query(sprintf("SELECT C.Capacidad, C.ID FROM CapacidadActividad C JOIN CursosActividades CUA ON C.Curso = CUA.nombre_curso AND C.Nombre = CUA.nombre_actividad WHERE C.Nombre='%s' AND C.Curso='%s' AND C.Fecha ='%s'"
                                     , $conn->real_escape_string($nombreActividad)
                                     , $conn->real_escape_string($cursoActividad)
-                                    , $conn->real_escape_string($solicitud_dia)
-                                    , $conn->real_escape_string($horas)));
+                                    , $conn->real_escape_string($solicitud_dia)));
         if($rs1){
             if($rs1->num_rows > 0){
                 $filaCapacidadActividad = $rs1->fetch_assoc();

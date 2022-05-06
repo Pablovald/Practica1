@@ -37,7 +37,7 @@ class FormularioCursoActividadAdmin extends Form
             </div>
             <div class='grupo-control'>
                 <label>Hora:</label>
-                <input class='control' type='number' name='hora' value='$hora' min='1' required/>$errorHora
+                <input class='control' type='number' name='hora' value='$hora' min='0' required/>$errorHora
             </div>
             <div class='grupo-control'>
                 <label>Precio:</label>
