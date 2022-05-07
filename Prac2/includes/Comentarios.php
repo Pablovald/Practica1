@@ -9,7 +9,7 @@ class Comentario{
     private $texto;
     private $editado;
 
-    private function __construct($idUsuario,$ubicacion,$titulo,$texto,$editado)
+    public function __construct($idUsuario,$ubicacion,$titulo,$texto,$editado)
     {
         $this->idUsuario= $idUsuario;
         $this->ubicacion= $ubicacion;
