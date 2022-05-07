@@ -25,22 +25,25 @@ class FormularioValoracion extends Form
         $errorNota = self::createMensajeError($errores, 'nota', 'span', array('class' => 'error'));
         $html = <<<EOS
         $htmlErroresGlobales
-        <div class="grupo-control">
-        <input class="control" type="text" name="titulo" placeholder="Titulo" id="campoTitulo" value="$titulo" required/>$errorTitulo      
+        <div class="newComent">
+        <h2> Déjenos un comentario </h2>
+        <div class="tituloComent">
+        <input class="control" type="text" name="titulo" placeholder="Pon un titulo a tu comentario" id="campoTitulo" value="$titulo" required/>$errorTitulo      
         </div>
-        <div>
+        <div class="cajaComent">
             <textarea name="texto" placeholder="Comentario" id="campoTexto" required></textarea>$errorTexto
         </div>
-        <div>
-        <fieldset class='nota' value="$nota" required>$errorNota 
+        <div class = "puntos">
+        Puntuacion
+        <div class='nota' value="$nota" required>$errorNota 
                     <input type='radio' id='1estrella' name='nota' value='5' /><label class = 'full' for='1estrella'></label>
                     <input type='radio' id='2estrellas' name='nota' value='4' /><label class = 'full' for='2estrellas'></label>
                     <input type='radio' id='3estrellas' name='nota' value='3' /><label class = 'full' for='3estrellas'></label>
                     <input type='radio' id='4estrellas' name='nota' value='2' /><label class = 'full' for='4estrellas'></label>
                     <input type='radio' id='5estrellas' name='nota' value='1' /><label class = 'full' for='5estrellas'></label>
-         </fieldset>    
+         </div>    
         </div>
-        <div class="grupo-control"><button type="submit" name="comentar">Publicar valoracion</button></div>
+        <div class="buttonComent"><button type="submit" name="comentar">Publicar valoracion</button></div>
     EOS;
         return $html;
     }
