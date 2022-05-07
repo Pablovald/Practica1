@@ -5,9 +5,7 @@
 	<script type="text/javascript" src="includes/js/ejercicio4.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link  rel="icon" href="img/favicon.png" type="image/png" />
-	<link rel="stylesheet" type="text/css" href="css/BlogView.css" />
 	<link rel="stylesheet" type="text/css" href="css/Vista.css" />
-	<link rel="stylesheet" type="text/css" href="css/VistaEstilos.css" />
 
 	
     <title><?= $tituloPagina ?></title>
