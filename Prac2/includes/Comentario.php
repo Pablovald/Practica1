@@ -2,12 +2,12 @@
 namespace es\fdi\ucm\aw;
 
 class Comentario{
-    private $id;
-    private $ubicacion;
-    private $idUsuario;
-    private $titulo;
-    private $texto;
-    private $editado;
+    protected $id;
+    protected $ubicacion;
+    protected $idUsuario;
+    protected $titulo;
+    protected $texto;
+    protected $editado;
 
     public function __construct($idUsuario,$ubicacion,$titulo,$texto,$editado)
     {

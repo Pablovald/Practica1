@@ -558,3 +558,56 @@ textarea{
 	 align-items:center;
 	 margin-bottom: -10px;
  }
+ /*CSS para las estrellas de las valoraciones, créditos a https://codepen.io/jamesbarnett/pen/najzYK*/
+ @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+ .nota { 
+	border: none;
+	float: left;
+  }
+  
+  .nota > input { display: none; } 
+  .nota > label:before { 
+	margin: 5px;
+	font-size: 1.25em;
+	font-family: FontAwesome;
+	display: inline-block;
+	content: "\f005";
+  }
+  
+  .nota > .half:before { 
+	content: "\f089";
+	position: absolute;
+  }
+  
+  .nota > label { 
+	color: #ddd; 
+   float: right; 
+  }
+  
+  /***** CSS Magic to Highlight Stars on Hover *****/
+  
+  .nota > input:checked ~ label, /* show gold star when clicked */
+  .nota:not(:checked) > label:hover, /* hover current star */
+  .nota:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+  
+  .nota > input:checked + label:hover, /* hover current star when changing nota */
+  .nota > input:checked ~ label:hover,
+  .nota > label:hover ~ input:checked ~ label, /* lighten current selection */
+  .nota > input:checked ~ label:hover ~ label { color: #FFED85;  }
+
+.nota-valoracion{
+	border:none;
+}
+.nota-valoracion > input { display: none; }
+.nota-valoracion > label:before { 
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display:inline-block;
+  content: "\f005";
+}
+.nota-valoracion > label {
+color: #ddd; 
+ float: left; 
+}
+
+.nota-valoracion > input:checked + label { color:#FFD700;  }
