@@ -23,7 +23,6 @@
 	</main>
 	<br/> <br/>
 <?php
-	require("includes/comun/valoracion.php");
 	require("includes/comun/pie.php");
 ?>
 </div>

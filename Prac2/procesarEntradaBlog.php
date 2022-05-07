@@ -1,11 +1,21 @@
 <?php
-
-include __DIR__ .'/includes/Comentarios.php';
+namespace es\fdi\ucm\aw;
 
 require_once __DIR__ . '/includes/config.php';
-$contenidoPrincipal = es\fdi\ucm\aw\entradaBlog::procesarEntradaBlog($tituloPagina, $tituloCabecera);
-$form = new es\fdi\ucm\aw\FormularioComentario();
+$contenidoPrincipal = entradaBlog::procesarEntradaBlog($tituloPagina, $tituloCabecera);
+$form = new FormularioComentario();
 $formularioComentario = $form->gestiona();
-$comentarios=es\fdi\ucm\aw\Comentario::mostrarTodos($tituloPagina);
+
+if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
+    $contenidoPrincipal .= <<<EOS
+    <div class='submit'>
+        <a href='ActualizarEntradaAdmin.php?entrada=$_GET[entrada]'>
+            <button type='submit'>Actualizar Entrada</button>
+        </a>
+        
+    </div>
+    EOS;
+}
+$comentarios =  Comentario::mostrarTodos($tituloPagina);
 
 include __DIR__ . '/includes/plantillas/plantillaEntrada.php';

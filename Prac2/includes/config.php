@@ -15,7 +15,7 @@ spl_autoload_register(function ($class) {
     $prefix = 'es\\fdi\\ucm\\aw\\';
     
     // base directory for the namespace prefix
-    $base_dir = __DIR__ . '/';
+    $base_dir = __DIR__.'/';
     
     // does the class use the namespace prefix?
     $len = strlen($prefix);
@@ -33,7 +33,7 @@ spl_autoload_register(function ($class) {
     $file = $base_dir . str_replace('\\', '/', $relative_class) . '.php';
     // if the file exists, require it
     if (file_exists($file)) {
-        require $file;
+        require_once $file;
     }
 });
 

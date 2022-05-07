@@ -5,6 +5,9 @@ $contenidoPrincipal = es\fdi\ucm\aw\Actividad::infoActividad($tituloPagina, $tit
 $form = new es\fdi\ucm\aw\FormularioActividad();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
+$form2 = new es\fdi\ucm\aw\FormularioValoracion();
+$formularioComentario = $form2->gestiona();
+$comentarios=es\fdi\ucm\aw\Valoracion::mostrarTodos($tituloPagina);
 //Mensaje relacionado con inscripcion de una actividad
 if(isset($_GET["estado"])){
     $estado = htmlspecialchars($_GET["estado"]);
@@ -68,4 +71,4 @@ if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']
 }
 
 
-include __DIR__.'/includes/plantillas/plantilla.php';
+include __DIR__.'/includes/plantillas/plantillaEntrada.php';

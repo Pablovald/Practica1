@@ -5,6 +5,8 @@
 	<link  rel="icon" href="img/favicon.png" type="image/png" />
 	<link rel="stylesheet" type="text/css" href="css/VistaEstilos.css" />
 	<link rel="stylesheet" type="text/css" href="css/BlogView.css" />
+	<link rel="stylesheet" type="text/css" href="css/Estilos.css" />
+
 	
     <title><?= $tituloPagina ?></title>
 
