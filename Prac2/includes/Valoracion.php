@@ -84,7 +84,7 @@ class Valoracion extends Comentario
 						<p class='comen'>@$rs[nombreUsuario]</p>
 					</div>
                     <div class='nota-fijo'>
-                    <p>".self::mostrarEstrellasFijo($rs['nota'])."</p>   
+                    ".self::mostrarEstrellasFijo($rs['nota'])."   
                     </div>
 				</div>
 				<div class='reseñas-comentario'>
