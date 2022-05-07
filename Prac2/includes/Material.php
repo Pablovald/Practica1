@@ -87,8 +87,9 @@ class Material
         $tableCont="<tr>";
         $j=0;
         for($i=1;$i<=$rs->num_rows;$i++){
-            $row=$conn->query(sprintf("SELECT * FROM Materiales M WHERE M.id = '$i'"));
-            $contenido=$row->fetch_assoc();
+            $fila=$rs->fetch_assoc();
+            $row=$conn->query(sprintf("SELECT * FROM Materiales M WHERE M.id = '$fila[id]'"));
+            $contenido =$row->fetch_assoc();
             $url=rawurlencode("$contenido[nombre]");
             $rowCount = "<td>
             <div class = 'contenido'>
@@ -401,32 +402,47 @@ class Material
 
     public static function totalMateriales()
     {
-        $mat = array();
-
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $tablaMaterial_Main=sprintf("SELECT * FROM Materiales");
-        $rs =$conn->query($tablaMaterial_Main);
-        $tableCont="<tr>";
-        $j=0;
-        for($i=1;$i<=$rs->num_rows;$i++){
-            $row=$conn->query(sprintf("SELECT * FROM Materiales M WHERE M.id = '$i'"));
-            $contenido=$row->fetch_assoc();
-            array_push($mat, $contenido["nombre"]);
+        $row=$conn->query(sprintf("SELECT * FROM Materiales"));
+        if($row){
+            $ret="";
+            for($i=0;$i<$row->num_rows;$i++){
+                $act=$row->fetch_assoc();
+                $ret.="<option>"."$act[nombre]"."</option>";
+            }
             $row->free();
+            return $ret;
         }
-
-        return $mat;
+        else{
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
     }
 
-    public static function borrarMaterial($id_producto){
+    public static function borrarMaterial($id_producto, $nombre){
         // primero debemos eliminar el material de todas las tablas de carritos en las que aparezca
         // una vez borrado de todos los carritos, podemos proceder a eliminarlo de la tabla de materiales (haria falta también resetear el auto_increment)
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $sentencia=$conn->query(sprintf("DELETE FROM Carrito C WHERE '$id_producto' = C.id_producto")); // borramos todas las filas en las que aparece
+        $query1 = (sprintf("DELETE FROM Carrito C WHERE '$id_producto' = C.id_producto"));
+        $query2 = (sprintf("DELETE FROM Materiales M WHERE '$id_producto' = M.id"));
+        $conn->query($query1); // eliminamos el producto de todos los carritos si estuviera
 
-        $sentencia2=$conn->query(sprintf("DELETE FROM Materiales M WHERE '$id_producto' = M.id"));
+        if($conn->query($query2)){
+            if($conn->affected_rows != 1){
+                header("Location: BorrarMaterialAdmin.php?estado=error&nombre=".$nombre."");
+            }
+            else{
+                header("Location: BorrarMaterialAdmin.php?estado=eliminado&nombre=".$nombre."");
+
+            }
+        }
+
+        else{
+            echo "Error al borrar de la BD: (" . $conn->errno . ") " . utf8_encode($conn->errno);
+        }
+
     }
 
     public static function sacaIdProducto($nombre){
@@ -434,8 +450,80 @@ class Material
         $conn = $app->conexionBd();
         $row=$conn->query(sprintf("SELECT id FROM Materiales M WHERE M.nombre = '$nombre'"));
         $id_prod = $row->fetch_assoc();
+        $row->free();
 
-        return $id_prod;
+        return $id_prod['id'];
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function setNombre($Nombre)
+    {
+        $this->nombre = $Nombre;
+
+        return $this;
+    }
+
+    public function getPrecio()
+    {
+        return $this->precio;
+    }
+
+    public function setPrecio($Precio){
+        $this->precio = $Precio;
+
+        return $this;
+    }
+
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    public function setDescripcion($Descripcion)
+    {
+        $this->descripcion = $Descripcion;
+
+        return $this;
+    }
+
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    public function setImagen($Imagen)
+    {
+        $this->imagen = $Imagen;
+
+        return $this;
+    }
+
+    public function getDesc_det()
+    {
+        return $this->desc_det;
+    }
+
+    public function setDesc_det($Desc_det)
+    {
+        $this->desc_det = $Desc_det;
+        
+        return $this;
     }
 
 }
