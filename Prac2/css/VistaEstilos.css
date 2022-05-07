@@ -55,7 +55,7 @@ nav li:hover > ul{
 }
 
 div.titulo{
-	color: black;
+	color: white;
 	font: 190% Candara;
 	float: left;
 	margin-left: -220px;
@@ -508,7 +508,7 @@ textarea{
 	 width: 100%;
 	 align-items:center;
 	 justify-content:center;
-	 background-color:#DEDEDE;
+	 background-color:orange;
 	 
  }
  .caja-comentario{
@@ -540,16 +540,18 @@ textarea{
  }
  
  .nombre-user-cometario{
+	 font: 15px Candara;
 	 margin-top:-10px;
  }
  
  .comen{
-	 color: red;
+	 color: #979797;
 	 font-size:1.1rem;
  }
  
  .comentarios-comentario{
 	 color: #4b4b4b;
+	  font: 20px Candara;
  }
  
  .caja-top-comentario{
@@ -558,3 +560,45 @@ textarea{
 	 align-items:center;
 	 margin-bottom: -10px;
  }
+ 
+ .newComent{
+	display:block;
+	padding: 1.5rem 2rem;
+	box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+	background-color:white;
+	border-radius: 15px;
+	width:50%;
+	margin-top: 30px;
+	margin-bottom: 50px;
+ }
+ 
+ .newComent h2{
+	 font: 30px Candara;
+ }
+ 
+ 
+ .tituloComent{
+	  color: orange;
+	 border: none;
+	 
+ }
+ 
+ .cajaComent textarea{
+	 color: orange;
+	 border: 50px;
+ }
+ 
+ .buttonComent button{
+	background: #ffbf00;
+    border: 0;
+    text-transform: uppercase;
+    padding: 1em;
+	clear: right;
+}
+
+.buttonComent button:hover{
+    background: #ff8000;
+}
+ 
+
+ 

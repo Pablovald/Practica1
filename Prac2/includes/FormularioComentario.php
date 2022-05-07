@@ -22,13 +22,16 @@ class FormularioComentario extends Form
         $errorTexto = self::createMensajeError($errores, 'texto', 'span', array('class' => 'error'));
         $html = <<<EOS
         $htmlErroresGlobales
-        <div class="grupo-control">
-            <input class="control" type="text" name="titulo" placeholder="Titulo" id="campoTitulo" value="$titulo" required/>$errorTitulo      
+        <div class="newComent">
+        <h2> Déjenos un comentario </h2>
+        <div class="tituloComent">
+            <input class="control" type="text" name="titulo" placeholder="Pon un titulo a tu comentario" id="campoTitulo" value="$titulo" required/>$errorTitulo      
         </div>
-        <div>
-            <textarea name="texto" placeholder="Comentario" id="campoTexto" required></textarea>$errorTexto
+        <div class="cajaComent">
+            <textarea name="texto" placeholder="Valora tu experiencia con nosotros" id="campoTexto" required></textarea>$errorTexto
         </div>
-        <div class="grupo-control"><button type="submit" name="comentar">Publicar comentario</button></div>
+        <div class="buttonComent"><button type="submit" name="comentar">Publicar comentario</button></div>
+        </div>
     EOS;
         return $html;
     }
