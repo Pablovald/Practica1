@@ -1,6 +1,5 @@
 <?php
 namespace es\fdi\ucm\aw;
-require 'Comentarios.php';
 class Usuario
 {
     private $id;

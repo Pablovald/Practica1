@@ -49,7 +49,7 @@ class FormularioComentario extends Form
             $idUser = Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']);
             $entrada = htmlspecialchars($_GET['entrada']);
             $ubicacion = entradaBlog::nombreEntrada($entrada);
-            $coment = Comentario::crea($idUser, $ubicacion, $titulo, $texto, false);
+            Comentario::crea($idUser, $ubicacion, $titulo, $texto, false);
             if (!$entrada) {
                 $result[] = "Error al publicar el comentario";
             } else {

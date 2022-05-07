@@ -1,10 +1,9 @@
 <?php
-
-//include __DIR__ .'/includes/Comentarios.php';
+namespace es\fdi\ucm\aw;
 
 require_once __DIR__ . '/includes/config.php';
-$contenidoPrincipal = es\fdi\ucm\aw\entradaBlog::procesarEntradaBlog($tituloPagina, $tituloCabecera);
-$form = new es\fdi\ucm\aw\FormularioComentario();
+$contenidoPrincipal = entradaBlog::procesarEntradaBlog($tituloPagina, $tituloCabecera);
+$form = new FormularioComentario();
 $formularioComentario = $form->gestiona();
 
 if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
@@ -17,6 +16,6 @@ if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']
     </div>
     EOS;
 }
-$comentarios=es\fdi\ucm\aw\Comentario::mostrarTodos($tituloPagina);
+$comentarios =  Comentario::mostrarTodos($tituloPagina);
 
 include __DIR__ . '/includes/plantillas/plantillaEntrada.php';
