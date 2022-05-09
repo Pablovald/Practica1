@@ -11,9 +11,9 @@ class FormularioEdicionValoracion extends Form{
     {
         $id =$_POST['id'];
         $valoracion=Valoracion::buscaValoracionPorId($id);
-        $titulo = $valoracion->getTitulo();
-        $texto = $valoracion->getTexto();
-        $nota = $valoracion->getNota();
+        $titulo = $valoracion['titulo'];
+        $texto = $valoracion['texto'];
+        $nota = $valoracion['nota'];
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -64,7 +64,7 @@ class FormularioEdicionValoracion extends Form{
         }
         if (count($result) === 0) {
             $valor=Valoracion::buscaValoracionPorId($id);
-            $Valoracion = new Valoracion($valor->getIdUsuario(), $valor->getUbicacion(), $titulo, $texto, true,$nota);
+            $Valoracion = new Valoracion($valor['idUsuario'], $valor['ubicacion'], $titulo, $texto, true,$nota);
             $Valoracion->setId($id);
             if (!Valoracion::guarda($Valoracion)) {
                 $result[] = "Error al editar la valoracion";

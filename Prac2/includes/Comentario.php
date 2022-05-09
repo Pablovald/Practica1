@@ -101,6 +101,7 @@ class Comentario
 					</div>
 					<div class='nombre-user-cometario'>
 						<h1>$rs[titulo]</h1>
+                        ".self::editado($rs['editado'])."
 						<p class='comen'>@$rs[nombreUsuario]</p>
 					</div>
 				</div>
@@ -158,6 +159,13 @@ class Comentario
         $row->free();
         return $comentarios;
     }
+    public static function editado($editado){
+        $text="";
+        if($editado){
+            $text="<em>(Editado)</em>";
+        }
+        return $text;
+    }
     public static function buscaComentarioPorId($id)
     {
         $app = Aplicacion::getSingleton();
@@ -171,7 +179,8 @@ class Comentario
     public static function permisoEdicion($id)
     {
         $permiso = false;
-        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == self::buscaComentarioPorId($id)->getIdUsuario()) {
+        $coment=self::buscaComentarioPorId($id);
+        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $coment['idUsuario']) {
             $permiso = true;
         }
         return $permiso;

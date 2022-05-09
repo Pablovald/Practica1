@@ -11,8 +11,8 @@ class FormularioEdicionComentario extends Form{
     {
         $id =$_POST['id'];
         $comentario=Comentario::buscaComentarioPorId($id);
-        $titulo = $comentario->getTitulo();
-        $texto = $comentario->getTexto();
+        $titulo = $comentario['titulo'];
+        $texto = $comentario['texto'];
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -50,7 +50,7 @@ class FormularioEdicionComentario extends Form{
         }
         if (count($result) === 0) {
             $coment=Comentario::buscaComentarioPorId($id);
-            $comentario = new Comentario($coment->getIdUsuario(), $coment->getUbicacion(), $titulo, $texto, true);
+            $comentario = new Comentario($coment['idUsuario'], $coment['ubicacion'], $titulo, $texto, true);
             $comentario->setId($id);
             if (!Comentario::guarda($comentario)) {
                 $result[] = "Error al editar el comentario";

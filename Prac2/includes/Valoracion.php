@@ -93,6 +93,7 @@ class Valoracion extends Comentario
 					</div>
 					<div class='nombre-user-cometario'>
 						<h1>$rs[titulo]</h1>
+                        ".parent::editado($rs['editado'])."
 						<p class='comen'>@$rs[nombreUsuario]</p>
 					</div>
                     <div class='nota-fijo'>
