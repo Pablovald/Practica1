@@ -1,5 +1,5 @@
 <?php
-
+namespace es\fdi\ucm\aw;
 require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Perfil';
@@ -7,13 +7,13 @@ $tituloCabecera = 'PERFIL';
 
 $editar = htmlspecialchars($_GET['editar']);
 if($editar == "false"){
-	$contenidoPrincipal = es\fdi\ucm\aw\Usuario::perfilUsuario($_SESSION['nombreUsuario']);
+	$contenidoPrincipal = Usuario::perfilUsuario($_SESSION['nombreUsuario']);
 	
 }
 else{
 	$tituloPagina = 'Modificación del perfil';
 	$tituloCabecera = 'MODIFICACION DEL PERFIL';
-	$form = new es\fdi\ucm\aw\FormularioPerfil();
+	$form = new FormularioPerfil();
 	$htmlFormIns = $form->gestiona();
 	$contenidoPrincipal = $htmlFormIns;
 	if(isset($_GET['estado'])){

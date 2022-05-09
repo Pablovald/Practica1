@@ -750,7 +750,7 @@ class Actividad
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $row=$conn->query(sprintf("SELECT ID FROM Actividades LIMIT 1"));
-        $cont;
+        $cont="";
         if($row){   
             $aux = $row->fetch_assoc();
             $curso=$conn->query(sprintf("SELECT nombre_curso FROM CursosActividades WHERE id_actividad='%d'",
@@ -782,7 +782,7 @@ class Actividad
         $conn = $app->conexionBd();
         $row=$conn->query(sprintf("SELECT nombre_curso FROM CursosActividades WHERE nombre_actividad = '%s'"
         , $conn->real_escape_string($nombre)));
-        $cont;
+        $cont="";
         if($row){
             $cont = "";
             for($i=1; $i<=$row->num_rows; $i++){
@@ -849,8 +849,38 @@ class Actividad
         , $conn->real_escape_string($curso)));
         header("Location: EliminarCursoAdmin.php?estadoElim=exito&actividad=".$nombre."&curso=".$curso."");
     }
-
-    //Acontinuacion vienen los getters y los setters
+    public static function mostrarFuncionesAdmin(){
+        $content = <<<EOS
+        <div class='submit'>
+            <a href='ActualizarActividadAdmin.php?actividad=$_GET[actividad]'>
+                <button type='submit'>Actualizar Actividad</button>
+            </a>
+            
+        </div>
+        <div class='submit'>
+            <a href='ActualizarCursoAdmin.php?actividad=$_GET[actividad]'>
+                <button type='submit'>Actualizar Cursos</button>
+            </a>
+        </div>
+            <div class='submit'>
+            <a href='Actualizar_InsertarCapacidadAdmin.php?actividad=$_GET[actividad]'>
+            <button type='submit'>Actualizar/Insertar Capacidad</button>
+            </a>
+        </div>
+        </div>
+            <div class='submit'>
+            <a href='EliminarCursoAdmin.php?actividad=$_GET[actividad]'>
+            <button type='submit'>Eliminar Curso</button>
+            </a>
+        </div>
+        </div>
+            <div class='submit'>
+            <button id='borrarActividad'>Borrar Actividad</button>
+        </div>
+        EOS;
+        return $content;
+    }
+    //A continuacion vienen los getters y los setters
     public function getId()
     {
         return $this->Id;

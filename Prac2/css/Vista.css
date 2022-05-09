@@ -608,8 +608,7 @@ textarea{
 	margin-bottom: 15px;
 }
  
- /*CSS para las estrellas de las valoraciones, créditos a https://codepen.io/jamesbarnett/pen/najzYK*/
- @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+ /*CSS para las estrellas de las valoraciones, créditos a https://codepen.io/jamesbarnett/pen/najzYK */
  .nota { 
 	border: none;
 	float: left;
@@ -662,5 +661,16 @@ color: #ddd;
 
 .nota-valoracion > input:checked + label { color:#FFD700;  }
 
-
+.boton-link {
+	margin:10px;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    color: orange;
+    padding: 0;
+    font-family: inherit;
+    font-size: inherit;
+	float:right;
+}
  

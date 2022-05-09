@@ -6,7 +6,7 @@ class Valoracion extends Comentario
 {
     private $nota;
 
-    private function __construct($idUsuario, $ubicacion, $titulo, $texto, $editado, $nota)
+    public function __construct($idUsuario, $ubicacion, $titulo, $texto, $editado, $nota)
     {
         parent::__construct($idUsuario, $ubicacion, $titulo, $texto, $editado);
         $this->nota = $nota;
@@ -50,7 +50,7 @@ class Valoracion extends Comentario
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query = sprintf(
-            "UPDATE Comentarios E SET titulo = '%s', texto = '%s', editado = '%d', nota = '%d' WHERE E.id=%i",
+            "UPDATE Valoraciones E SET titulo = '%s', texto = '%s', editado = '%d', nota = '%d' WHERE E.id=%d",
             $conn->real_escape_string($valoracion->titulo),
             $conn->real_escape_string($valoracion->texto),
             $conn->real_escape_string($valoracion->editado),
@@ -71,6 +71,18 @@ class Valoracion extends Comentario
     }
     public static function mostrarValoracion($rs)
     {
+        $edieli = "";
+        if (isset($_SESSION['login']) && $_SESSION['login'] && self::permisoEdicion($rs['id'])) {
+            $edieli = "
+        <form action='EdicionValoracion.php' method='post'>
+        <input type='hidden' name='id' value='$rs[id]'>
+        <button class='boton-link' type='submit'>Editar</button>
+        </form>
+        <form action='EliminarValoracion.php' method='post'>
+        <input type='hidden' name='id' value='$rs[id]'>
+        <button class='boton-link' type='submit'>Eliminar</button>
+        </form>";
+        }
         $comentarios = "
 		<div class='contenedor'>
         <div class='caja-comentario'>
@@ -91,7 +103,7 @@ class Valoracion extends Comentario
 				</div>
 			</div>
 			<div class='comentarios-comentario'>
-				<p>$rs[texto]</p>
+				<p>$rs[texto]</p>".$edieli."
 			</div>
         </div>
 		</div>
@@ -125,5 +137,77 @@ class Valoracion extends Comentario
         }
         $html.="</fieldset>";
          return $html;
+    }
+    public static function mostrarValoracionPerfil($rs){
+        $comentarios="
+        <div>
+            <p>Valoración realizada en $rs[ubicacion]</p>
+            <p>$rs[titulo]".Valoracion::mostrarEstrellasFijo($rs['nota'])."</p>
+            <p>$rs[texto]</p>
+        </div>";
+        return $comentarios;
+    }
+    public static function mostrarTodosPerfil($idUsuario){
+        $valoraciones="";
+        $app=Aplicacion::getSingleton();
+        $conn=$app->conexionBd();
+        $tablaValoraciones=sprintf("SELECT V.*FROM Valoraciones V JOIN Usuarios U ON V.idUsuario = U.id WHERE $idUsuario = V.idUsuario");
+        $row=$conn->query($tablaValoraciones);
+        $numVal=$row->num_rows;
+        for($i=0;$i<$numVal;$i++){
+            $rs=$row->fetch_assoc();
+            $valoraciones.=Valoracion::mostrarValoracionPerfil($rs);
+        }
+        $row->free();
+        return $valoraciones;
+    }
+    public static function buscaValoracionPorId($id)
+    {
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaValoraciones = sprintf("SELECT C.* FROM Valoraciones C WHERE $id = C.id ");
+        $row = $conn->query($tablaValoraciones);
+        $rs = $row->fetch_assoc();
+        $rs['id'] = $id;
+        return $rs;
+    }
+    public static function permisoEdicion($id)
+    {
+        $permiso = false;
+        $valoracion=self::buscaValoracionPorId($id);
+        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $valoracion['idUsuario']) {
+            $permiso = true;
+        }
+        return $permiso;
+    }
+    public static function confirmarEliminar($id){
+        $content="Se eliminará la siguiente valoración";
+        $content.=self::mostrarValoracionPerfil(self::buscaValoracionPorId($id));
+        $content.="<form action='EliminarValoracion.php' method='post'>
+        <input type='hidden' name='id' value='$id'>
+        <input type='submit' name='eliminar' value='Eliminar'> </button>
+        </form>";
+        return $content;
+    }
+    public static function borraValoracion($id){
+        if(isset($_POST['Eliminar'])){}
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = (sprintf("DELETE FROM Valoraciones C WHERE $id = C.id"));
+        if($conn->query($query)){
+            $ret="Valoracion eliminada con éxito.";
+        }else {
+            echo "Error al eliminar de la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $ret;
+    }
+
+    /**
+     * Get the value of nota
+     */ 
+    public function getNota()
+    {
+        return $this->nota;
     }
 }

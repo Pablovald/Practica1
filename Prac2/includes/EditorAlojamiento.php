@@ -62,7 +62,7 @@ class EditorAlojamiento extends Form
         $result = array();
         $nombre = $datos['nombre'] ?? null;
         $descripcion = $datos['descripcion'] ?? null;
-        $rutaFoto = subirImagen('img/') ?? $null;
+        $rutaFoto = subirImagen('img/') ?? null;
         $info = $datos['info'] ?? null;
         $precio = $datos['precio'] ?? null;
 

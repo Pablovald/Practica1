@@ -454,7 +454,16 @@ class Material
 
         return $id_prod['id'];
     }
-
+    public static function mostrarFuncionesAdmin(){
+        $content =<<<EOS
+        <div class='submit'>
+            <a href='ActualizarMaterialAdmin.php?material=$_GET[material]'>
+                <button type='submit'>Actualizar Material</button>
+            </a>
+        </div>
+        EOS;
+        return $content;
+    }
     public function getId()
     {
         return $this->id;

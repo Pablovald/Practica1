@@ -1,12 +1,14 @@
 <?php
+
+use es\fdi\ucm\aw\Actividad;
+
 require_once __DIR__.'/includes/config.php';
 
 $contenidoPrincipal = es\fdi\ucm\aw\Actividad::infoActividad($tituloPagina, $tituloCabecera);
 $form = new es\fdi\ucm\aw\FormularioActividad();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
-$form2 = new es\fdi\ucm\aw\FormularioValoracion();
-$formularioComentario = $form2->gestiona();
+$formularioComentario="";
 $comentarios=es\fdi\ucm\aw\Valoracion::mostrarTodos($tituloPagina);
 //Mensaje relacionado con inscripcion de una actividad
 if(isset($_GET["estado"])){
@@ -39,35 +41,12 @@ if(isset($_GET["estado"])){
     }
 }
 
-if(isset($_SESSION['login']) && $_SESSION['login'] && isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
-    $contenidoPrincipal .= <<<EOS
-    <div class='submit'>
-        <a href='ActualizarActividadAdmin.php?actividad=$_GET[actividad]'>
-            <button type='submit'>Actualizar Actividad</button>
-        </a>
-        
-    </div>
-    <div class='submit'>
-        <a href='ActualizarCursoAdmin.php?actividad=$_GET[actividad]'>
-            <button type='submit'>Actualizar Cursos</button>
-        </a>
-    </div>
-        <div class='submit'>
-        <a href='Actualizar_InsertarCapacidadAdmin.php?actividad=$_GET[actividad]'>
-        <button type='submit'>Actualizar/Insertar Capacidad</button>
-        </a>
-    </div>
-    </div>
-        <div class='submit'>
-        <a href='EliminarCursoAdmin.php?actividad=$_GET[actividad]'>
-        <button type='submit'>Eliminar Curso</button>
-        </a>
-    </div>
-    </div>
-        <div class='submit'>
-        <button id='borrarActividad'>Borrar Actividad</button>
-    </div>
-    EOS;
+if(isset($_SESSION['login']) && $_SESSION['login']){
+    if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
+        $contenidoPrincipal .= Actividad::mostrarFuncionesAdmin();
+    }
+    $form2 = new es\fdi\ucm\aw\FormularioValoracion();
+    $formularioComentario = $form2->gestiona();
 }
 
 

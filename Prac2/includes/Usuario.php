@@ -42,7 +42,9 @@ class Usuario
     public static function perfilUsuario($nombreUsuario){
         $usuario = self::buscaUsuario($nombreUsuario);
         $listado = self::infoUsuario($nombreUsuario);
-        $comentarios=Comentario::mostrarTodosPerfil(self::buscaIdDelUsuario($_SESSION['nombreUsuario']));
+        $idU = self::buscaIdDelUsuario($_SESSION['nombreUsuario']);
+        $comentarios=Comentario::mostrarTodosPerfil($idU);
+        $valoraciones = Valoracion::mostrarTodosPerfil($idU);
         $contenidoPrincipal = "
         <div class='perfil'>
             <div class='header'>
@@ -74,6 +76,10 @@ class Usuario
                 <div class='footer2'>
                     <h1>Comentarios</h1>".
                     $comentarios."
+                </div>
+                <div class='valoracion h3'>
+                    <h1>Valoraciones</h1>".
+                    $valoraciones."
                 </div>
             </div>
             </div>

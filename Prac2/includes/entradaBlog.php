@@ -212,9 +212,9 @@ class entradaBlog{
         if ($rs) {
             if ( $rs->num_rows == 1) {
                 $fila = $rs->fetch_assoc();
-                $alojamiento = new entradaBlog($fila['titulo'], $fila['header1'], $fila['intro'], $fila['header2'], $fila['parrafo'],$fila['rutaImagen'],$fila['video']);  
-                $alojamiento->id = $fila['id'];
-                $result = $alojamiento;
+                $entrada = new entradaBlog($fila['titulo'], $fila['header1'], $fila['intro'], $fila['header2'], $fila['parrafo'],$fila['rutaImagen'],$fila['video']);  
+                $entrada->id = $fila['id'];
+                $result = $entrada;
             }
             $rs->free();
         } else {
@@ -248,6 +248,16 @@ class entradaBlog{
         }
     }
 
+    public static function mostrarActualizar(){
+        $content=<<<EOS
+    <div class='submit'>
+        <a href='ActualizarEntradaAdmin.php?entrada=$_GET[entrada]'>
+            <button type='submit'>Actualizar Entrada</button>
+        </a>
+    </div>
+    EOS;
+    return $content;
+    }
 
 
     public function getTitulo()

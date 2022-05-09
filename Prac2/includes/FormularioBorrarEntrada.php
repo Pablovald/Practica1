@@ -27,7 +27,7 @@ class FormularioBorrarEntrada extends Form
                 </select>
             </div>
 			<div class='submit'>
-                <button type='submit' name='Aniadir'>borrar entrada</button>
+                <button type='submit' name='Aniadir'>Borrar entrada</button>
 			</div>
 			</div>
         </div>";
