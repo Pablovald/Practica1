@@ -77,7 +77,7 @@ class Usuario
                     <h1>Comentarios</h1>".
                     $comentarios."
                 </div>
-                <div class='valoracion h3'>
+                <div class='footer2'>
                     <h1>Valoraciones</h1>".
                     $valoraciones."
                 </div>
