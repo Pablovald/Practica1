@@ -173,14 +173,17 @@ class Comentario
         $tablaComentarios = sprintf("SELECT C.* FROM Comentarios C WHERE $id = C.id ");
         $row = $conn->query($tablaComentarios);
         $rs = $row->fetch_assoc();
-        $rs['id'] = $id;
-        return $rs;
+        $com=new Comentario($rs['idUsuario'],$rs['ubicacion'],$rs['titulo'],$rs['texto'],$rs['editado']);
+        $com->id = $id;
+        $row->free();
+        return $com;
     }
     public static function permisoEdicion($id)
     {
         $permiso = false;
         $coment=self::buscaComentarioPorId($id);
-        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $coment['idUsuario']) {
+        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $coment->getIdUsuario()
+        || Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario'])==0) {
             $permiso = true;
         }
         return $permiso;

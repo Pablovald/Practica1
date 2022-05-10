@@ -654,12 +654,16 @@ textarea{
   display:inline-block;
   content: "\f005";
 }
-.nota-valoracion > label {
-color: #ddd; 
- float: left; 
+.nota-valoracion  label {
+color: #ddd !important; 
+float: left; 
 }
 
-.nota-valoracion > input:checked + label { color:#FFD700;  }
+.nota-valoracion > .half::before { 
+	content: "\f089";
+	position: absolute;
+  }
+.nota-valoracion > input:checked + label { color:#FFD700 !important; }
 
 .boton-link {
 	margin:10px;

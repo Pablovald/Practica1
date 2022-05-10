@@ -80,99 +80,15 @@ class entradaBlog{
     return $actualizado;
 
     }
-
-    public static function blog(){
+    public static function getEntradaPorId($id){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $tablaBlog=sprintf("SELECT * FROM entradasBlog");
-        $numEntradas = $conn->query($tablaBlog)->num_rows;
-        $rs=$conn->query($tablaBlog);
-        $tableCont="<tr>";
-        $j=0;
-        for($i=0;$i<$numEntradas;$i++){
-            $aux=$rs->fetch_assoc();
-            $row=$conn->query(sprintf("SELECT * FROM entradasBlog B WHERE B.id = '$aux[id]'"));
-            $contenido=$row->fetch_assoc();
-            $intro=explode(' ',$contenido['intro'],16);
-            $intro[15]="...";
-            $rowCont =  "<td>
-            <div class = 'blog-contenedor'>
-                <div class = 'blog-box'>
-                    <div class = 'blog-img'>
-                    <a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."><img src= '$contenido[rutaImagen]'></a>
-                    </div>
-                    <div class = 'blog-text'>
-                    <h4>"."$contenido[titulo]"."</h4>
-            <p>".implode(' ',$intro)."<a href="."procesarEntradaBlog.php?entrada="."$contenido[id]"."> Leer más</a></p>
-                    </div>
-                </div>
-            </div>
-            </td>";
-            if($j<3){	
-                $tableCont.=$rowCont;
-                $j++;
-            }
-            else{
-                $tableCont.="</tr>";
-                $tableCont.="<tr>";
-                $tableCont.=$rowCont;
-                $j=1;
-            }
-        }
-
-        $contenidoPrincipal = <<<EOS
-        <div class='cabecera'>
-            <p> En club Seawolf Deportes Naúticos os proporcionamos un blog con las noticias más extravagantes sobre deportes acuáticos </p>
-        </div>
-        <table align = "center">
-            $tableCont
-        </table>  
-        EOS;
-
-        $rs->free();
-        $row->free();
-        return $contenidoPrincipal;
-    }
-
-    public static function procesarEntradaBlog(&$tituloPagina, &$tituloCabecera){
-        $entrada = htmlspecialchars($_GET['entrada']);
-        $app=Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $tablaEntrada=sprintf("SELECT * FROM entradasBlog E WHERE E.id = $entrada ");
-        $row = $conn->query($tablaEntrada);
+        $row=$conn->query(sprintf("SELECT B.* FROM entradasBlog B WHERE B.id = $id"));
         $rs=$row->fetch_assoc();
-        $tituloPagina=$rs['titulo'];
-        $tituloCabecera = strtoupper($tituloPagina);
-        $contenidoPrincipal = <<<EOS
-            <div class='info-blog'>
-                <h3>$rs[header1]</h3>
-                <p>$rs[intro]</p>
-                <img class='entr-img' src=$rs[rutaImagen] alt=""> </br> </br>
-                <h3>$rs[header2]</h3>
-                <p>$rs[parrafo]</p>
-                <iframe class='iframe' src="https://www.youtube.com/embed/$rs[video]" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
-                encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            EOS;
+        $contenido=new entradaBlog($rs['titulo'],$rs['header1'],$rs['intro'],$rs['header2'],$rs['parrafo'],$rs['rutaImagen'],$rs['video']);
+        $contenido->id=$id;
         $row->free();
-        return $contenidoPrincipal;
-    }
-    public static function listadoEntrada(){
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $row=$conn->query(sprintf("SELECT * FROM entradasBlog"));
-        if($row){
-            $ret="";
-            for($i=0;$i<$row->num_rows;$i++){
-                $act=$row->fetch_assoc();
-                $ret.="<option>"."$act[titulo]"."</option>";
-            }
-            $row->free();
-            return $ret;
-        }else{
-            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-            exit();
-        }
+        return $contenido;
     }
 
     public static function borrarEntrada($nombre){
@@ -193,16 +109,6 @@ class entradaBlog{
         }
 
     }
-    public static function nombreEntrada($id){
-        $app=Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $tabla=sprintf("SELECT titulo FROM entradasBlog WHERE id = '$id'");
-        $row = $conn->query($tabla);
-        $rs=$row->fetch_assoc();
-        return $rs['titulo'];
-    }
-
-
     public static function buscaEntrada($id){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
@@ -248,18 +154,6 @@ class entradaBlog{
         }
     }
 
-    public static function mostrarActualizar(){
-        $content=<<<EOS
-    <div class='submit'>
-        <a href='ActualizarEntradaAdmin.php?entrada=$_GET[entrada]'>
-            <button type='submit'>Actualizar Entrada</button>
-        </a>
-    </div>
-    EOS;
-    return $content;
-    }
-
-
     public function getTitulo()
     {
         return $this->titulo;
@@ -295,4 +189,12 @@ class entradaBlog{
         return $this->video;
     }
 
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
 }

@@ -50,10 +50,10 @@ class FormularioComentario extends Form
         }
         if (count($result) === 0) {
             $idUser = Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']);
-            $entrada = htmlspecialchars($_GET['entrada']);
-            $ubicacion = entradaBlog::nombreEntrada($entrada);
-            Comentario::crea($idUser, $ubicacion, $titulo, $texto, false);
-            if (!$entrada) {
+            $id = htmlspecialchars($_GET['entrada']);
+            $entrada = entradaBlog::getEntradaPorId($id);
+            $coment=Comentario::crea($idUser, $entrada->getTitulo(), $titulo, $texto, false);
+            if (!$coment) {
                 $result[] = "Error al publicar el comentario";
             } else {
                 $result[] = "Comentario publicado con éxito";

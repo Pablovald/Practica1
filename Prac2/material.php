@@ -3,7 +3,7 @@ namespace es\fdi\ucm\aw;
 
 require_once __DIR__. '/includes/config.php';
 
-$contenidoPrincipal = Material::infoMaterial($tituloPagina, $tituloCabecera);
+$contenidoPrincipal = Material::infoMaterial($tituloPagina, $tituloCabecera).
 $formularioComentario="";
 $comentarios=Valoracion::mostrarTodos($tituloPagina);
 

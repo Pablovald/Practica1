@@ -1,6 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
-
+include __DIR__.'/GeneraVistas.php';
 
 class FormularioBorrarEntrada extends Form
 {
@@ -23,7 +23,7 @@ class FormularioBorrarEntrada extends Form
             <div class='grupo-control'>
                 <label>Nombre de la entrada:</label>
                 <select name='nombre'>
-                    ".entradaBlog::listadoEntrada()."
+                    ".generalistadoEntrada()."
                 </select>
             </div>
 			<div class='submit'>
