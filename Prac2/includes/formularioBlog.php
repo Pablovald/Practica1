@@ -16,6 +16,7 @@ class FormularioBlog extends Form
         $parrafo = $datos['parrafo'] ?? '';
         $imagen  = $datos['imagen'] ?? '';
         $video = $datos['video'] ?? '';
+        $idAutor = Usuario::buscaUsuario($_SESSION['nombreUsuario']);
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -26,7 +27,7 @@ class FormularioBlog extends Form
         $errorParrafo = self::createMensajeError($errores, 'parrafo', 'span', array('class' => 'error'));
         $errorimagen  = self::createMensajeError($errores, 'imagen', 'span', array('class' => 'error'));
         $errorVideo = self::createMensajeError($errores, 'video', 'span', array('class' => 'error'));
-
+    
         $html ="
             <div class = 'content'>
             <legend> Editor <span> Publicación </span></legend></br>
@@ -39,19 +40,19 @@ class FormularioBlog extends Form
                     <label>Encabezado de la introducción:</label> <input class='control' type='text' name='header1' value='$header1' />$errorHeader1
                 </div>
                 <div class='grupo-control'>
-                    <label>Introducción:</label> <input class='control' type='text' name='intro' value='$intro' />$errorIntro
+                    <label>Introducción:</label> <textarea class='control' type='text' name='intro' required/></textarea>$errorIntro
                 </div>
                 <div class='grupo-control'>
                     <label>Encabezado del párrafo:</label> <input class='control' type='text' name='header2' value='$header2' />$errorHeader2
                 </div>
                 <div class='grupo-control'>
-                    <label>Texto del párrafo:</label> <input class='control' type='text' name='parrafo' value='$parrafo'/>$errorParrafo
+                    <label>Texto del párrafo:</label> <textarea class='control' type='text' name='parrafo' required/></textarea>$errorParrafo
                 </div>
                 <div class='seleccion'>
                     <label>Selecciona una imagen:</label> <input type='file' name='imagen' value='$imagen'/>$errorimagen
                 </div>
                 <div class='grupo-control'>
-                    <label>Enlace al vídeo:</label> <input class='control' type='text' name='video' value='$video'/>$errorVideo
+                    <label>Enlace al vídeo de YouTube:</label> <input class='control' type='text' name='video' value='$video' required/>$errorVideo
                 </div>
                 <div class='submit'><button type='submit' name='subir'>Subir artículo al blog</button></div>
             </div>
@@ -64,7 +65,7 @@ class FormularioBlog extends Form
         $result = array();
 
         $titulo = $datos['titulo'] ?? null;
-
+        $idAutor = $datos['idAutor']??null;
         if (empty($titulo)) {
             $result['titulo'] = 'El titulo no puede estar vacío.';
         }
@@ -73,14 +74,14 @@ class FormularioBlog extends Form
         if (empty($header1)) {
             $result['header1'] = 'El encabezado del artículo no puede estar vacío.';
         }
-        $intro = $datos['intro'] ?? null;
+        $intro = $_POST['intro'] ?? null;
         if (empty($intro)) {
             $result['intro'] = 'La introducción no puede estar vacía .';
         }
 
         $header2 = $datos['header2'];
 
-        $parrafo = $datos['parrafo'] ?? null;
+        $parrafo = $_POST['parrafo'] ?? null;
         if (empty($parrafo)) {
             $result['parrafo'] = 'El contenido del artículo no puede estar vacío.';
         }
@@ -92,7 +93,7 @@ class FormularioBlog extends Form
 
         $video = substr($datos['video'],-11);
         if (empty($video)) {
-            $result['video'] = 'Error al subir el video';
+            $result['video'] = 'El enlace al vídeo no puede estar vacío';
         }
 
         if (count($result) === 0) {
@@ -103,7 +104,8 @@ class FormularioBlog extends Form
                 $header2,
                 $parrafo,
                 $imagen,
-                $video
+                $video,
+                $idAutor
             );
             if (!$entrada) {
                 $result[] = 'No se ha podido crear la entrada de Blog';

@@ -18,6 +18,8 @@ class FormularioActualizarEntrada extends Form
         $parrafo = $entrada->getParrafo();
         $imagen  = $entrada->getImagen();
         $video = $entrada->getVideo();
+        $idAutor = $entrada->getIdAutor();
+
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -41,13 +43,13 @@ class FormularioActualizarEntrada extends Form
                     <label>Encabezado de la introducción:</label> <input class='control' type='text' name='header1' value='$header1' />$errorHeader1
                 </div>
                 <div class='grupo-control'>
-                    <label>Introducción:</label> <input class='control' type='text' name='intro' value='$intro' />$errorIntro
+                    <label>Introducción:</label> <textarea class='control' type='text' name='intro' required/>$intro</textarea>$errorIntro
                 </div>
                 <div class='grupo-control'>
                     <label>Encabezado del párrafo:</label> <input class='control' type='text' name='header2' value='$header2' />$errorHeader2
                 </div>
                 <div class='grupo-control'>
-                    <label>Texto del párrafo:</label> <input class='control' type='text' name='parrafo' value='$parrafo'/>$errorParrafo
+                    <label>Texto del párrafo:</label> <textarea class='control' type='text' name='parrafo' required/>$parrafo</textarea>$errorParrafo
                 </div>
                 <div class='seleccion'>
                     <label>Selecciona una imagen:</label> <input type='file' name='imagen' value='$imagen'/>$errorimagen
@@ -57,6 +59,9 @@ class FormularioActualizarEntrada extends Form
                 </div>
                 <div class='grupo-control'>
                     <input class='control' type='hidden' name='id' value='$id' />
+                </div>
+                <div class='grupo-control'>
+                    <input class='control' type='hidden' name='idAutor' value='$idAutor' />
                 </div>
                 <div class='submit'><button type='submit' name='subir'>Actualizar Entrada</button></div>
             </div>
@@ -69,6 +74,7 @@ class FormularioActualizarEntrada extends Form
         $result = array();
         $id =$datos['id'];
         $titulo = $datos['titulo'] ?? null;
+        $idAutor = $datos['idAutor'];
 
         if (empty($titulo)) {
             $result['titulo'] = 'El titulo no puede estar vacío.';
@@ -78,14 +84,14 @@ class FormularioActualizarEntrada extends Form
         if (empty($header1)) {
             $result['header1'] = 'El encabezado del artículo no puede estar vacío.';
         }
-        $intro = $datos['intro'] ?? null;
+        $intro = $_POST['intro'] ?? null;
         if (empty($intro)) {
             $result['intro'] = 'La introducción no puede estar vacía .';
         }
 
         $header2 = $datos['header2'];
 
-        $parrafo = $datos['parrafo'] ?? null;
+        $parrafo = $_POST['parrafo'] ?? null;
         if (empty($parrafo)) {
             $result['parrafo'] = 'El contenido del artículo no puede estar vacío.';
         }
@@ -101,7 +107,8 @@ class FormularioActualizarEntrada extends Form
         }
 
         if (count($result) === 0) {
-            $entrada = new entradaBlog($id,$titulo,$header1,$intro,$header2,$parrafo,$imagen,$video);
+            $entrada = new entradaBlog($titulo,$header1,$intro,$header2,$parrafo,$imagen,$video,$idAutor);
+            $entrada->setID($id);
             if (!entradaBlog::guarda($entrada)) {
                 $result[] = 'No se ha podido crear la entrada de Blog';
             }

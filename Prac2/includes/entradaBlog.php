@@ -13,7 +13,7 @@ class entradaBlog{
     private $idAutor;
 
 
-    private function __construct($titulo, $header1, $intro, $header2,$parrafo,$imagen,$video,$idAutor)
+    public function __construct($titulo, $header1, $intro, $header2,$parrafo,$imagen,$video,$idAutor)
     {
         $this->titulo= $titulo;
         $this->header1 = $header1;
@@ -185,5 +185,17 @@ class entradaBlog{
     public function getIdAutor()
     {
         return $this->idAutor;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }
