@@ -51,7 +51,7 @@ class Material
             <link rel='stylesheet' href='css/material.css'>
             ";
 
-                 $Cont .= "
+                $Cont .= "
                 <form action='agregar_al_carrito.php' method='post'>
                     <input type='hidden' name='id_producto' value= '$rs[id]'>
                     <label>Selecciona una cantidad:</label>

@@ -1,18 +1,19 @@
 <?php
-
+namespace es\fdi\ucm\aw;
+include __DIR__.'/includes/GeneraVistas.php';
 require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Actividades';
 $tituloCabecera = 'ACTIVIDADES';
 
-$cont = es\fdi\ucm\aw\Actividad::listadoActividades();
+$cont = Actividad::listadoActividades();
 $contenidoPrincipal = <<<EOS
 <h2>Actividades disponibles:</h2>
 <p>$cont</p>
 </br>
 EOS;
 
-$form = new es\fdi\ucm\aw\FormularioActividadAdmin();
+$form = new FormularioActividadAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoAct'])){
@@ -31,13 +32,13 @@ if(isset($_GET['estadoAct'])){
 }
 $contenidoPrincipal .="</br>";
 
-$cont = es\fdi\ucm\aw\Actividad::listadoCursos();
+$cont = listadoCursos();
 $contenidoPrincipal .= <<<EOS
 <h2>Cursos disponibles:</h2>
 <p>$cont</p>
 </br>
 EOS;
-$form = new es\fdi\ucm\aw\FormularioCursoActividadAdmin();
+$form = new FormularioCursoActividadAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoCur'])){

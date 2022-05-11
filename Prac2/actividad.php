@@ -1,15 +1,14 @@
 <?php
-
-use es\fdi\ucm\aw\Actividad;
-
+namespace es\fdi\ucm\aw;
+include __DIR__.'/includes/GeneraVistas.php';
 require_once __DIR__.'/includes/config.php';
 
-$contenidoPrincipal = es\fdi\ucm\aw\Actividad::infoActividad($tituloPagina, $tituloCabecera);
-$form = new es\fdi\ucm\aw\FormularioActividad();
+$contenidoPrincipal = infoActividad($tituloPagina, $tituloCabecera);
+$form = new FormularioActividad();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 $formularioComentario="";
-$comentarios=es\fdi\ucm\aw\Valoracion::mostrarTodos($tituloPagina);
+$comentarios= Valoracion::mostrarTodos($tituloPagina);
 //Mensaje relacionado con inscripcion de una actividad
 if(isset($_GET["estado"])){
     $estado = htmlspecialchars($_GET["estado"]);
@@ -43,9 +42,9 @@ if(isset($_GET["estado"])){
 
 if(isset($_SESSION['login']) && $_SESSION['login']){
     if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
-        $contenidoPrincipal .= Actividad::mostrarFuncionesAdmin();
+        $contenidoPrincipal .= mostrarFuncionesAdmin();
     }
-    $form2 = new es\fdi\ucm\aw\FormularioValoracion();
+    $form2 = new FormularioValoracion();
     $formularioComentario = $form2->gestiona();
 }
 
