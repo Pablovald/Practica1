@@ -122,7 +122,7 @@ function mostrarComentarioBlog($com, $user)
 			<div class='caja-top-comentario'>
 				<div class='perfil-comentario'>
 					<div class='foto-comentario'>
-						<img class='foto-comentario-img' src=" . $user->getRutaFoto() . "alt=''>
+						<img class='foto-comentario-img' src=" . $user->getRutaFoto() . " alt=''>
 					</div>
 					<div class='nombre-user-cometario'>
 						<h1>" . $com->getTitulo() . "</h1>
