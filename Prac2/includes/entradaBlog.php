@@ -10,9 +10,10 @@ class entradaBlog{
     private $parrafo;
     private $imagen;
     private $video;
+    private $idAutor;
 
 
-    private function __construct($titulo, $header1, $intro, $header2,$parrafo,$imagen,$video)
+    private function __construct($titulo, $header1, $intro, $header2,$parrafo,$imagen,$video,$idAutor)
     {
         $this->titulo= $titulo;
         $this->header1 = $header1;
@@ -21,11 +22,12 @@ class entradaBlog{
         $this->parrafo = $parrafo;
         $this->imagen = $imagen;
         $this->video = $video;
+        $this->idAutor = $idAutor;
     }
 
-    public static function crea($titulo,$header1,$intro,$header2,$parrafo,$imagen,$video){
+    public static function crea($titulo,$header1,$intro,$header2,$parrafo,$imagen,$video,$idAutor){
 
-        $entrada= new entradaBlog($titulo,$header1,$intro,$header2,$parrafo,$imagen,$video);
+        $entrada= new entradaBlog($titulo,$header1,$intro,$header2,$parrafo,$imagen,$video,$idAutor);
         return self::guarda($entrada);
     }
     public static function guarda($entrada){
@@ -37,14 +39,15 @@ class entradaBlog{
     private static function inserta($entrada){
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO entradasBlog(titulo, header1, intro, header2, parrafo, rutaImagen, video) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')"
+        $query=sprintf("INSERT INTO entradasBlog(titulo, header1, intro, header2, parrafo, rutaImagen, video, idAutor) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d')"
         , $conn->real_escape_string($entrada->titulo)
         , $conn->real_escape_string($entrada->header1)
         , $conn->real_escape_string($entrada->intro)
         , $conn->real_escape_string($entrada->header2)
         , $conn->real_escape_string($entrada->parrafo)
         , $conn->real_escape_string($entrada->imagen)
-        , $conn->real_escape_string($entrada->video));
+        , $conn->real_escape_string($entrada->video)
+        , $conn->real_escape_string($entrada->idAutor));
         if ( $conn->query($query) ) {
             $entrada->id = $conn->insert_id;
         } else {
@@ -57,7 +60,7 @@ class entradaBlog{
         $actualizado=false;
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("UPDATE entradasBlog E SET titulo = '%s', header1='%s', intro='%s', header2='%s', parrafo='%s', rutaImagen='%s', video='%s' WHERE E.id=%i"
+        $query=sprintf("UPDATE entradasBlog E SET titulo = '%s', header1='%s', intro='%s', header2='%s', parrafo='%s', rutaImagen='%s', video='%s', idAutor='%d' WHERE E.id=%d"
         , $conn->real_escape_string($entrada->titulo)
         , $conn->real_escape_string($entrada->header1)
         , $conn->real_escape_string($entrada->intro)
@@ -65,6 +68,7 @@ class entradaBlog{
         , $conn->real_escape_string($entrada->parrafo)
         , $conn->real_escape_string($entrada->imagen)
         , $conn->real_escape_string($entrada->video)
+        , $conn->real_escape_string($entrada->idAutor)
         , $entrada->id);
     if ( $conn->query($query) ) {
         if ( $conn->affected_rows != 1) {
@@ -85,7 +89,7 @@ class entradaBlog{
         $conn = $app->conexionBd();
         $row=$conn->query(sprintf("SELECT B.* FROM entradasBlog B WHERE B.id = $id"));
         $rs=$row->fetch_assoc();
-        $contenido=new entradaBlog($rs['titulo'],$rs['header1'],$rs['intro'],$rs['header2'],$rs['parrafo'],$rs['rutaImagen'],$rs['video']);
+        $contenido=new entradaBlog($rs['titulo'],$rs['header1'],$rs['intro'],$rs['header2'],$rs['parrafo'],$rs['rutaImagen'],$rs['video'],$rs['idAutor']);
         $contenido->id=$id;
         $row->free();
         return $contenido;
@@ -118,7 +122,7 @@ class entradaBlog{
         if ($rs) {
             if ( $rs->num_rows == 1) {
                 $fila = $rs->fetch_assoc();
-                $entrada = new entradaBlog($fila['titulo'], $fila['header1'], $fila['intro'], $fila['header2'], $fila['parrafo'],$fila['rutaImagen'],$fila['video']);  
+                $entrada = new entradaBlog($fila['titulo'], $fila['header1'], $fila['intro'], $fila['header2'], $fila['parrafo'],$fila['rutaImagen'],$fila['video'],$fila['idAutor']);  
                 $entrada->id = $fila['id'];
                 $result = $entrada;
             }
@@ -130,29 +134,6 @@ class entradaBlog{
         return $result;
     }
 
-    public static function actualizarEntrada($id,$titulo,$header1,$intro,$header2,$parrafo,$imagen,$video){
-        $app=Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $query=sprintf("UPDATE entradasBlog E SET titulo = '%s', header1='%s', intro='%s', header2='%s', parrafo='%s', rutaImagen='%s', video='%s' WHERE E.id=$id"
-        , $conn->real_escape_string($titulo)
-        , $conn->real_escape_string($header1)
-        , $conn->real_escape_string($intro)
-        , $conn->real_escape_string($header2)
-        , $conn->real_escape_string($parrafo)
-        , $conn->real_escape_string($imagen)
-        , $conn->real_escape_string($video));
-        if ($conn->query($query)) {
-            if ( $conn->affected_rows != 1) {
-                header("Location: ActualizarEntradaAdmin.php?estadoAct=error&entrada=".$id."");
-            }
-            else{
-                
-                header("Location: ActualizarEntradaAdmin.php?estadoAct=actualizado&entrada=".$id."");
-            }
-        } else {
-            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-        }
-    }
 
     public function getTitulo()
     {
@@ -196,5 +177,13 @@ class entradaBlog{
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get the value of idAutor
+     */ 
+    public function getIdAutor()
+    {
+        return $this->idAutor;
     }
 }

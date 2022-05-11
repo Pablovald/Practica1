@@ -101,17 +101,8 @@ class FormularioActualizarEntrada extends Form
         }
 
         if (count($result) === 0) {
-            $entrada = entradaBlog::actualizarEntrada(
-                $id,
-                $titulo,
-                $header1,
-                $intro,
-                $header2,
-                $parrafo,
-                $imagen,
-                $video
-            );
-            if (!$entrada) {
+            $entrada = new entradaBlog($id,$titulo,$header1,$intro,$header2,$parrafo,$imagen,$video);
+            if (!entradaBlog::guarda($entrada)) {
                 $result[] = 'No se ha podido crear la entrada de Blog';
             }
             else{

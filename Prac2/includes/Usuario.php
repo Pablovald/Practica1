@@ -181,7 +181,7 @@ class Usuario
             return false;
         } 
 
-        $app = Aplicacion::getInstancia();
+        $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $query = sprintf("DELETE FROM Usuarios U WHERE U.id = %d", $idUsuario);
         if ( ! $conn->query($query) ) {
@@ -201,6 +201,27 @@ class Usuario
             if ( $rs->num_rows == 1) {
                 $fila = $rs->fetch_assoc();
                 $result = $fila['id'];
+            }
+            $rs->free();
+        } else {
+            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+            exit();
+        }
+        return $result;
+    }
+    public static function buscaUsuarioPorId($id){
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM Usuarios WHERE id = $id");
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ( $rs->num_rows == 1) {
+                $fila = $rs->fetch_assoc();
+                $user = new Usuario($fila['nombreUsuario'], $fila['nombre'], $fila['Apellido'], $fila['password'], $fila['rol'], $fila['FechaNac'],
+                $fila['Telefono'], $fila['Nacionalidad'], $fila['rutaFoto'], $fila['Correo']);  
+                $user->id = $fila['id'];
+                $result = $user;
             }
             $rs->free();
         } else {
