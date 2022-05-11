@@ -147,7 +147,7 @@ function mostrarComentarioPerfil($com)
 }
 function mostrarTodosPerfil($idUsuario)
     {
-        $comentarios = "";
+        $comentarios = "<p>Aún no has realizado ningun comentario</p>";
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $tablaComentarios = sprintf("SELECT C.* FROM Comentarios C JOIN Usuarios U ON C.idUsuario = U.id WHERE $idUsuario = C.idUsuario ");
@@ -217,23 +217,17 @@ function mostrarValoracion($val,$user)
     }
 //genera el html para ver las valoraciones de un usuario en su perfil
 function mostrarValoracionPerfil($val){
-    if(!empty($val->getTexto())){
         $comentarios="
         <div>
             <p>Valoración realizada en ".$val->getUbicacion()."</p>
             <p>".$val->getTitulo().mostrarEstrellasFijo($val->getNota())."</p>
             <p>".$val->getTexto()."</p>
         </div>";
-        
-    }
-    else{
-        $comentarios="<p>Aún no has realizado ninguna valoracion</p>";
-    }
     return $comentarios;
 }
 //genera el html para todas las valoraciones del perfil
 function mostrarTodasValoracionesPerfil($idUsuario){
-    $valoraciones="";
+    $valoraciones="<p>Aún no has realizado ninguna valoración</p>";
     $app=Aplicacion::getSingleton();
     $conn=$app->conexionBd();
     $tablaValoraciones=sprintf("SELECT V.*FROM Valoraciones V JOIN Usuarios U ON V.idUsuario = U.id WHERE $idUsuario = V.idUsuario");
