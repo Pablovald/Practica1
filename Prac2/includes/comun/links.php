@@ -53,7 +53,9 @@
 		if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
 			$contenido = <<<EOF
 			<ul class="submenu">
-			<li><a href="Alojamiento_Admin.php">Añadir alojamiento</a></li>
+			<li><a href="Alojamiento_Admin.php">Añadir/borrar 
+			alojamiento
+			 y capacidad</li>
 			</ul></li>
 			EOF;
 			echo $contenido;
