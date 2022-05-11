@@ -1,13 +1,15 @@
 <?php
-require_once __DIR__. '/includes/config.php';
+namespace es\fdi\ucm\aw;
+include __DIR__.'/includes/GeneraVistas.php';
+require_once __DIR__.'/includes/config.php';
 
 
-$cont = es\fdi\ucm\aw\Material::materialMain($tituloPagina, $tituloCabecera);
+$cont = materialMain($tituloPagina, $tituloCabecera);
 $contenidoPrincipal = <<<EOS
 <p>$cont</p>
 EOS;
 
-$form = new es\fdi\ucm\aw\FormularioMaterialAdmin();
+$form = new FormularioMaterialAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoMat'])){

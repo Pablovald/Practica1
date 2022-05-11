@@ -258,13 +258,20 @@ $(document).ready(function() {
 
 	//Borrar una actividad
 	$("#borrarActividad").click(function(){
-		var url = "comprobarUsuario.php?nombre=" + $("#nombreActividad").val() + "&estado=borrarActividad";
-		$.get( url , function( data ) {
-			if(data == "exito"){
-				alert("¡La actividad: '" + $("#nombreActividad").val() + "' se borro correctamente!");
-				window.location.href = "Actividades_Main.php";
-			}
-		  });
+		var opcion = confirm("Aceptar o Cancelar");
+		if (opcion == true) {
+			var url = "comprobarUsuario.php?nombre=" + $("#nombreActividad").val() + "&estado=borrarActividad";
+			$.get( url , function( data ) {
+				if(data == "exito"){
+					alert("¡La actividad: '" + $("#nombreActividad").val() + "' se borro correctamente!");
+					window.location.href = "Actividades_Main.php";
+				}
+			  });
+		}
+		else{
+			alert("La operacion fue cancelada");
+		}
+		console.log(opcion)
 	});
 
 	// Comprueba si es un DNI correcto (entre 5 y 8 letras seguidas de la letra que corresponda).

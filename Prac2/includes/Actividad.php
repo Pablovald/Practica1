@@ -42,7 +42,7 @@ class Actividad
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
 
-        $rs = $conn->query("SELECT Nombre FROM Actividades");
+        $rs = $conn->query("SELECT Nombre FROM Actividades ORDER BY Nombre");
         if($rs){
             $row = $rs->fetch_assoc();
             $contenido = "Listado de actividades: ";

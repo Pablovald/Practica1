@@ -25,30 +25,6 @@ class Alojamiento
         $this->$fecha=$fecha;
     }
 
-   
-    public static function infoAlojamiento(&$tituloPagina, &$tituloCabecera){
-        $tituloPagina = htmlspecialchars($_GET["alojamiento"]);
-        $tituloCabecera = strtoupper($tituloPagina);
-        $contenidoPrincipal ="";
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $tablaActividad=sprintf("SELECT * FROM Alojamiento A WHERE A.nombre LIKE '%s' "
-                                , $conn->real_escape_string($tituloPagina));
-        $row = $conn->query($tablaActividad);
-        if($row){
-            $rs=$row->fetch_assoc();
-            $Cont="<h3><span>Información detallada</span> del hotel "."$tituloPagina"."</h3>
-            <p>"."$rs[descripciondetallada]"."</p>";
-            $contenidoPrincipal = <<<EOS
-                $Cont
-            EOS;
-            $row->free();
-        }else{
-            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-            exit();
-        }
-        return $contenidoPrincipal;
-    }
 
     public static function inscribirAlojamiento($nhabitacion, $fechaini, $fechafin,$nombreAlojamiento, &$result){
         $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
@@ -119,58 +95,6 @@ class Alojamiento
             echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
         }
-    }
-
-    public static function AlojamientoMain(){
-        $contenidoPrincipal = NULL;
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $tablaAlojamiento_Main=sprintf("SELECT * FROM Alojamiento");
-        $rs = $conn->query($tablaAlojamiento_Main);
-        $tableCont=NULL;
-        if($rs)
-        {
-	        for($i=1;$i<=$rs->num_rows;$i++){
-                $id=$rs->fetch_assoc();
-		        $row=$conn->query(sprintf("SELECT * FROM Alojamiento A WHERE A.id = '$id[id]'"));
-		        if($row)
-		        {
-                    $contenido=$row->fetch_assoc();
-                    $url=rawurlencode("$contenido[nombre]");
-                    $leftCont =  "<div><td>
-                        <a href ="."alojamiento.php?alojamiento=".$url."><img class='img-pag-prin' src= '$contenido[rutaFoto]'> </a>
-                            </td></div>";
-                    $rightCont = "<div><td>
-                    <h2><a href = "."alojamiento.php?alojamiento=".$url.">"."$contenido[nombre]"." </a></h2>
-                        "."$contenido[descripcion]"."
-                    <a href = "."alojamiento.php?alojamiento=".$url.">Leer más</a></p>
-                    </td></div>";
-
-                    if($i%2==0){
-                        $aux=$leftCont;
-                        $leftCont=$rightCont;
-                        $rightCont=$aux;
-                    }
-                    $tableCont.="<tr>"."$leftCont"."$rightCont"."</tr>";
-                    $row->free();
-                }else{
-                    echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-                    exit();
-                }
-            }
-            $contenidoPrincipal = <<<EOS
-            <p>Alojamientos disponibles en SeaWolf Deportes Náuticos. </p>
-            
-            <table>$tableCont
-            </table>
-            EOS;
-            $rs->free();
-        }else{
-            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-            exit();
-        }
-        return $contenidoPrincipal;
-        
     }
 
     public static function buscaAlojamiento($nombre){
@@ -263,6 +187,8 @@ class Alojamiento
         }
         return $result;
     }
+
+    //Sacar foto asociado al Alojamiento
     public static function sacarFoto($nombreAlojamiento){
 
         $conn=Aplicacion::getSingleton()->conexionBd();
@@ -285,41 +211,6 @@ class Alojamiento
        $alojamiento->descripciondetallada = $descripciondetallada;
 
         return self::guardaAlojamiento($alojamiento);
-    }
-
-    public static function listadoCapacidad(){
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $Cont=NULL;
-        $row=$conn->query(sprintf("SELECT * FROM Habitaciones ORDER BY nombre_alojamiento,fecha "));
-        if($row){
-            if($row->num_rows > 0){
-                $Cont = "<table >
-                            <tr>
-                            <th colspan='2'>Nombre</th>
-                            <th colspan='2'>Fecha</th>
-                            <th colspan='2'>Plazas</th>
-                            </tr>";
-                for($i=0;$i<$row->num_rows;$i++){
-                    $fila = $row->fetch_assoc();
-                    $Cont .="<tr>
-                                <td>$fila[nombre_alojamiento]<td>
-                                <td>$fila[fecha]<td>
-                                <td>$fila[capacidad]<td>
-                                </tr>
-                    ";
-                }
-                $Cont .= "</table>";
-            }
-            else{
-                $Cont = "<p>No existe hay plazas disponibles en la BD. Por favor inserte una</p>";
-            }
-            $row->free();
-        }else{
-            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-            exit();
-        }
-        return $Cont;
     }
 
     public static function optionAlojamiento(){

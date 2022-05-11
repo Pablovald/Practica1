@@ -544,6 +544,12 @@ function listadoCursos()
                 $valor = "" . $aux['nombre_curso'] . " ";
             } else {
                 $valor = "" . $aux['nombre_curso'] . "(" . $aux['horas'] . " horas) ";
+    $row=$conn->query(sprintf("SELECT C.nombre_actividad, C.nombre_curso, C.precio, C.horas FROM CursosActividades C ORDER BY C.nombre_actividad, C.nombre_curso"));
+    if($row){
+        for($i=0;$i<$row->num_rows;$i++){
+            $aux=$row->fetch_assoc();
+            if($aux['horas'] == 0){
+                $valor = "".$aux['nombre_curso']." ";
             }
             $valor .= "(" . $aux['precio'] . "€)";
             if (!isset($array[$aux['nombre_actividad']])) {
@@ -588,6 +594,12 @@ function listadoPlazas($nombre)
     ));
     if ($row) {
         if ($row->num_rows > 0) {
+    $Cont=NULL;
+    
+    $row=$conn->query(sprintf("SELECT * FROM CapacidadActividad WHERE Nombre='%s' ORDER BY Fecha"  
+    , $conn->real_escape_string($nombre)));
+    if($row){
+        if($row->num_rows > 0){
             $Cont = "<table >
                         <tr>
                         <th colspan='2'>Nombre</th>
@@ -811,4 +823,225 @@ function nacionalidad($usuario)
         }
     }
     return $result;
+}
+
+//Informacion de un material
+function infoMaterial(&$tituloPagina, &$tituloCabecera){
+    $tituloPagina = htmlspecialchars($_GET["material"]);
+    $tituloCabecera = strtoupper($tituloPagina);
+    $contenidoPrincipal ="";
+
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
+    $tablaMaterial=sprintf("SELECT * FROM Materiales M WHERE M.nombre LIKE '%s' "
+                            , $conn->real_escape_string($tituloPagina));
+    $row = $conn->query($tablaMaterial);
+    if($row){
+        $rs=$row->fetch_assoc();
+        $Cont="
+        <div class = 'fotoMaterial'>
+            <img src= $rs[imagen]>
+        </div>
+        <div class='contenidoMaterial'>
+        <div class = 'tituloInfo'>
+            Descripción detallada del producto: <br/>
+        </div>
+        <p>"."$rs[desc_det]</p><br/>
+        <div class='nota-valoracion'>".mostrarEstrellasFijo(Valoracion::notaMedia($tituloPagina))."
+        </div>
+        <p>"." <precio>Precio del producto: </precio>"." $rs[precio] "." €</p>
+        <link rel='stylesheet' href='css/material.css'>
+        ";
+
+            $Cont .= "
+            <form action='agregar_al_carrito.php' method='post'>
+                <input type='hidden' name='id_producto' value= '$rs[id]'>
+                <label>Selecciona una cantidad:</label>
+                <input type ='number' name='cantidad' min='1' value= ''>
+                <button class='carrito'>
+                    <span2>Añadir</span2>
+                    <i class='fa fa-shopping-basket' aria-hidden='true'></i>
+                </button>
+            </form>";
+
+        $Cont .= "</div>";
+        $contenidoPrincipal = <<<EOS
+            $Cont
+        EOS;
+        $row->free();
+    }
+
+    else{
+        echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        exit();
+    }
+
+    return $contenidoPrincipal;
+}
+
+//Mostrar todos los materiales
+function materialMain(&$tituloPagina, &$tituloCabecera){
+    $contenidoPrincipal = NULL;
+    $tituloPagina = "Materiales";
+    $tituloCabecera = "MATERIALES";
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
+    $tablaMaterial_Main=sprintf("SELECT * FROM Materiales");
+    $rs =$conn->query($tablaMaterial_Main);
+    $tableCont="<tr>";
+    $j=0;
+    for($i=1;$i<=$rs->num_rows;$i++){
+        $fila=$rs->fetch_assoc();
+        $row=$conn->query(sprintf("SELECT * FROM Materiales M WHERE M.id = '$fila[id]'"));
+        $contenido =$row->fetch_assoc();
+        $url=rawurlencode("$contenido[nombre]");
+        $rowCount = "<td>
+        <div class = 'contenido'>
+            <div class = 'card'>
+                <a href ="."material.php?material=".$url."><img src= $contenido[imagen]> </a>
+            </div>
+            <div class = 'informacion'>
+                <h4>"."$contenido[nombre]"."</h4>
+                <p class = 'descripcion'>"."$contenido[descripcion]"." </p>
+            </div>
+            <div class = 'precio'>
+                <div class = 'box-precio'>
+                    <p> Precio: "."$contenido[precio]"." €/hora <p>
+                </div>
+            </div>
+        </div>
+        </td>";
+        if($j<3){	
+            $tableCont.=$rowCount;
+            $j++;
+        }
+        else{
+            $tableCont.="</tr>";
+            $tableCont.="<tr>";
+            $tableCont.=$rowCount;
+            $j=0;
+        }
+    }
+    $contenidoPrincipal = <<<EOS
+    <p> Materiales disponibles para alquilar. </p>
+    <div class='alinear'>
+        $tableCont
+    </div>
+
+    EOS;
+    return $contenidoPrincipal;
+}
+
+//Informacion de un Alojamiento
+function infoAlojamiento(&$tituloPagina, &$tituloCabecera){
+    $tituloPagina = htmlspecialchars($_GET["alojamiento"]);
+    $tituloCabecera = strtoupper($tituloPagina);
+    $contenidoPrincipal ="";
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
+    $tablaActividad=sprintf("SELECT * FROM Alojamiento A WHERE A.nombre LIKE '%s' "
+                            , $conn->real_escape_string($tituloPagina));
+    $row = $conn->query($tablaActividad);
+    if($row){
+        $rs=$row->fetch_assoc();
+        $Cont="<h3><span>Información detallada</span> del hotel "."$tituloPagina"."</h3>
+        <p>"."$rs[descripciondetallada]"."</p>";
+        $contenidoPrincipal = <<<EOS
+            $Cont
+        EOS;
+        $row->free();
+    }else{
+        echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        exit();
+    }
+    return $contenidoPrincipal;
+}
+
+//Muestra todos los Alojamientos
+function AlojamientoMain(){
+    $contenidoPrincipal = NULL;
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
+    $tablaAlojamiento_Main=sprintf("SELECT * FROM Alojamiento");
+    $rs = $conn->query($tablaAlojamiento_Main);
+    $tableCont=NULL;
+    if($rs)
+    {
+        for($i=1;$i<=$rs->num_rows;$i++){
+            $id=$rs->fetch_assoc();
+            $row=$conn->query(sprintf("SELECT * FROM Alojamiento A WHERE A.id = '$id[id]'"));
+            if($row)
+            {
+                $contenido=$row->fetch_assoc();
+                $url=rawurlencode("$contenido[nombre]");
+                $leftCont =  "<div><td>
+                    <a href ="."alojamiento.php?alojamiento=".$url."><img class='img-pag-prin' src= '$contenido[rutaFoto]'> </a>
+                        </td></div>";
+                $rightCont = "<div><td>
+                <h2><a href = "."alojamiento.php?alojamiento=".$url.">"."$contenido[nombre]"." </a></h2>
+                    "."$contenido[descripcion]"."
+                <a href = "."alojamiento.php?alojamiento=".$url.">Leer más</a></p>
+                </td></div>";
+
+                if($i%2==0){
+                    $aux=$leftCont;
+                    $leftCont=$rightCont;
+                    $rightCont=$aux;
+                }
+                $tableCont.="<tr>"."$leftCont"."$rightCont"."</tr>";
+                $row->free();
+            }else{
+                echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+                exit();
+            }
+        }
+        $contenidoPrincipal = <<<EOS
+        <p>Alojamientos disponibles en SeaWolf Deportes Náuticos. </p>
+        
+        <table>$tableCont
+        </table>
+        EOS;
+        $rs->free();
+    }else{
+        echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        exit();
+    }
+    return $contenidoPrincipal;
+    
+}
+
+//Muestra todas las plazas disponibles
+function listadoCapacidad(){
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
+    $Cont=NULL;
+    $row=$conn->query(sprintf("SELECT * FROM Habitaciones ORDER BY nombre_alojamiento,fecha "));
+    if($row){
+        if($row->num_rows > 0){
+            $Cont = "<table >
+                        <tr>
+                        <th colspan='2'>Nombre</th>
+                        <th colspan='2'>Fecha</th>
+                        <th colspan='2'>Plazas</th>
+                        </tr>";
+            for($i=0;$i<$row->num_rows;$i++){
+                $fila = $row->fetch_assoc();
+                $Cont .="<tr>
+                            <td>$fila[nombre_alojamiento]<td>
+                            <td>$fila[fecha]<td>
+                            <td>$fila[capacidad]<td>
+                            </tr>
+                ";
+            }
+            $Cont .= "</table>";
+        }
+        else{
+            $Cont = "<p>No existe hay plazas disponibles en la BD. Por favor inserte una</p>";
+        }
+        $row->free();
+    }else{
+        echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
+        exit();
+    }
+    return $Cont;
 }

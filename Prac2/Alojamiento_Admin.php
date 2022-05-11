@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__. '/includes/config.php';
+namespace es\fdi\ucm\aw;
+include __DIR__.'/includes/GeneraVistas.php';
+require_once __DIR__.'/includes/config.php';
 
 $contenidoPrincipal = <<<EOS
 <h2>Formulario para insertar un nuevo alojamiento:</h2>
@@ -7,7 +9,7 @@ EOS;
 $tituloCabecera="FORMULARIO ADMIN";
 $tituloPagina = 'Formulario admin';
 
-$form = new es\fdi\ucm\aw\FormularioAlojamientoAdmin();
+$form = new FormularioAlojamientoAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estado'])){
@@ -30,13 +32,13 @@ if(isset($_GET['estado'])){
     }
 }
 
-$cont = es\fdi\ucm\aw\Alojamiento::listadoCapacidad();
+$cont = listadoCapacidad();
 $contenidoPrincipal .= <<<EOS
 <h2>Plazas disponibles:</h2>
 <p>$cont</p>
 </br>
 EOS;
-$form = new es\fdi\ucm\aw\FormularioCapacidadAlojamientoAdmin();
+$form = new FormularioCapacidadAlojamientoAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estadoCap'])){
@@ -69,7 +71,7 @@ if(isset($_GET['estadoCap'])){
 $contenidoPrincipal .= <<<EOS
 <h2>Formulario para borrar un alojamiento:</h2>
 EOS;
-$form = new es\fdi\ucm\aw\FormularioBorrarAlojamiento();
+$form = new FormularioBorrarAlojamiento();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 if(isset($_GET['estado'])){
