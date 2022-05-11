@@ -1,7 +1,7 @@
 <?php
 
 namespace es\fdi\ucm\aw;
-
+require_once __DIR__.'/GeneraVistas.php';
 class Comentario
 {
     protected $id;
@@ -76,46 +76,7 @@ class Comentario
 
         return $actualizado;
     }
-    public static function mostrarComentarioBlog($rs)
-    {
-        $edieli = "";
-        if (isset($_SESSION['login']) && $_SESSION['login'] && self::permisoEdicion($rs['id'])) {
-            $edieli = "
-        <form action='EdicionComentario.php' method='post'>
-        <input type='hidden' name='id' value='$rs[id]'>
-        <button class='boton-link' type='submit'>Editar</button>
-        </form>
-        <form action='EliminarComentario.php' method='post'>
-        <input type='hidden' name='id' value='$rs[id]'>
-        <button class='boton-link' type='submit'>Eliminar</button>
-        </form>";
-        }
 
-        $comentarios = "
-		<div class='contenedor'>
-        <div class='caja-comentario'>
-			<div class='caja-top-comentario'>
-				<div class='perfil-comentario'>
-					<div class='foto-comentario'>
-						<img class='foto-comentario-img' src=$rs[rutaFoto]>
-					</div>
-					<div class='nombre-user-cometario'>
-						<h1>$rs[titulo]</h1>
-                        ".self::editado($rs['editado'])."
-						<p class='comen'>@$rs[nombreUsuario]</p>
-					</div>
-				</div>
-				<div class='reseñas-comentario'>
-				</div>
-			</div>
-			<div class='comentarios-comentario'>
-				<p>$rs[texto]</p>" . $edieli .
-            "</div>
-        </div>
-		</div>
-        ";
-        return $comentarios;
-    }
     public static function mostrarTodos($ubicacion)
     {
         $comentarios = "";
@@ -126,23 +87,14 @@ class Comentario
         $numCom = $row->num_rows;
         for ($i = 0; $i < $numCom; $i++) {
             $rs = $row->fetch_assoc();
-            $comentarios .= Comentario::mostrarComentarioBlog($rs);
+            $user=new Usuario($rs['nombreUsuario'],null,null,null,null,null,null,null,$rs['rutaFoto'],null);
+            $comentarios .= mostrarComentarioBlog(Comentario::buscaComentarioPorId($rs['id']),$user);
         }
 
         $row->free();
         return $comentarios;
     }
-    public static function mostrarComentarioPerfil($rs)
-    {
-        $comentarios = <<<EOS
-        <div>
-            <p>Comentado en el artículo $rs[ubicacion]</p>
-            <p>$rs[titulo]</p>
-            <p>$rs[texto]</p>
-        </div>
-        EOS;
-        return $comentarios;
-    }
+   
     public static function mostrarTodosPerfil($idUsuario)
     {
         $comentarios = "";
@@ -153,18 +105,12 @@ class Comentario
         $numCom = $row->num_rows;
         for ($i = 0; $i < $numCom; $i++) {
             $rs = $row->fetch_assoc();
-            $comentarios .= Comentario::mostrarComentarioPerfil($rs);
+            $com=new Comentario($rs['idUsuario'],$rs['ubicacion'],$rs['titulo'],$rs['texto'],$rs['editado']);
+            $comentarios .= mostrarComentarioPerfil($com);
         }
 
         $row->free();
         return $comentarios;
-    }
-    public static function editado($editado){
-        $text="";
-        if($editado){
-            $text="<em>(Editado)</em>";
-        }
-        return $text;
     }
     public static function buscaComentarioPorId($id)
     {
@@ -182,20 +128,20 @@ class Comentario
     {
         $permiso = false;
         $coment=self::buscaComentarioPorId($id);
-        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $coment->getIdUsuario()
-        || Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario'])==0) {
+        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $coment->getIdUsuario()) {
             $permiso = true;
         }
         return $permiso;
     }
-    public static function confirmarEliminar($id){
-        $content="Se eliminará el siguiente comentario";
-        $content.=self::mostrarComentarioPerfil(self::buscaComentarioPorId($id));
-        $content.="<form action='EliminarComentario.php' method='post'>
-        <input type='hidden' name='id' value='$id'>
-        <input type='submit' name='eliminar' value='Eliminar'> </button>
-        </form>";
-        return $content;
+    public static function permisoEliminar($id)
+    {
+        $permiso = false;
+        $coment=Comentario::buscaComentarioPorId($id);
+        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $coment->getIdUsuario() 
+        || Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario'])==0 ) {
+            $permiso = true;
+        }
+        return $permiso;
     }
     public static function borraComentario($id){
         if(isset($_POST['Eliminar'])){}
@@ -261,5 +207,13 @@ class Comentario
         $this->id = $id;
 
         return $this;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
     }
 }

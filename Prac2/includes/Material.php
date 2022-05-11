@@ -45,7 +45,7 @@ class Material
                 Descripción detallada del producto: <br/>
             </div>
             <p>"."$rs[desc_det]</p><br/>
-            <div class='nota-valoracion'>".Valoracion::mostrarEstrellasFijo(Valoracion::notaMedia($tituloPagina))."
+            <div class='nota-valoracion'>".mostrarEstrellasFijo(Valoracion::notaMedia($tituloPagina))."
             </div>
             <p>"." <precio>Precio del producto: </precio>"." $rs[precio] "." €</p>
             <link rel='stylesheet' href='css/material.css'>

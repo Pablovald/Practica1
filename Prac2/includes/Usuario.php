@@ -24,7 +24,7 @@ class Usuario
 
     private $correo;
 
-    private function __construct($nombreUsuario, $nombre, $apellido, $password, $rol, $FechaNac, $Telefono, $Nacionalidad, $RutaFoto, $correo)
+    public function __construct($nombreUsuario, $nombre, $apellido, $password, $rol, $FechaNac, $Telefono, $Nacionalidad, $RutaFoto, $correo)
     {
         $this->nombreUsuario= $nombreUsuario;
         $this->nombre = $nombre;

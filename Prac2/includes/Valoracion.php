@@ -1,7 +1,7 @@
 <?php
 
 namespace es\fdi\ucm\aw;
-
+require_once __DIR__.'/GeneraVistas.php';
 class Valoracion extends Comentario
 {
     private $nota;
@@ -69,48 +69,6 @@ class Valoracion extends Comentario
 
         return $actualizado;
     }
-    public static function mostrarValoracion($rs)
-    {
-        $edieli = "";
-        if (isset($_SESSION['login']) && $_SESSION['login'] && self::permisoEdicion($rs['id'])) {
-            $edieli = "
-        <form action='EdicionValoracion.php' method='post'>
-        <input type='hidden' name='id' value='$rs[id]'>
-        <button class='boton-link' type='submit'>Editar</button>
-        </form>
-        <form action='EliminarValoracion.php' method='post'>
-        <input type='hidden' name='id' value='$rs[id]'>
-        <button class='boton-link' type='submit'>Eliminar</button>
-        </form>";
-        }
-        $comentarios = "
-		<div class='contenedor'>
-        <div class='caja-comentario'>
-			<div class='caja-top-comentario'>
-				<div class='perfil-comentario'>
-					<div class='foto-comentario'>
-						<img class='foto-comentario-img' src=$rs[rutaFoto]>
-					</div>
-					<div class='nombre-user-cometario'>
-						<h1>$rs[titulo]</h1>
-                        ".parent::editado($rs['editado'])."
-						<p class='comen'>@$rs[nombreUsuario]</p>
-					</div>
-                    <div class='nota-fijo'>
-                    ".self::mostrarEstrellasFijo($rs['nota'])."   
-                    </div>
-				</div>
-				<div class='reseñas-comentario'>
-				</div>
-			</div>
-			<div class='comentarios-comentario'>
-				<p>$rs[texto]</p>".$edieli."
-			</div>
-        </div>
-		</div>
-        ";
-        return $comentarios;
-    }
     public static function mostrarTodos($ubicacion)
     {
         $comentarios = "";
@@ -121,37 +79,10 @@ class Valoracion extends Comentario
         $numCom = $row->num_rows;
         for ($i = 0; $i < $numCom; $i++) {
             $rs = $row->fetch_assoc();
-            $comentarios .= self::mostrarValoracion($rs);
+            $user=new Usuario($rs['nombreUsuario'],null,null,null,null,null,null,null,$rs['rutaFoto'],null);
+            $comentarios .= mostrarValoracion(Valoracion::buscaValoracionPorId($rs['id']),$user);
         }
         $row->free();
-        return $comentarios;
-    }
-    public static function mostrarEstrellasFijo($num){
-        $html="
-        <fieldset class='nota-valoracion'>";
-        for($i=1;$i<11;$i++){
-            $aux="";
-            if($i<=($num*2)){
-                $aux="checked = true";
-            }
-            if($i%2==0){
-                $html.="<input type='radio' id='".($i/2)."estrellas' $aux disabled /><label class ='full' for='".($i/2)."estrellas'></label>";
-            }
-            else{
-                $medio=strval($i/2);
-                $html.="<input type='radio' id='".$medio."estrellas' $aux disabled /><label class='half' for='".$medio."estrellas'></label>";
-            }
-        }
-        $html.="</fieldset>";
-         return $html;
-    }
-    public static function mostrarValoracionPerfil($rs){
-        $comentarios="
-        <div>
-            <p>Valoración realizada en $rs->ubicacion</p>
-            <p>$rs->titulo".self::mostrarEstrellasFijo($rs->nota)."</p>
-            <p>$rs->texto</p>
-        </div>";
         return $comentarios;
     }
     public static function mostrarTodosPerfil($idUsuario){
@@ -164,7 +95,7 @@ class Valoracion extends Comentario
         for($i=0;$i<$numVal;$i++){
             $rs=$row->fetch_assoc();
             $val=new Valoracion($rs['idUsuario'],$rs['ubicacion'],$rs['titulo'],$rs['texto'],$rs['editado'],$rs['nota']);
-            $valoraciones.=self::mostrarValoracionPerfil($val);
+            $valoraciones.= mostrarValoracionPerfil($val);
         }
         $row->free();
         return $valoraciones;
@@ -181,8 +112,17 @@ class Valoracion extends Comentario
         $row->free();
         return $val;
     }
-    //verifica si el usuario logeado puede editar/eliminar las valoraciones(admin puede editar todo)
+    //verifica si el usuario logeado puede editar/eliminar las valoraciones
     public static function permisoEdicion($id)
+    {
+        $permiso = false;
+        $valoracion=self::buscaValoracionPorId($id);
+        if (Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']) == $valoracion->getIdUsuario()) {
+            $permiso = true;
+        }
+        return $permiso;
+    }
+    public static function permisoEliminar($id)
     {
         $permiso = false;
         $valoracion=self::buscaValoracionPorId($id);
@@ -191,16 +131,6 @@ class Valoracion extends Comentario
             $permiso = true;
         }
         return $permiso;
-    }
-    //pide al usuario confirmacion antes de eliminar la valoracion de la bbdd
-    public static function confirmarEliminar($id){
-        $content="Se eliminará la siguiente valoración";
-        $content.=self::mostrarValoracionPerfil(self::buscaValoracionPorId($id));
-        $content.="<form action='EliminarValoracion.php' method='post'>
-        <input type='hidden' name='id' value='$id'>
-        <input type='submit' name='eliminar' value='Eliminar'> </button>
-        </form>";
-        return $content;
     }
     //elimina la valoracion de la bbdd
     public static function borraValoracion($id){
