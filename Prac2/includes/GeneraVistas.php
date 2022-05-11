@@ -536,14 +536,6 @@ function listadoCursos()
     $Cont = NULL;
     $array = array();
 
-    $row = $conn->query(sprintf("SELECT C.nombre_actividad, C.nombre_curso, C.precio, C.horas FROM CursosActividades C"));
-    if ($row) {
-        for ($i = 0; $i < $row->num_rows; $i++) {
-            $aux = $row->fetch_assoc();
-            if ($aux['horas'] == 0) {
-                $valor = "" . $aux['nombre_curso'] . " ";
-            } else {
-                $valor = "" . $aux['nombre_curso'] . "(" . $aux['horas'] . " horas) ";
     $row=$conn->query(sprintf("SELECT C.nombre_actividad, C.nombre_curso, C.precio, C.horas FROM CursosActividades C ORDER BY C.nombre_actividad, C.nombre_curso"));
     if($row){
         for($i=0;$i<$row->num_rows;$i++){
@@ -592,10 +584,6 @@ function listadoPlazas($nombre)
         "SELECT * FROM CapacidadActividad WHERE Nombre='%s'",
         $conn->real_escape_string($nombre)
     ));
-    if ($row) {
-        if ($row->num_rows > 0) {
-    $Cont=NULL;
-    
     $row=$conn->query(sprintf("SELECT * FROM CapacidadActividad WHERE Nombre='%s' ORDER BY Fecha"  
     , $conn->real_escape_string($nombre)));
     if($row){
