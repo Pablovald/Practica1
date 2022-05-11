@@ -56,7 +56,6 @@ class Material
                     <input type='hidden' name='id_producto' value= '$rs[id]'>
                     <label>Selecciona una cantidad:</label>
                     <input type ='number' name='cantidad' min='1' value= 'number.select()'>
-                    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
                     <button class='carrito'>
                         <span2>Añadir</span2>
                         <i class='fa fa-shopping-basket' aria-hidden='true'></i>
