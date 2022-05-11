@@ -1,6 +1,6 @@
 <?php
 /*
-Este script de apoyo sirve para generar html para las vistas de dsintintas secciones de la web
+Este script de apoyo sirve para generar html para las vistas de distintas secciones de la web
 */
 
 namespace es\fdi\ucm\aw;
@@ -1009,7 +1009,6 @@ function AlojamientoMain(){
     return $contenidoPrincipal;
     
 }
-
 //Muestra todas las plazas disponibles
 function listadoCapacidad(){
     $app = Aplicacion::getSingleton();
@@ -1045,3 +1044,4 @@ function listadoCapacidad(){
     }
     return $Cont;
 }
+    
