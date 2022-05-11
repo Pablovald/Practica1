@@ -26,7 +26,7 @@ class FormularioActualizarActividadAdmin extends Form
 
         $html ="
         <div class='content'>
-            <legend>Formulario de <span>añadir una actividad</span></legend></br>
+            <legend>Formulario de <span>actualizar una actividad</span></legend></br>
 			<div class='formulario'>
             $htmlErroresGlobales
             <div class='grupo-control'>
@@ -37,13 +37,13 @@ class FormularioActualizarActividadAdmin extends Form
                 <label>Descripcion:</label>
                 <textarea name='descripcion' required>$descripcion$errorDescripcion</textarea>
             </div>
-            <div class='seleccion'>
-                <label>Imagen: </label>
-                <input class='control' type='file' name='imagen' value='$imagen' required/>$errorImagen
-            </div>
             <div class='grupo-control'>
                 <label>Información detallada:</label>
                 <textarea name='info' required>$info$errorInfo</textarea>
+            </div>
+            <div class='seleccion'>
+                <label>Imagen: </label>
+                <input class='control' type='file' name='imagen' value='$imagen' required/>$errorImagen
             </div>
 			<div class='submit'>
             <button type='submit' name='Añadir Actividad'>Actualizar</button>

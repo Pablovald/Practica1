@@ -43,11 +43,11 @@ class FormularioActualizarMaterialAdmin extends Form
             </div>
             <div class='grupo-control'>
                 <label>Descripcion:</label>
-                <input class='control' type='text' name='descripcion' value='$descripcion' required/>$errorDescripcion
+                <textarea name='descripcion' required>$descripcion$errorDescripcion</textarea>
             </div>
             <div class='grupo-control'>
                 <label>Descripcion detallada:</label>
-                <input class='control' type='text' name='desc_det' value='$desc_det' required/>$errorDesc_det
+                <textarea name='desc_det' required>$desc_det$errorDesc_det</textarea>
             </div>
             <div class='submit'>
             <button type='submit' name='Actualizar Material'>Actualizar</button>
@@ -63,8 +63,8 @@ class FormularioActualizarMaterialAdmin extends Form
         $nombre = $datos['nombre'] ?? null;
         $precio = $datos['precio'] ?? null;
         $imagen = subirImagen('img/') ?? null;
-        $descripcion = $datos['descripcion'] ?? null;
-        $desc_det = $datos['desc_det'] ?? null;
+        $descripcion = $_POST['descripcion'] ?? null;
+        $desc_det = $_POST['desc_det'] ?? null;
 
         if(empty($nombre)){
             $result['nombre'] = "El nombre no puede estar vacio";

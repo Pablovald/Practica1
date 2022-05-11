@@ -36,15 +36,15 @@ class EditorAlojamiento extends Form
             </div>
             <div class='grupo-control'>
                 <label>Descripcion:</label>
-                <input class='control' type='text' name='descripcion' value='$descripcion' required/>$errorDescripcion
+                <textarea name='descripcion' required>$descripcion$errorDescripcion</textarea>
+            </div>
+            <div class='grupo-control'>
+                <label>Informacion detallada:</label>
+                <textarea name='info' required>$info$errorInfo</textarea>
             </div>
             <div class='seleccion'>
                 <label>Imagen: </label>
                 <input class='control' type='file' name='imagen' value='$imagen' />$errorImagen
-            </div>
-            <div class='grupo-control'>
-                <label>Informacion detallada:</label>
-                <input class='control' type='text' name='info' value='$info' required/>$errorInfo
             </div>
             <div class='grupo-control'>
                 <label>precio:</label>
@@ -61,9 +61,9 @@ class EditorAlojamiento extends Form
     {
         $result = array();
         $nombre = $datos['nombre'] ?? null;
-        $descripcion = $datos['descripcion'] ?? null;
+        $descripcion = $_POST['descripcion'] ?? null;
         $rutaFoto = subirImagen('img/') ?? null;
-        $info = $datos['info'] ?? null;
+        $info = $_POST['info'] ?? null;
         $precio = $datos['precio'] ?? null;
 
         if(empty($nombre)){

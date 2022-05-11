@@ -132,7 +132,7 @@ class Material
     }
     
     public static function  obtenerProductosEnCarrito() { // obtenemos todos los productos que hay en el carro y los mostramos en la pagina
-        $ContenidoPrincipal;
+        $ContenidoPrincipal="";
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
         $idUsuario = self::obtenerUsuario();

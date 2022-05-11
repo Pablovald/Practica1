@@ -28,6 +28,7 @@ function generaBlog()
                     <div class = 'blog-text'>
                     <h4>" . $entrada->getTitulo() . "</h4>
             <p>" . implode(' ', $intro) . "<a href=" . "procesarEntradaBlog.php?entrada=" . $entrada->getId() . "> Leer más</a></p>
+            <p>Autor: ".Usuario::buscaUsuarioPorId($entrada->getIdAutor())->getNombreUsuario()."</p>
                     </div>
                 </div>
             </div>
@@ -55,6 +56,7 @@ function generaEntradaIndividual(&$tituloPagina, &$tituloCabecera)
     $contenidoPrincipal = "
             <div class='info-blog'>
                 <h3>" . $entrada->getHeader1() . "</h3>
+                <p class='autor'> escrito por: <em>".Usuario::buscaUsuarioPorId($entrada->getIdAutor())->getNombreUsuario()."</em></p>
                 <p>" . $entrada->getIntro() . "</p>
                 <img class='entr-img' src=" . $entrada->getImagen() . " alt=''> </br> </br>
                 <h3>" . $entrada->getHeader2() . "</h3>
