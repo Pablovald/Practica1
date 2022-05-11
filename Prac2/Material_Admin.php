@@ -17,12 +17,12 @@ if(isset($_GET['estadoMat'])){
     $nombre = htmlspecialchars($_GET['nombre']);
     if($estadoMat == 'error'){
         $contenidoPrincipal .= <<<EOS
-        <h1>¡Error al actualizar el material: '$nombre'!<h1>
+        <h1>¡Error al crear el material: '$nombre'!<h1>
         EOS;
     }
     else if($estadoMat == 'exito'){
         $contenidoPrincipal .= <<<EOS
-        <h1>¡El material: '$nombre' se actualizó correctamente!<h1>
+        <h1>¡El material: '$nombre' se creó correctamente!<h1>
         EOS;
     }
 }

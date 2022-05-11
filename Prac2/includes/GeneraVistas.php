@@ -731,7 +731,7 @@ function perfilUsuario($nombreUsuario)
                 <li><span>Fecha de nacimiento: </span>" .  $usuario->getFechaNac() . "</li>
             </div>
             <div class='datos3'>
-                <a class='adatos3' href='Perfil.php?editar=true'>Editar perfil <img class='icon-datos3' src='img/editar.png' alt=''></a>
+                <a class='adatos3' href='perfil.php?editar=true'>Editar perfil <img class='icon-datos3' src='img/editar.png' alt=''></a>
             </div>
                 </div>
             <div class='footer'>
@@ -810,7 +810,7 @@ function infoUsuario($nombreUsuario)
     } else {
         $contenido = "<h1>Enlaces para  las <span>funcionalidades de admin</span></h1>";
         $contenido .= "<div class='submit'>
-                        <a href=editor.php>
+                        <a href=AniadirEntrada.php>
                         <button type='submit' name='Entrada'>Añadir Entrada Blog</button>
                         </a>
                     </div>
