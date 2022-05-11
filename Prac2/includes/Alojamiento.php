@@ -29,6 +29,10 @@ class Alojamiento
     public static function inscribirAlojamiento($nhabitacion, $fechaini, $fechafin,$nombreAlojamiento, &$result){
         $nombreUsuario = isset($_SESSION['nombreUsuario']) ? $_SESSION['nombreUsuario'] : null;
         $app = Aplicacion::getSingleton();
+        $dateDifference = abs(strtotime($fechafin) - strtotime($fechaini));
+        $years  = floor($dateDifference / (365 * 60 * 60 * 24));
+        $months = floor(($dateDifference - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        $days   = floor(($dateDifference - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 *24) / (60 * 60 * 24));
         $conn = $app->conexionBd();
         $rs = $conn->query(sprintf("SELECT id FROM Usuarios U WHERE U.nombreUsuario LIKE '%s'", $conn->real_escape_string($nombreUsuario)));
         $rs1 =$conn->query(sprintf("SELECT id FROM Alojamiento a WHERE a.nombre LIKE '%s'", $conn->real_escape_string($nombreAlojamiento)));
@@ -36,7 +40,7 @@ class Alojamiento
             $idUsuario=$rs->fetch_assoc();
             $Alojamiento=$rs1->fetch_assoc();
             $id=$Alojamiento['id'];
-            $rs2 = $conn->query(sprintf("SELECT h.capacidad , h.fecha FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
+            $rs2 = $conn->query(sprintf("SELECT h.capacidad , h.fecha FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.nombre_alojamiento LIKE '%s'", $conn->real_escape_string($nombreAlojamiento)));
             if($rs2){
                 $arrayfecha=array();
                 $arraycap=array();
@@ -47,13 +51,15 @@ class Alojamiento
                         array_push($arraycap,$act['capacidad']);
                     }
                 }
-                if(count($arrayfecha)==0){
-                    $rs5 = $conn->query(sprintf("SELECT h.capacidad, h.fecha FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.idAlojamiento LIKE '%d'", $id));
+                if(count($arrayfecha)==0&&($rs2->num_rows-1)==$days){
+                    $rs5 = $conn->query(sprintf("SELECT h.capacidad, h.fecha FROM Habitaciones h WHERE h.fecha BETWEEN '$fechaini' AND '$fechafin' AND h.nombre_alojamiento LIKE '%s'", $conn->real_escape_string($nombreAlojamiento)));
                     $j=0;
-                    while($j<(($rs5->num_rows) - 1)){
+                    
+                    while($j<$rs5->num_rows-1){
                         $act=$rs5->fetch_assoc();
+                        $capacidad=$act['capacidad'] - $nhabitacion;
                         $rs6 = $conn->query(sprintf("UPDATE Habitaciones SET capacidad = '%d' WHERE fecha ='%s' AND idAlojamiento = '%d'",
-                         $act['capacidad'] - $nhabitacion,
+                         $capacidad,
                          $conn->real_escape_string($act['fecha']),
                          $id));
                         $j++;
@@ -269,17 +275,19 @@ class Alojamiento
     }
 
     private static function insertaCapacidadAlojamiento($capacidadAlojamiento){
-
-
         $app=Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=sprintf("INSERT INTO Habitaciones(ID,nombre_alojamiento, capacidad, fecha) VALUES ('%d', '%s', '%d', '%s')"
-        , $conn->insert_id
-        , $conn->real_escape_string($capacidadAlojamiento->nombre)
+        $rs =$conn->query(sprintf("SELECT id FROM Alojamiento WHERE nombre LIKE '%s'", $conn->real_escape_string($capacidadAlojamiento->nombre)));
+        $Alojamiento=$rs->fetch_assoc();
+        $id=$Alojamiento['id'];
+        $query=sprintf("INSERT INTO Habitaciones(fecha,capacidad, idAlojamiento, nombre_alojamiento ,ID) VALUES ('%s', '%d', '%d', '%s','%d')"
+        , $conn->real_escape_string($capacidadAlojamiento->fecha)
         , $conn->real_escape_string($capacidadAlojamiento->capacidad)
-        , $conn->real_escape_string($capacidadAlojamiento->fecha));
+        , $id
+        , $conn->real_escape_string($capacidadAlojamiento->nombre)
+        ,$conn->insert_id);
         if ( $conn->query($query) ) {
-            $capacidadAlojamiento->IDAlojamiento_Main = $conn->insert_id;
+            $capacidadAlojamiento->IDAlojamiento_Main = $id;
             header("Location: Alojamiento_Admin.php?estadoCap=exito&nombre=".$capacidadAlojamiento->nombre."&capacidad=".$capacidadCurso->capacidad."&fecha=".$capacidadCurso->fecha."");
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);

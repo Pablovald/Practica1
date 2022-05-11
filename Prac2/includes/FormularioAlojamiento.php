@@ -9,10 +9,8 @@ class FormularioAlojamiento extends Form
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
-		$hoy = date('2022-04-01');
-		$tomorrow = date('2022-04-02');
-        $semana = date('2022-04-06');
-		$semana2 = date('2022-04-07');
+        $hoy = date('Y-m-d');
+        $tomorrow = date('Y-m-d',time()+84600);
         $nhabitaciones = $datos['nhabitaciones'] ?? '';
         $alojamiento = $_GET["alojamiento"] ?? '';
         // Se generan los mensajes de error si existen.
@@ -31,11 +29,12 @@ class FormularioAlojamiento extends Form
                 </div>
                 <div class='grupo-control'>
                     <label>Fecha inicio:</label></br>
-                    <input class='control' type='date' name='fechaIni' value='$hoy' min='$hoy' max='$semana'/>
+                    <input class='control' type='date' name='fechaIni' value='$hoy' min='$hoy'/>
                 </div>
+                
                 <div class='grupo-control'>
                     <label>Fecha fin:</label></br>
-                    <input class='control' type='date' name='fechaFin' value='$tomorrow' min='$tomorrow' max='$semana2'/>
+                    <input class='control' type='date' name='fechaFin' value='$tomorrow' min='$tomorrow'/>
                 </div>
                 <div class='submit'><button type='submit' name='Reservar'>Reservar</button></div>
 				</div>
