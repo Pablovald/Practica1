@@ -1,6 +1,7 @@
 <?php
 namespace es\fdi\ucm\aw;
 require_once __DIR__.'/subidaImagenes.php';
+require_once __DIR__.'/GeneraVistas.php';
 
 class FormularioPerfil extends Form
 {
@@ -11,13 +12,13 @@ class FormularioPerfil extends Form
     protected function generaCamposFormulario($datos, $errores = array())
     {
         $usuario = Usuario::buscaUsuario($_SESSION['nombreUsuario']);
-        $nombre = (isset($datos['nombre'])) ? $datos['nombre'] : $usuario->getNombreUsuario();
-        $apellido = (isset($datos['apellido'])) ? $datos['apellido'] : $usuario->getApellido();
-        $fechaNac = (isset($datos['fechaNac'])) ? $datos['fechaNac'] : $usuario->getFechaNac();
-        $telefono = (isset($datos['telefono'])) ? $datos['telefono'] : $usuario->getTelefono();
-        $nacionalidad = (isset($datos['nacionalidad'])) ? $datos['nacionalidad'] : $usuario->getNacionalidad();
-        $imagen = $datos['imagen'] ?? '';
-        $correo = (isset($datos['correo'])) ? $datos['correo'] : $usuario->getCorreo();
+        $nombre = $usuario->getNombreUsuario();
+        $apellido = $usuario->getApellido();
+        $fechaNac = $usuario->getFechaNac();
+        $telefono = $usuario->getTelefono();
+        $nacionalidad = $usuario->getNacionalidad();
+        $imagen = $usuario->getRutaFoto();
+        $correo = $usuario->getCorreo();
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -58,7 +59,7 @@ class FormularioPerfil extends Form
             <div class='grupo-control'>
                 <label>Nacionalidad:</label>
                 <select name='nacionalidad'>
-                ".Usuario::nacionalidad($usuario)."
+                ".nacionalidad($usuario)."
                 </select>
             </div>
             <div class='seleccion'>
