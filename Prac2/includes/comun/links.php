@@ -67,7 +67,7 @@
 	<?php
 		if(isset($_SESSION["login"])){
 			$contenido = <<<EOF
-			<li><a href=Perfil.php?editar=false>Perfil</a></li>
+			<li><a href=perfil.php?editar=false>Perfil</a></li>
 			EOF;
 			echo $contenido;
 		}
