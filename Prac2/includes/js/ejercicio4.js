@@ -258,7 +258,7 @@ $(document).ready(function() {
 
 	//Borrar una actividad
 	$("#borrarActividad").click(function(){
-		var opcion = confirm("Aceptar o Cancelar");
+		var opcion = confirm("¿Deseas eliminar la actividad?");
 		if (opcion == true) {
 			var url = "comprobarUsuario.php?nombre=" + $("#nombreActividad").val() + "&estado=borrarActividad";
 			$.get( url , function( data ) {
