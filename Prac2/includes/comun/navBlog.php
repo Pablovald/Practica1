@@ -13,21 +13,24 @@ function mostrarEditor() {
 				</div>
 		</div>";
 	} 
+	else{
+		echo "<h4> ¿Eres profesor y tienes alguna noticia interesante? ¡CUENTANOSLA!</h4> </br>
+		<p>Inicia sesión para escribir una entrada interesante</p></br>
+		
+		<div class='alinear'>
+				<div class='boton-login'>
+					<a class = 'login' href='login.php'>Login</a>
+				</div>
+		</div>";
+	}
 }
 ?>
 
 
 <aside>
-<h4> ¿Eres profesor y tienes alguna noticia interesante? ¡CUENTANOSLA!</h4> </br>
-<p>Inicia sesión para escribir una entrada interesante</p></br>
 <?php
 		mostrarEditor();
-	?>
-<div class='alinear'>
-				<div class='boton-login'>
-					<a class = 'login' href='login.php'>Login</a>
-				</div>
-</div>
+		?>
 <div>
 <p> Si has tenido algún problema para añadir la publicación, contacta con nosotros por aquí </p>
 </div>
