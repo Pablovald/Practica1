@@ -158,7 +158,7 @@ class Valoracion extends Comentario
             $rs=$row->fetch_assoc();
             $sum+=$rs['nota'];
         }
-        return $sum/$numCom;
+        return $numCom==0?0:$sum/$numCom;
     }
 
     /**
