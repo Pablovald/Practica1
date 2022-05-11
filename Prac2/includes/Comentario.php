@@ -94,24 +94,6 @@ class Comentario
         $row->free();
         return $comentarios;
     }
-   
-    public static function mostrarTodosPerfil($idUsuario)
-    {
-        $comentarios = "";
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $tablaComentarios = sprintf("SELECT C.* FROM Comentarios C JOIN Usuarios U ON C.idUsuario = U.id WHERE $idUsuario = C.idUsuario ");
-        $row = $conn->query($tablaComentarios);
-        $numCom = $row->num_rows;
-        for ($i = 0; $i < $numCom; $i++) {
-            $rs = $row->fetch_assoc();
-            $com=new Comentario($rs['idUsuario'],$rs['ubicacion'],$rs['titulo'],$rs['texto'],$rs['editado']);
-            $comentarios .= mostrarComentarioPerfil($com);
-        }
-
-        $row->free();
-        return $comentarios;
-    }
     public static function buscaComentarioPorId($id)
     {
         $app = Aplicacion::getSingleton();

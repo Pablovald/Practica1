@@ -85,21 +85,6 @@ class Valoracion extends Comentario
         $row->free();
         return $comentarios;
     }
-    public static function mostrarTodosPerfil($idUsuario){
-        $valoraciones="";
-        $app=Aplicacion::getSingleton();
-        $conn=$app->conexionBd();
-        $tablaValoraciones=sprintf("SELECT V.*FROM Valoraciones V JOIN Usuarios U ON V.idUsuario = U.id WHERE $idUsuario = V.idUsuario");
-        $row=$conn->query($tablaValoraciones);
-        $numVal=$row->num_rows;
-        for($i=0;$i<$numVal;$i++){
-            $rs=$row->fetch_assoc();
-            $val=new Valoracion($rs['idUsuario'],$rs['ubicacion'],$rs['titulo'],$rs['texto'],$rs['editado'],$rs['nota']);
-            $valoraciones.= mostrarValoracionPerfil($val);
-        }
-        $row->free();
-        return $valoraciones;
-    }
     public static function buscaValoracionPorId($id)
     {
         $app = Aplicacion::getSingleton();

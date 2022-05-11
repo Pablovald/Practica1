@@ -145,7 +145,23 @@ function mostrarComentarioPerfil($com)
     </div>";
     return $comentarios;
 }
+function mostrarTodosPerfil($idUsuario)
+    {
+        $comentarios = "";
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $tablaComentarios = sprintf("SELECT C.* FROM Comentarios C JOIN Usuarios U ON C.idUsuario = U.id WHERE $idUsuario = C.idUsuario ");
+        $row = $conn->query($tablaComentarios);
+        $numCom = $row->num_rows;
+        for ($i = 0; $i < $numCom; $i++) {
+            $rs = $row->fetch_assoc();
+            $com=new Comentario($rs['idUsuario'],$rs['ubicacion'],$rs['titulo'],$rs['texto'],$rs['editado']);
+            $comentarios .= mostrarComentarioPerfil($com);
+        }
 
+        $row->free();
+        return $comentarios;
+    }
 //genera el tag de si un comentario/valoracion está editado o no
 function generaEditado($editado){
     $text="";
@@ -201,13 +217,35 @@ function mostrarValoracion($val,$user)
     }
 //genera el html para ver las valoraciones de un usuario en su perfil
 function mostrarValoracionPerfil($val){
-    $comentarios="
-    <div>
-        <p>Valoración realizada en ".$val->getUbicacion()."</p>
-        <p>".$val->getTitulo().mostrarEstrellasFijo($val->getNota())."</p>
-        <p>".$val->getTexto()."</p>
-    </div>";
+    if(!empty($val->getTexto())){
+        $comentarios="
+        <div>
+            <p>Valoración realizada en ".$val->getUbicacion()."</p>
+            <p>".$val->getTitulo().mostrarEstrellasFijo($val->getNota())."</p>
+            <p>".$val->getTexto()."</p>
+        </div>";
+        
+    }
+    else{
+        $comentarios="<p>Aún no has realizado ninguna valoracion</p>";
+    }
     return $comentarios;
+}
+//genera el html para todas las valoraciones del perfil
+function mostrarTodasValoracionesPerfil($idUsuario){
+    $valoraciones="";
+    $app=Aplicacion::getSingleton();
+    $conn=$app->conexionBd();
+    $tablaValoraciones=sprintf("SELECT V.*FROM Valoraciones V JOIN Usuarios U ON V.idUsuario = U.id WHERE $idUsuario = V.idUsuario");
+    $row=$conn->query($tablaValoraciones);
+    $numVal=$row->num_rows;
+    for($i=0;$i<$numVal;$i++){
+        $rs=$row->fetch_assoc();
+        $val=new Valoracion($rs['idUsuario'],$rs['ubicacion'],$rs['titulo'],$rs['texto'],$rs['editado'],$rs['nota']);
+        $valoraciones.= mostrarValoracionPerfil($val);
+    }
+    $row->free();
+    return $valoraciones;
 }
 //genera el html para mostrar las estrellas
 function mostrarEstrellasFijo($num){
@@ -571,8 +609,8 @@ function perfilUsuario($nombreUsuario){
     $usuario = Usuario::buscaUsuario($nombreUsuario);
     $listado = infoUsuario($nombreUsuario);
     $idU = Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']);
-    $comentarios= Comentario::mostrarTodosPerfil($idU);
-    $valoraciones = Valoracion::mostrarTodosPerfil($idU);
+    $comentarios= mostrarTodosPerfil($idU);
+    $valoraciones = mostrarTodasValoracionesPerfil($idU);
     $contenidoPrincipal = "
     <div class='perfil'>
         <div class='header'>
@@ -627,7 +665,7 @@ function infoUsuario($nombreUsuario){
     if(!$_SESSION['esAdmin']){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $rs = $conn->query(sprintf("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->id));
+        $rs = $conn->query(sprintf("SELECT * FROM ListaActividades LA WHERE LA.idUsuario = '%d'", $usuario->getId()));
         if($rs){
             $textoActividad = "<h1>Listado de <span>actividades</span> inscritas</h1>";
             if($rs->num_rows == 0){
@@ -641,7 +679,7 @@ function infoUsuario($nombreUsuario){
             }
             $rs->free();
             $contenido = $textoActividad;
-            $rs = $conn->query(sprintf("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->id));
+            $rs = $conn->query(sprintf("SELECT * FROM listaAlojamiento LA WHERE LA.idUsuario = '%d'", $usuario->getId()));
             if($rs){
                 $textoAlojamiento = "<h1>Listado de <span>hoteles</span> reservados</h1>";
                 if($rs->num_rows == 0){
