@@ -864,7 +864,7 @@ function infoMaterial(&$tituloPagina, &$tituloCabecera){
         $rs=$row->fetch_assoc();
         $Cont="
         <div class = 'fotoMaterial'>
-            <img src= $rs[imagen] alt=''>
+            <img src= '$rs[imagen]' alt=''>
         </div>
         <div class='contenidoMaterial'>
         <div class = 'tituloInfo'>
@@ -922,7 +922,7 @@ function materialMain(&$tituloPagina, &$tituloCabecera){
         $rowCount = "<td>
         <div class = 'contenido'>
             <div class = 'card'>
-                <a href ="."material.php?material=".$url."><img src= $contenido[imagen] alt=''> </a>
+                <a href ="."material.php?material=".$url."><img src= '$contenido[imagen]' alt=''> </a>
             </div>
             <div class = 'informacion'>
                 <h4>"."$contenido[nombre]"."</h4>
