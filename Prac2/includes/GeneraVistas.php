@@ -522,7 +522,7 @@ function cursosDeActividad($nombre, &$hora, &$precio){
     $conn = $app->conexionBd();
     $row=$conn->query(sprintf("SELECT nombre_curso, horas, precio FROM CursosActividades WHERE nombre_actividad = '%s'"
     , $conn->real_escape_string($nombre)));
-    $cont;
+    $cont="";
     if($row){
         $cont = "";
         for($i=1; $i<=$row->num_rows; $i++){
@@ -621,7 +621,7 @@ function perfilUsuario($nombreUsuario){
 //En caso contrario muestra diferentes enlaces para añadir por ejemplo nuevas actividades
 function infoUsuario($nombreUsuario){
     $usuario = Usuario::buscaUsuario($nombreUsuario);
-    $contenido;
+    $contenido="";
     if(!$_SESSION['esAdmin']){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
