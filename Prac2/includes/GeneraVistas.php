@@ -84,7 +84,8 @@ function generaListadoEntrada(){
 function confirmarEliminarC($id){
     $content="Se eliminará el siguiente comentario";
     $content.=mostrarComentarioPerfil(Comentario::buscaComentarioPorId($id));
-    $content.="<form action='EliminarComentario.php' method='post'>
+    $content.="<p>Si estás seguro de querer eliminar este comentario, pincha el botón</p>
+    <form action='EliminarComentario.php' method='post'>
     <input type='hidden' name='id' value='$id'>
     <input type='submit' name='eliminar' value='Eliminar'> </button>
     </form>";
@@ -232,7 +233,8 @@ function mostrarEstrellasFijo($num){
 function confirmarEliminarV($id){
     $content="Se eliminará la siguiente valoración";
     $content.=mostrarValoracionPerfil(Valoracion::buscaValoracionPorId($id));
-    $content.="<form action='EliminarValoracion.php' method='post'>
+    $content.="<p>Si estás seguro de querer eliminar esta valoración, pincha el botón</p>
+    <form action='EliminarValoracion.php' method='post'>
     <input type='hidden' name='id' value='$id'>
     <input type='submit' name='eliminar' value='Eliminar'> </button>
     </form>";

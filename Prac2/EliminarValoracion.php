@@ -1,7 +1,7 @@
 <?php
 namespace es\fdi\ucm\aw;
 require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/GeneraVistas.php';
+require_once __DIR__.'/includes/GeneraVistas.php';
 $tituloCabecera="ELIMINAR VALORACION";
 $tituloPagina = 'Eliminar valoracion';
 //Mensaje relacionado con edicion de comentarios

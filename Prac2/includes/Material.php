@@ -1,6 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
-
+include __DIR__.'/GeneraVistas.php';
 class Material
 {
     private $nombre;
