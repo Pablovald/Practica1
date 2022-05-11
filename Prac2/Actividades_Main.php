@@ -1,9 +1,9 @@
 <?php
-
+namespace es\fdi\ucm\aw;
 require_once __DIR__.'/includes/config.php';
-
+include __DIR__.'/includes/GeneraVistas.php';
 
 $tituloPagina = 'Actividades';
 $tituloCabecera = 'ACTIVIDADES';
-$contenidoPrincipal = es\fdi\ucm\aw\Actividad::actividadMain();
+$contenidoPrincipal = actividadMain();
 include __DIR__.'/includes/plantillas/plantilla.php';

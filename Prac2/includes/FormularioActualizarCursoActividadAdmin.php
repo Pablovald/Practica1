@@ -1,6 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
-
+require_once __DIR__.'/GeneraVistas.php';
 
 class FormularioActualizarCursoActividadAdmin extends Form
 {
@@ -33,7 +33,7 @@ class FormularioActualizarCursoActividadAdmin extends Form
             <div class='grupo-control'>
                 <label>Curso:</label>
                 <select name='curso' id='campoCurso'>
-                ".Actividad::cursosDeActividad($nombre, $hora, $precio)."
+                ".cursosDeActividad($nombre, $hora, $precio)."
                 </select>
             </div>
             <div class='grupo-control'>

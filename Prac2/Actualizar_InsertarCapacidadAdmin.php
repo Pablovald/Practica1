@@ -1,10 +1,11 @@
 <?php
-
+namespace es\fdi\ucm\aw;
+include __DIR__.'/includes/GeneraVistas.php';
 require_once __DIR__.'/includes/config.php';
 
 $tituloCabecera="ACTUALIZAR/INSERTAR CAPACIDAD";
 $tituloPagina = 'Actualizar/Insertar Capacidad';
-$cont = es\fdi\ucm\aw\Actividad::listadoPlazas($_GET['actividad']);
+$cont = listadoPlazas($_GET['actividad']);
 $contenidoPrincipal = <<<EOS
 <h2>Plazas disponibles:</h2>
 <p>$cont</p>
@@ -12,7 +13,7 @@ $contenidoPrincipal = <<<EOS
 EOS;
 
 
-$form = new es\fdi\ucm\aw\FormularioCapacidadActividadAdmin();
+$form = new FormularioCapacidadActividadAdmin();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 //Mensaje relacionado con actualizar curso

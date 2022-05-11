@@ -13,9 +13,9 @@ class FormularioActualizarActividadAdmin extends Form
 
         $nombre = $_GET['actividad'];
         $actividad = Actividad::buscaActividad($nombre);
-        $descripcion = (isset($datos['descripcion'])) ? $datos['descripcion'] : $actividad->getDescripcion();
+        $descripcion = $actividad->getDescripcion();
         $imagen = $actividad->getrutaFoto();
-        $info = (isset($datos['info'])) ? $datos['info'] :$actividad->getInfo();
+        $info = $actividad->getInfo();
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -35,7 +35,7 @@ class FormularioActualizarActividadAdmin extends Form
             </div>
             <div class='grupo-control'>
                 <label>Descripcion:</label>
-                <input class='control' type='text' name='descripcion' value='$descripcion' required/>$errorDescripcion
+                <textarea name='descripcion' required>$descripcion$errorDescripcion</textarea>
             </div>
             <div class='seleccion'>
                 <label>Imagen: </label>
@@ -43,7 +43,7 @@ class FormularioActualizarActividadAdmin extends Form
             </div>
             <div class='grupo-control'>
                 <label>Información detallada:</label>
-                <input class='control' type='text' name='info' value='$info' required/>$errorInfo
+                <textarea name='info' required>$info$errorInfo</textarea>
             </div>
 			<div class='submit'>
             <button type='submit' name='Añadir Actividad'>Actualizar</button>
@@ -57,9 +57,9 @@ class FormularioActualizarActividadAdmin extends Form
         $result = array();
 
         $nombre = $datos['nombre'] ?? null;
-        $descripcion = $datos['descripcion'] ?? null;
+        $descripcion = $_POST['descripcion'] ?? null;
         $rutaFoto = subirImagen('img/') ?? null;
-        $info = $datos['info'] ?? null;
+        $info = $_POST['info'] ?? null;
 
         if(empty($nombre)){
             $result['nombre'] = "El nombre no puede estar vacio";

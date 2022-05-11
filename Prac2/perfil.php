@@ -1,5 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
+include __DIR__.'/includes/GeneraVistas.php';
 require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Perfil';
@@ -7,7 +8,7 @@ $tituloCabecera = 'PERFIL';
 
 $editar = htmlspecialchars($_GET['editar']);
 if($editar == "false"){
-	$contenidoPrincipal = Usuario::perfilUsuario($_SESSION['nombreUsuario']);
+	$contenidoPrincipal = perfilUsuario($_SESSION['nombreUsuario']);
 	
 }
 else{
