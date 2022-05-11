@@ -23,7 +23,7 @@ function generaBlog()
             <div class = 'blog-contenedor'>
                 <div class = 'blog-box'>
                     <div class = 'blog-img'>
-                    <a href=" . "procesarEntradaBlog.php?entrada=" . $entrada->getId() . "><img src='" . $entrada->getImagen() . "'></a>
+                    <a href=" . "procesarEntradaBlog.php?entrada=" . $entrada->getId() . "><img src='" . $entrada->getImagen() . "' alt=''></a>
                     </div>
                     <div class = 'blog-text'>
                     <h4>" . $entrada->getTitulo() . "</h4>
@@ -65,12 +65,14 @@ function generaEntradaIndividual(&$tituloPagina, &$tituloCabecera)
             </div>";
     return $contenidoPrincipal;
 }
-//genera la lista de entradas que se pueden borrar
-function generaListadoEntrada()
+//genera la lista de todas las entradas que se pueden borrar por el admin
+function generaListadoEntrada($id)
 {
     $app = Aplicacion::getSingleton();
     $conn = $app->conexionBd();
-    $row = $conn->query(sprintf("SELECT * FROM entradasBlog"));
+    if ($id==0)$listaEntradas= sprintf("SELECT * FROM entradasBlog");
+    else $listaEntradas= sprintf("SELECT * FROM entradasBlog WHERE idAutor=$id");
+    $row = $conn->query($listaEntradas);
     if ($row) {
         $ret = "";
         for ($i = 0; $i < $row->num_rows; $i++) {
@@ -120,7 +122,7 @@ function mostrarComentarioBlog($com, $user)
 			<div class='caja-top-comentario'>
 				<div class='perfil-comentario'>
 					<div class='foto-comentario'>
-						<img class='foto-comentario-img' src=" . $user->getRutaFoto() . ">
+						<img class='foto-comentario-img' src=" . $user->getRutaFoto() . "alt=''>
 					</div>
 					<div class='nombre-user-cometario'>
 						<h1>" . $com->getTitulo() . "</h1>
@@ -230,7 +232,7 @@ function mostrarValoracion($val, $user)
 			<div class='caja-top-comentario'>
 				<div class='perfil-comentario'>
 					<div class='foto-comentario'>
-						<img class='foto-comentario-img' src=" . $user->getRutaFoto() . ">
+						<img class='foto-comentario-img' src=" . $user->getRutaFoto() . " alt=''>
 					</div>
 					<div class='nombre-user-cometario'>
 						<h1>" . $val->getTitulo() . "</h1>
@@ -255,7 +257,7 @@ function mostrarValoracion($val, $user)
 function mostrarValoracionPerfil($val)
 {
     $comentarios = "
-        <div>
+        <div class='valora'>
             <p>Valoración realizada en " . $val->getUbicacion() . "</p>
             <p>" . $val->getTitulo() . mostrarEstrellasFijo($val->getNota()) . "</p>
             <p>" . $val->getTexto() . "</p>
@@ -359,7 +361,7 @@ function actividadMain()
                 $contenido = $row->fetch_assoc();
                 $url = rawurlencode("$contenido[Nombre]");
                 $leftCont =  "<div><td>
-                    <a href =" . "actividad.php?actividad=" . $url . "><img class='img-pag-prin' src= '$contenido[rutaFoto]'> </a>
+                    <a href =" . "actividad.php?actividad=" . $url . "><img class='img-pag-prin' src= '$contenido[rutaFoto]' alt=''> </a>
                     </td></div>";
                 $rightCont = "<div><td>
                     <h2><a href = " . "actividad.php?actividad=" . $url . ">" . "$contenido[Nombre]" . " </a></h2>
@@ -670,13 +672,41 @@ function cursosDeActividadDinamico($nombre)
     }
     return $cont;
 }
-
+function mostrarEntradaPerfil($ent)
+{
+    $comentarios = "
+        <div class='entrada'>
+           <a href ='procesarEntradaBlog.php?entrada=".$ent->getId()."'><h1>" . $ent->getTitulo() . "</h1></a>
+            <img src='" . $ent->getImagen() . "' alt=''>
+        </div>";
+    return $comentarios;
+}
+function mostrarEntradasPerfil($idUsuario){
+    $entradas = "";
+    $app = Aplicacion::getSingleton();
+    $conn = $app->conexionBd();
+    $tablaValoraciones = sprintf("SELECT V.*FROM entradasBlog V JOIN Usuarios U ON V.idAutor = U.id WHERE $idUsuario = V.idAutor");
+    $row = $conn->query($tablaValoraciones);
+    $numVal = $row->num_rows;
+    if ($numVal == 0) {
+        $entradas = "<p>Aún no has escrito ninguna entrada</p>";
+    }
+    for ($i = 0; $i < $numVal; $i++) {
+        $rs = $row->fetch_assoc();
+        $val = new entradaBlog($rs['titulo'],null,null,null,null,$rs['rutaImagen'],null,$rs['idAutor']);
+        $val->setId($rs['id']);
+        $entradas .= mostrarEntradaPerfil($val);
+    }
+    $row->free();
+    return $entradas;
+}
 //Muestra el perfil de un usuario
 function perfilUsuario($nombreUsuario)
 {
     $usuario = Usuario::buscaUsuario($nombreUsuario);
     $listado = infoUsuario($nombreUsuario);
     $idU = Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']);
+    $entradas= mostrarEntradasPerfil($idU);
     $comentarios = mostrarTodosPerfil($idU);
     $valoraciones = mostrarTodasValoracionesPerfil($idU);
     $contenidoPrincipal = "
@@ -688,7 +718,7 @@ function perfilUsuario($nombreUsuario)
         </div>
         <div class='body'>
             <div class='bio'>
-            <h3>¡Bienvenido " . $usuario->getNombreUsuario() . " a tu perfil!</h3>
+            <h3>¡Bienvenido a tu perfil " . $usuario->getNombreUsuario() . "!</h3>
             <p>Descripción detalla del usuario</p>
             <div class='datos1'>
                 <li><span>Nombre: </span>" . $usuario->getNombre() . "</li>
@@ -701,11 +731,15 @@ function perfilUsuario($nombreUsuario)
                 <li><span>Fecha de nacimiento: </span>" .  $usuario->getFechaNac() . "</li>
             </div>
             <div class='datos3'>
-                <a class='adatos3' href='Perfil.php?editar=true'>Editar perfil <img class='icon-datos3' src='img/editar.png'></a>
+                <a class='adatos3' href='Perfil.php?editar=true'>Editar perfil <img class='icon-datos3' src='img/editar.png' alt=''></a>
             </div>
                 </div>
             <div class='footer'>
                 $listado
+            </div>
+            <div class='footer2'>
+                <h1>Entradas</h1>" .
+        $entradas . "
             </div>
             <div class='footer2'>
                 <h1>Comentarios</h1>" .
@@ -774,25 +808,25 @@ function infoUsuario($nombreUsuario)
             exit();
         }
     } else {
-        $contenido = "<h1>Enlace para <span>añadir</span></h1>";
+        $contenido = "<h1>Enlaces para  las <span>funcionalidades de admin</span></h1>";
         $contenido .= "<div class='submit'>
                         <a href=editor.php>
-                        <button type='submit' name='Entrada'>Entrada de un blog</button>
+                        <button type='submit' name='Entrada'>Añadir Entrada Blog</button>
                         </a>
                     </div>
                     <div class='submit'>
                         <a href=Actividad_Admin.php>
-                        <button type='submit' name='Actividad'>Actividad</button>
+                        <button type='submit' name='Actividades'>Añadir Actividad</button>
                         </a>
                     </div>
                     <div class='submit'>
                         <a href=Material_Admin.php>
-                        <button type='submit' name='Material'>Material</button>
+                        <button type='submit' name='Material'>Añadir Material</button>
                         </a>
                     </div>
                         <div class='submit'>
                         <a href=Alojamiento_Admin.php>
-                        <button type='submit' name='Alojamiento'>Alojamiento</button>
+                        <button type='submit' name='Alojamientos'>Añadir Alojamiento</button>
                         </a>
                     </div>
                         ";
@@ -830,7 +864,7 @@ function infoMaterial(&$tituloPagina, &$tituloCabecera){
         $rs=$row->fetch_assoc();
         $Cont="
         <div class = 'fotoMaterial'>
-            <img src= $rs[imagen]>
+            <img src= $rs[imagen] alt=''>
         </div>
         <div class='contenidoMaterial'>
         <div class = 'tituloInfo'>
@@ -888,7 +922,7 @@ function materialMain(&$tituloPagina, &$tituloCabecera){
         $rowCount = "<td>
         <div class = 'contenido'>
             <div class = 'card'>
-                <a href ="."material.php?material=".$url."><img src= $contenido[imagen]> </a>
+                <a href ="."material.php?material=".$url."><img src= $contenido[imagen] alt=''> </a>
             </div>
             <div class = 'informacion'>
                 <h4>"."$contenido[nombre]"."</h4>
@@ -965,7 +999,7 @@ function AlojamientoMain(){
                 $contenido=$row->fetch_assoc();
                 $url=rawurlencode("$contenido[nombre]");
                 $leftCont =  "<div><td>
-                    <a href ="."alojamiento.php?alojamiento=".$url."><img class='img-pag-prin' src= '$contenido[rutaFoto]'> </a>
+                    <a href ="."alojamiento.php?alojamiento=".$url."><img class='img-pag-prin' src= '$contenido[rutaFoto]' alt=''> </a>
                         </td></div>";
                 $rightCont = "<div><td>
                 <h2><a href = "."alojamiento.php?alojamiento=".$url.">"."$contenido[nombre]"." </a></h2>

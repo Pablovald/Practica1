@@ -230,7 +230,24 @@ class Usuario
         }
         return $result;
     }
-
+    public static function permisoPublicacion($id)
+    {
+        $permiso = false;
+        $user=self::buscaUsuarioPorId($id);
+        if ($user->getRol() == 'profesor') {
+            $permiso = true;
+        }
+        return $permiso;
+    }
+    public static function permisoEliminar($id)
+    {
+        $permiso = false;
+        $user=self::buscaUsuarioPorId($id);
+        if ($user->getRol() == 'profesor') {
+            $permiso = true;
+        }
+        return $permiso;
+    }
     //Getters
     public function getId()
     {

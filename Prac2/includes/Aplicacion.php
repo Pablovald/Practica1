@@ -1,5 +1,6 @@
 <?php
 namespace es\fdi\ucm\aw;
+use Exception;
 /**
  * Clase que mantiene el estado global de la aplicación.
  */

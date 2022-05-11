@@ -23,7 +23,7 @@ class FormularioBorrarEntrada extends Form
             <div class='grupo-control'>
                 <label>Nombre de la entrada:</label>
                 <select name='nombre'>
-                    ".generalistadoEntrada()."
+                    ".generalistadoEntrada(Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']))."
                 </select>
             </div>
 			<div class='submit'>

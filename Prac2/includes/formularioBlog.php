@@ -16,7 +16,7 @@ class FormularioBlog extends Form
         $parrafo = $datos['parrafo'] ?? '';
         $imagen  = $datos['imagen'] ?? '';
         $video = $datos['video'] ?? '';
-        $idAutor = Usuario::buscaUsuario($_SESSION['nombreUsuario']);
+        $idAutor = Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']);
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
@@ -53,6 +53,9 @@ class FormularioBlog extends Form
                 </div>
                 <div class='grupo-control'>
                     <label>Enlace al vídeo de YouTube:</label> <input class='control' type='text' name='video' value='$video' required/>$errorVideo
+                </div>
+                <div class='grupo-control'>
+                    <input class='control' type='hidden' name='idAutor' value='$idAutor' />
                 </div>
                 <div class='submit'><button type='submit' name='subir'>Subir artículo al blog</button></div>
             </div>

@@ -22,7 +22,8 @@ nav ul{
 
 nav li{
 	display: inline-block;
-	position: relative;
+	position:relative;
+	right: 5px;
 	text-align: center;
 	padding: 0 20px;
 }
@@ -42,9 +43,12 @@ nav a:hover{
 	display:none;
 	position:absolute;
 	background: orange;
-	width: 130%;
+	width: 131%;
 }
-
+.submenu > li{
+	display:inline-block;
+	text-align: center;
+}
 .submenu li a{
 	padding: 10px;
 	display: block;
@@ -283,7 +287,6 @@ img{
 
 div.alinear{  
 	float: left;
-	background-color:white;
 } 
 
 div.informacion{
@@ -429,7 +432,9 @@ span{
 	width: 1rem;
 	cursor: pointer;
 }
-
+ul{
+	padding-inline-start: 0px;
+}
 .submit{
 	display:flex;
 	justify-content: center;
@@ -665,6 +670,9 @@ float: left;
   }
 .nota-valoracion > input:checked + label { color:#FFD700 !important; }
 
+.valora > fieldset{
+	display:inline-block;
+}
 .boton-link {
 	margin:10px;
     border: none;

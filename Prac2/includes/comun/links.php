@@ -5,10 +5,10 @@
 	<?php
 		
 		if(isset($_SESSION["login"])){
-			if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
+			if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin'] || es\fdi\ucm\aw\Usuario::permisoEliminar(es\fdi\ucm\aw\Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']))){
 				$contenido = <<<EOF
 				<ul class="submenu">
-				<li><a href="Blog_Admin.php">eliminar entradas</a></li>
+				<li class='link'><a href="Blog_Admin.php">Eliminar entradas</a></li>
 				</ul></li>
 			EOF;
 			echo $contenido;

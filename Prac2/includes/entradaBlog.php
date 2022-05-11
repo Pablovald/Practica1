@@ -134,7 +134,6 @@ class entradaBlog{
         return $result;
     }
 
-
     public function getTitulo()
     {
         return $this->titulo;
