@@ -9,18 +9,12 @@ class FormularioAlojamiento extends Form
     
     protected function generaCamposFormulario($datos, $errores = array())
     {
-		$hoy = date('2022-04-01');
-        $hoy2 = date('Y-m-d');
-		$tomorrow = date('2022-04-02');
-        $tomorrow2 = date('Y-m-d',time()+84600);
-        $semana = date('2022-04-06');
-		$semana2 = date('2022-04-07');
+        $hoy = date('Y-m-d');
+        $tomorrow = date('Y-m-d',time()+84600);
         $nhabitaciones = $datos['nhabitaciones'] ?? '';
         $alojamiento = $_GET["alojamiento"] ?? '';
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
-//<input class='control' type='date' name='fechaIni' value='$hoy2' min='$hoy2' max='$semana'/>
-//<input class='control' type='date' name='fechaFin' value='$tomorrow2' min='$tomorrow2' max='$semana2'/>
 
         $html = "<div class='content'>
                 $htmlErroresGlobales
@@ -35,12 +29,12 @@ class FormularioAlojamiento extends Form
                 </div>
                 <div class='grupo-control'>
                     <label>Fecha inicio:</label></br>
-                    <input class='control' type='date' name='fechaIni' value='$hoy2' min='$hoy2'/>
+                    <input class='control' type='date' name='fechaIni' value='$hoy' min='$hoy'/>
                 </div>
                 
                 <div class='grupo-control'>
                     <label>Fecha fin:</label></br>
-                    <input class='control' type='date' name='fechaFin' value='$tomorrow2' min='$tomorrow2'/>
+                    <input class='control' type='date' name='fechaFin' value='$tomorrow' min='$tomorrow'/>
                 </div>
                 <div class='submit'><button type='submit' name='Reservar'>Reservar</button></div>
 				</div>
