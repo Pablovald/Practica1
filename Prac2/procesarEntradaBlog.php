@@ -16,6 +16,6 @@ if(isset($_SESSION['login']) && $_SESSION['login']){
     $form = new FormularioComentario();
     $formularioComentario = $form->gestiona();
 }
-$comentarios =  Comentario::mostrarTodos($tituloPagina);
+$comentarios = mostrarTodos($tituloPagina);
 
 include __DIR__ . '/includes/plantillas/plantillaEntrada.php';

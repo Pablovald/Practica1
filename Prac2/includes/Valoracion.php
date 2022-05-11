@@ -69,22 +69,6 @@ class Valoracion extends Comentario
 
         return $actualizado;
     }
-    public static function mostrarTodos($ubicacion)
-    {
-        $comentarios = "";
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $tablaValoraciones = sprintf("SELECT V.*,U.nombreUsuario,U.rutaFoto FROM Valoraciones V RIGHT JOIN Usuarios U ON U.id = V.idUsuario WHERE V.ubicacion = '$ubicacion' ");
-        $row = $conn->query($tablaValoraciones);
-        $numCom = $row->num_rows;
-        for ($i = 0; $i < $numCom; $i++) {
-            $rs = $row->fetch_assoc();
-            $user=new Usuario($rs['nombreUsuario'],null,null,null,null,null,null,null,$rs['rutaFoto'],null);
-            $comentarios .= mostrarValoracion(Valoracion::buscaValoracionPorId($rs['id']),$user);
-        }
-        $row->free();
-        return $comentarios;
-    }
     public static function buscaValoracionPorId($id)
     {
         $app = Aplicacion::getSingleton();

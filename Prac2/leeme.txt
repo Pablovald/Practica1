@@ -1,5 +1,0 @@
-Funcionalidades implementadas:
--Gestión de blog y vídeos.
--Gestión de actividades.
-
-La descripción de cada funcionalidad está explicada detalladamente en memoria.pdf

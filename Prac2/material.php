@@ -5,7 +5,7 @@ require_once __DIR__. '/includes/config.php';
 
 $contenidoPrincipal = Material::infoMaterial($tituloPagina, $tituloCabecera).
 $formularioComentario="";
-$comentarios=Valoracion::mostrarTodos($tituloPagina);
+$comentarios=mostrarTodasValoraciones($tituloPagina);
 
 if(isset($_SESSION['login']) && $_SESSION['login']){
     if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){

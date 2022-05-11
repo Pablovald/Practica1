@@ -8,7 +8,7 @@ function mostrarEditor() {
 		<h3>Bienvenido " . $_SESSION['nombre'] . ". Publica tu entrada aquí </h3>
 		<div class='alinear2'>
 		<div class='boton-login'>
-					<a class = 'login' href='editor.php'>Publicación</a>
+					<a class = 'login' href='AniadirEntrada.php'>Publicación</a>
 				</div>
 		</div>";
 		

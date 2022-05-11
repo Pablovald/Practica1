@@ -8,7 +8,7 @@ $form = new FormularioActividad();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 $formularioComentario="";
-$comentarios= Valoracion::mostrarTodos($tituloPagina);
+$comentarios= mostrarTodasValoraciones($tituloPagina);
 //Mensaje relacionado con inscripcion de una actividad
 if(isset($_GET["estado"])){
     $estado = htmlspecialchars($_GET["estado"]);
