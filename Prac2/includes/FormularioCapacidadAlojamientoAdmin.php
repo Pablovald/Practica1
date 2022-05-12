@@ -1,6 +1,7 @@
 <?php
 namespace es\fdi\ucm\aw;
 
+require_once __DIR__.'/GeneraVistas.php';
 
 class FormularioCapacidadAlojamientoAdmin extends Form
 {
@@ -27,7 +28,7 @@ class FormularioCapacidadAlojamientoAdmin extends Form
             <div class='grupo-control'>
                 <label>Nombre del alojamiento:</label>
                 <select name='nombre'>
-                    ".Alojamiento::optionAlojamiento()."
+                    ".optionAlojamiento()."
                 </select>
             </div>
             <div class='grupo-control'>

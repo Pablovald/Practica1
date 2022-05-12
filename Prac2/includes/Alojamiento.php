@@ -194,19 +194,7 @@ class Alojamiento
         return $result;
     }
 
-    //Sacar foto asociado al Alojamiento
-    public static function sacarFoto($nombreAlojamiento){
-
-        $conn=Aplicacion::getSingleton()->conexionBd();
-        $query=sprintf("SELECT rutaFoto FROM Alojamiento WHERE nombre = '%s'", $conn->real_escape_string($nombreAlojamiento));
-        $rs=$conn->query($query);
-        if ($rs) {
-            $result="<img src='".($rs->fetch_assoc())['rutaFoto']."' alt=''>";
-        } else {
-            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-        }
-        return $result;
-    }
+    
 
     public static function actualizarInfoAlojamiento($nombre, $precio, $rutaFoto, $descripcion, $descripciondetallada){
         
@@ -219,23 +207,7 @@ class Alojamiento
         return self::guardaAlojamiento($alojamiento);
     }
 
-    public static function optionAlojamiento(){
-        $app = Aplicacion::getSingleton();
-        $conn = $app->conexionBd();
-        $row=$conn->query(sprintf("SELECT * FROM Alojamiento"));
-        if($row){
-            $ret="";
-            for($i=0;$i<$row->num_rows;$i++){
-                $act=$row->fetch_assoc();
-                $ret.="<option>"."$act[nombre]"."</option>";
-            }
-            $row->free();
-            return $ret;
-        }else{
-            echo "Error al consultar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-            exit();
-        }
-    }
+    
     public static function CapacidadAlojamiento($nombre, $capacidad, $fecha){
         $capacidadAlojamiento = self::buscaCapacidadAlojamiento($nombre,$fecha);
         if($capacidadAlojamiento == false){
