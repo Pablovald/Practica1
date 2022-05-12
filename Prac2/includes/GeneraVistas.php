@@ -676,8 +676,11 @@ function mostrarEntradaPerfil($ent)
 {
     $comentarios = "
         <div class='entrada'>
-           <a href ='procesarEntradaBlog.php?entrada=".$ent->getId()."'><h1>" . $ent->getTitulo() . "</h1></a>
-            <img src='" . $ent->getImagen() . "' alt=''>
+           <a href ='procesarEntradaBlog.php?entrada=".$ent->getId()."'>
+                <h1>" . $ent->getTitulo() . "</h1>
+                <img src='" . $ent->getImagen() . "' alt=''>
+           </a>
+            
         </div>";
     return $comentarios;
 }
