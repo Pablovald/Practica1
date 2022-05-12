@@ -321,8 +321,8 @@ class Material
         // una vez borrado de todos los carritos, podemos proceder a eliminarlo de la tabla de materiales (haria falta también resetear el auto_increment)
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query1 = (sprintf("DELETE FROM Carrito C WHERE '$id_producto' = C.id_producto"));
-        $query2 = (sprintf("DELETE FROM Materiales M WHERE '$id_producto' = M.id"));
+        $query1 = (sprintf("DELETE FROM Carrito WHERE '$id_producto' = id_producto"));
+        $query2 = (sprintf("DELETE FROM Materiales WHERE '$id_producto' = id"));
         $conn->query($query1); // eliminamos el producto de todos los carritos si estuviera
 
         if($conn->query($query2)){
