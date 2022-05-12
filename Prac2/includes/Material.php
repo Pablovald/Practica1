@@ -271,6 +271,7 @@ class Material
             }
             else { // si intentamos quitar más de los que tenemos, mostraremos un mensaje de error
                 echo '<script>alert("No posees suficientes unidades del artículo. Por favor, selecciona una cantidad válida")</script>';
+                header("Location: ver_carrito.php");
             }
         }
     

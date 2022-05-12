@@ -813,8 +813,8 @@ function infoUsuario($nombreUsuario)
     } else {
         $contenido = "<h1>Enlaces para  las <span>funcionalidades de admin</span></h1>";
         $contenido .= "<div class='submit'>
-                        <a href=AniadirEntrada.php>
-                        <button type='submit' name='Entrada'>Añadir Entrada Blog</button>
+                        <a href=Blog_Admin.php>
+                        <button type='submit' name='Entrada'>Eliminar Entrada Blog</button>
                         </a>
                     </div>
                     <div class='submit'>
