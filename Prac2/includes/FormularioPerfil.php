@@ -20,6 +20,8 @@ class FormularioPerfil extends Form
         $imagen = $usuario->getRutaFoto();
         $correo = $usuario->getCorreo();
 
+        $hoy = date('Y-m-d',time());
+
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
         $errorNombre = self::createMensajeError($errores, 'nombre', 'span', array('class' => 'error'));
@@ -49,7 +51,7 @@ class FormularioPerfil extends Form
             </div>
             <div class='grupo-control'>
             <label>Fecha de Nacimiento:</label>
-                <input class='control' type='date' name='fechaNac' value='$fechaNac' required/>$errorFechaNac
+                <input class='control' type='date' name='fechaNac' value='$fechaNac' max='$hoy' required/>$errorFechaNac
             </div>
             <div class='grupo-control'>
                 <label>Teléfono:</label>

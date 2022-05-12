@@ -5,7 +5,7 @@ require_once __DIR__ . '/includes/config.php';
 $contenidoPrincipal = generaEntradaIndividual($tituloPagina,$tituloCabecera);
 $formularioComentario="";
 if(isset($_SESSION['login']) && $_SESSION['login']){
-    if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin'] || Usuario::permisoPublicacion(Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']))){
+    if(Usuario::permisoEdicion(Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']),entradaBlog::getEntradaPorId(htmlspecialchars($_GET['entrada'])))){
         $contenidoPrincipal .="
         <div class='submit'>
             <a href='ActualizarEntradaAdmin.php?entrada=".htmlspecialchars($_GET['entrada'])."'>
