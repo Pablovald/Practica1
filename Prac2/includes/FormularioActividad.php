@@ -50,7 +50,7 @@ class FormularioActividad extends Form
             </div>
             <div class='grupo-control'>
                 <label>Fecha de Nacimiento:</label>
-                <input class='control' type='date' name='fechaNac' value='$fechaNac' required/>$errorFechaNac
+                <input class='control' type='date' name='fechaNac' value='$fechaNac' max='$hoy' required/>$errorFechaNac
             </div>
             <div class='grupo-control'>
                 <label>Telefono:</label>
