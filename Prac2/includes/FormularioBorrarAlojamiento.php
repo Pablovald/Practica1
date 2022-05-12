@@ -1,7 +1,7 @@
 <?php
 namespace es\fdi\ucm\aw;
 
-
+require_once __DIR__.'/GeneraVistas.php';
 class FormularioBorrarAlojamiento extends Form
 {
     public function __construct() {
@@ -23,7 +23,7 @@ class FormularioBorrarAlojamiento extends Form
             <div class='grupo-control'>
                 <label>Nombre de la entrada:</label>
                 <select name='nombre'>
-                    ".Alojamiento::optionAlojamiento()."
+                    ".optionAlojamiento()."
                 </select>
             </div>
 			<div class='submit'>
