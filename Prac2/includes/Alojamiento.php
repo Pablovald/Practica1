@@ -260,7 +260,7 @@ class Alojamiento
         ,$conn->insert_id);
         if ( $conn->query($query) ) {
             $capacidadAlojamiento->IDAlojamiento_Main = $id;
-            header("Location: Alojamiento_Admin.php?estadoCap=exito&nombre=".$capacidadAlojamiento->nombre."&capacidad=".$capacidadCurso->capacidad."&fecha=".$capacidadCurso->fecha."");
+            header("Location: Alojamiento_Admin.php?estadoCap=exito&nombre=".$capacidadAlojamiento->nombre."&capacidad=".$capacidadAlojamiento->capacidad."&fecha=".$capacidadAlojamiento->fecha."");
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
             exit();
