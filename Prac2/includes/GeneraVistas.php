@@ -540,14 +540,18 @@ function listadoCursos()
     $Cont = NULL;
     $array = array();
 
-    $row=$conn->query(sprintf("SELECT C.nombre_actividad, C.nombre_curso, C.precio, C.horas FROM CursosActividades C ORDER BY C.nombre_actividad, C.nombre_curso"));
+    $row=$conn->query(sprintf("SELECT C.nombre_actividad, C.nombre_curso, C.precio, C.horas FROM CursosActividades C "));
     if($row){
         for($i=0;$i<$row->num_rows;$i++){
             $aux=$row->fetch_assoc();
             if($aux['horas'] == 0){
-                $valor = "".$aux['nombre_curso']." ";
+                $valor = "".$aux['nombre_curso']."";
             }
-            $valor .= "(" . $aux['precio'] . "€)";
+            else{
+                $valor = $aux['nombre_curso'];
+                $valor .= " (".$aux['horas']." horas) (" . $aux['precio'] . "€)";
+            }
+            
             if (!isset($array[$aux['nombre_actividad']])) {
                 $array[$aux['nombre_actividad']] = array($valor);
             } else {
