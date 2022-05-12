@@ -201,7 +201,7 @@ class Alojamiento
         $query=sprintf("SELECT rutaFoto FROM Alojamiento WHERE nombre = '%s'", $conn->real_escape_string($nombreAlojamiento));
         $rs=$conn->query($query);
         if ($rs) {
-            $result="<img src=".($rs->fetch_assoc())['rutaFoto'].">";
+            $result="<img src='".($rs->fetch_assoc())['rutaFoto']."' alt=''>";
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
         }
@@ -326,17 +326,7 @@ class Alojamiento
         $query=(sprintf("DELETE FROM Alojamiento WHERE nombre= '%s'",$conn->real_escape_string($nombre)));
         $query2=(sprintf("DELETE FROM Habitaciones WHERE nombre_alojamiento= '%s'",$conn->real_escape_string($nombre)));
         $query3=(sprintf("DELETE FROM listaAlojamiento WHERE nombreAlojamiento= '%s'",$conn->real_escape_string($nombre)));
-
-        if ($conn->query($query)&&$conn->query($query2)&&$conn->query($query3)) {
-            if ( $conn->affected_rows != 1) {
-                header("Location: Alojamiento_Admin.php?estado=error&nombre=".$nombre."");
-            }
-            else{
-                header("Location: Alojamiento_Admin.php?estado=eliminado&nombre=".$nombre."");
-            }
-        } else {
-            echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
-        }
+        header("Location: Alojamiento_Admin.php?estadoBorrar=eliminado&nombre=".$nombre."");
 
     }
 

@@ -999,7 +999,7 @@ function AlojamientoMain(){
                 $contenido=$row->fetch_assoc();
                 $url=rawurlencode("$contenido[nombre]");
                 $leftCont =  "<div><td>
-                    <a href ="."alojamiento.php?alojamiento=".$url."><img class='img-pag-prin' src= '$contenido[rutaFoto]' alt=''> </a>
+                    <a href ="."alojamiento.php?alojamiento=".$url."><img class='img-pag-prin' src='$contenido[rutaFoto]' alt=''> </a>
                         </td></div>";
                 $rightCont = "<div><td>
                 <h2><a href = "."alojamiento.php?alojamiento=".$url.">"."$contenido[nombre]"." </a></h2>

@@ -74,8 +74,8 @@ EOS;
 $form = new FormularioBorrarAlojamiento();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
-if(isset($_GET['estado'])){
-    $estado = htmlspecialchars($_GET['estado']);
+if(isset($_GET['estadoBorrar'])){
+    $estado = htmlspecialchars($_GET['estadoBorrar']);
     $nombre = htmlspecialchars($_GET['nombre']);
     if($estado == 'error'){
         $contenidoPrincipal .= <<<EOS
