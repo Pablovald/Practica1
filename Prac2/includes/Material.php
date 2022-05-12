@@ -269,9 +269,8 @@ class Material
             else if($rs['cantidad'] == $cantidad){ // lo eliminamos del carrito
                 $sentencia = $conn->query(sprintf("DELETE FROM Carrito WHERE id_producto = '$idProducto' AND id_usuario = '$idUsuario[id]'"));
             }
-            else { // si intentamos quitar más de los que tenemos, mostraremos un mensaje de error
-                echo '<script>alert("No posees suficientes unidades del artículo. Por favor, selecciona una cantidad válida")</script>';
-                header("Location: ver_carrito.php");
+            else { // si intentamos quitar más de los que tenemos, no eliminamos
+
             }
         }
     
