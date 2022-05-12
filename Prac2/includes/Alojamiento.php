@@ -295,9 +295,9 @@ class Alojamiento
     public static function borrarAlojamiento($nombre){
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query=(sprintf("DELETE FROM Alojamiento WHERE nombre= '%s'",$conn->real_escape_string($nombre)));
-        $query2=(sprintf("DELETE FROM Habitaciones WHERE nombre_alojamiento= '%s'",$conn->real_escape_string($nombre)));
-        $query3=(sprintf("DELETE FROM listaAlojamiento WHERE nombreAlojamiento= '%s'",$conn->real_escape_string($nombre)));
+        $query=$conn->query(sprintf("DELETE FROM Alojamiento WHERE nombre= '%s'",$conn->real_escape_string($nombre)));
+        $query2=$conn->query(sprintf("DELETE FROM Habitaciones WHERE nombre_alojamiento= '%s'",$conn->real_escape_string($nombre)));
+        $query3=$conn->query(sprintf("DELETE FROM listaAlojamiento WHERE nombreAlojamiento= '%s'",$conn->real_escape_string($nombre)));
         header("Location: Alojamiento_Admin.php?estadoBorrar=eliminado&nombre=".$nombre."");
 
     }
