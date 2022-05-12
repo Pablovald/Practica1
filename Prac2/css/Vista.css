@@ -660,17 +660,34 @@ textarea{
   display:inline-block;
   content: "\f005";
 }
+.valoracion-fijo > input { display: none; }
+.valoracion-fijo > label:before { 
+	font-size: 1.25em;
+	font-family: FontAwesome;
+	display:inline-block;
+	content: "\f005";
+  }
 .nota-valoracion  label {
-color: #ddd !important; 
+color: #ddd ; 
 float: left; 
 }
-
-.nota-valoracion > .half::before { 
+.valoracion-fijo{
+	border:none;
+}
+.valoracion-fijo  label {
+	color: #ddd !important; 
+	float: left; 
+	}
+.nota-valoracion > .half:before { 
 	content: "\f089";
 	position: absolute;
   }
-.nota-valoracion > input:checked + label { color:#FFD700 !important; }
-
+  .valoracion-fijo > .half:before { 
+	content: "\f089";
+	position: absolute;
+  }
+.nota-valoracion > input:checked ~ label { color:#FFD700 ; }
+.valoracion-fijo > input:checked + label { color:#FFD700 !important; }
 .valora > fieldset{
 	display:inline-block;
 }

@@ -7,8 +7,7 @@ class FormularioValoracion extends Form
 {
     public function __construct()
     {
-        $sitio=array_key_first($_GET);
-        $opciones['action'] = $_SERVER['PHP_SELF']."?" .$sitio."=". htmlspecialchars($_GET[$sitio]);
+        $opciones['action'] = htmlspecialchars($_SERVER['REQUEST_URI']);
         parent::__construct('FormularioValoracion', $opciones);
     }
 
@@ -36,15 +35,15 @@ class FormularioValoracion extends Form
         <div class = "puntos">
         Puntuacion
         <div class='nota' value="$nota" required>$errorNota 
-                    <input type='radio' id='5estrellas' name='nota' value='5' /><label class = 'full' for='5estrellas'></label>
+                    <input type='radio' id='5estrellas' name='nota' value='5' /><label for='5estrellas'></label>
                     <input type='radio' id='45estrellas' name='nota' value='4.5' /><label class = 'half' for='45estrellas'></label>
-                    <input type='radio' id='4estrellas' name='nota' value='4' /><label class = 'full' for='4estrellas'></label>
+                    <input type='radio' id='4estrellas' name='nota' value='4' /><label for='4estrellas'></label>
                     <input type='radio' id='35estrellas' name='nota' value='3.5' /><label class = 'half' for='35estrellas'></label>
-                    <input type='radio' id='3estrellas' name='nota' value='3' /><label class = 'full' for='3estrellas'></label>
+                    <input type='radio' id='3estrellas' name='nota' value='3' /><label for='3estrellas'></label>
                     <input type='radio' id='25estrellas' name='nota' value='2.5' /><label class = 'half' for='25estrellas'></label>
-                    <input type='radio' id='2estrellas' name='nota' value='2' /><label class = 'full' for='2estrellas'></label>
+                    <input type='radio' id='2estrellas' name='nota' value='2' /><label for='2estrellas'></label>
                     <input type='radio' id='15estrellas' name='nota' value='1.5' /><label class = 'half' for='15estrellas'></label>
-                    <input type='radio' id='1estrellas' name='nota' value='1' /><label class = 'full' for='1estrellas'></label>
+                    <input type='radio' id='1estrellas' name='nota' value='1' /><label for='1estrellas'></label>
                     <input type='radio' id='05estrellas' name='nota' value='0.5' /><label class = 'half' for='05estrellas'></label>
          </div>    
         </div>
@@ -74,7 +73,7 @@ class FormularioValoracion extends Form
             $sitio = array_key_first($_GET);
             $ubicacion = htmlspecialchars($_GET[$sitio]);
             $coment = Valoracion::creaV($idUser, $ubicacion, $titulo,$texto, false,$nota);
-            if (!$sitio) {
+            if (!$coment) {
                 $result[] = "Error al publicar la valoracion";
             } else {
                 $result[] = "Valoracion publicada con éxito";

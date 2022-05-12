@@ -8,7 +8,6 @@ $form = new FormularioActividad();
 $htmlFormIns = $form->gestiona();
 $contenidoPrincipal .=$htmlFormIns;
 $formularioComentario="";
-$comentarios= mostrarTodasValoraciones($tituloPagina);
 //Mensaje relacionado con inscripcion de una actividad
 if(isset($_GET["estado"])){
     $estado = htmlspecialchars($_GET["estado"]);
@@ -47,6 +46,5 @@ if(isset($_SESSION['login']) && $_SESSION['login']){
     $form2 = new FormularioValoracion();
     $formularioComentario = $form2->gestiona();
 }
-
-
+$comentarios= mostrarTodasValoraciones($tituloPagina);
 include __DIR__.'/includes/plantillas/plantillaEntrada.php';

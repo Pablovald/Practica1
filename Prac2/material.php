@@ -5,9 +5,6 @@ require_once __DIR__.'/includes/config.php';
 
 $contenidoPrincipal = infoMaterial($tituloPagina, $tituloCabecera).
 $formularioComentario="";
-$comentarios=mostrarTodasValoraciones($tituloPagina);
-$comentarios= Valoracion::mostrarTodos($tituloPagina);
-
 if(isset($_SESSION['login']) && $_SESSION['login']){
     if(isset($_SESSION['esAdmin']) && $_SESSION['esAdmin']){
         $content =<<<EOS
@@ -22,5 +19,6 @@ if(isset($_SESSION['login']) && $_SESSION['login']){
     $form = new FormularioValoracion();
 $formularioComentario = $form->gestiona();
 }
+$comentarios=mostrarTodasValoraciones($tituloPagina);
 
 include __DIR__. '/includes/plantillas/plantillaEntrada.php';

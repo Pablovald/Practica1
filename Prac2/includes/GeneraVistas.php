@@ -288,7 +288,7 @@ function mostrarTodasValoracionesPerfil($idUsuario)
 function mostrarEstrellasFijo($num)
 {
     $html = "
-    <fieldset class='nota-valoracion'>";
+    <fieldset class='valoracion-fijo'>";
     for ($i = 1; $i < 11; $i++) {
         $aux = "";
         if ($i <= ($num * 2)) {
