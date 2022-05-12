@@ -302,6 +302,16 @@ class Alojamiento
 
     }
 
+    public static function precioHabitacion($alojamiento){
+
+        $app = Aplicacion::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT precio FROM Alojamiento WHERE nombre = '%s'", $conn->real_escape_string($alojamiento));
+        $rs = $conn->query($query);
+        $fila = $rs->fetch_assoc();
+        return $fila['precio'];
+    }
+
     public static function guardaCapacidadAlojamiento($capacidadAlojamiento){
         if ($capacidadAlojamiento->IDAlojamiento_Main != null) {
             return self::actualizaCapacidadAlojamiento($capacidadAlojamiento);

@@ -13,6 +13,7 @@ class FormularioAlojamiento extends Form
         $tomorrow = date('Y-m-d',time()+84600);
         $nhabitaciones = $datos['nhabitaciones'] ?? '';
         $alojamiento = $_GET["alojamiento"] ?? '';
+        $precio=Alojamiento::precioHabitacion($alojamiento);
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($errores);
 
@@ -27,6 +28,10 @@ class FormularioAlojamiento extends Form
                     <label>Numero de habitaciones:</label></br>
                     <input class='control' type='number' name='nhabitaciones' value='1' min='1'/>
                 </div>
+                <div class='grupo-control'>
+                <label>precio por habitacion:</label></br>
+                <input class='control' type='text' name='precio' value='$precio' readonly/>
+            </div>
                 <div class='grupo-control'>
                     <label>Fecha inicio:</label></br>
                     <input class='control' type='date' name='fechaIni' value='$hoy' min='$hoy'/>
