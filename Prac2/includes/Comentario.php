@@ -129,7 +129,7 @@ class Comentario
         if(isset($_POST['Eliminar'])){}
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = (sprintf("DELETE FROM Comentarios C WHERE $id = C.id"));
+        $query = (sprintf("DELETE FROM Comentarios WHERE $id = id"));
         if($conn->query($query)){
             $ret="Comentario eliminada con éxito.";
         }else {
