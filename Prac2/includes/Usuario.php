@@ -239,6 +239,15 @@ class Usuario
         }
         return $permiso;
     }
+    public static function permisoEdicion($id,$entrada)
+    {
+        $permiso = false;
+        $user=self::buscaUsuarioPorId($id);
+        if ($user->getId() == $entrada->getIdAutor()) {
+            $permiso = true;
+        }
+        return $permiso;
+    }
     public static function permisoEliminar($id)
     {
         $permiso = false;
