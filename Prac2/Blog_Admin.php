@@ -4,8 +4,8 @@ require_once __DIR__. '/includes/config.php';
 $contenidoPrincipal = <<<EOS
 <h2>Formulario para borrar una entrada:</h2>
 EOS;
-$tituloCabecera="FORMULARIO ADMIN";
-$tituloPagina = 'Formulario admin';
+$tituloCabecera="BORRAR ENTRADA";
+$tituloPagina = 'Borrar entrada';
 
 $form = new es\fdi\ucm\aw\FormularioBorrarEntrada();
 $htmlFormIns = $form->gestiona();

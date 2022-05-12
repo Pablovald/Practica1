@@ -45,7 +45,7 @@ class FormularioBorrarEntrada extends Form
         }
         if(count($result) === 0){
             if(isset($_SESSION['login'])){
-                if($_SESSION['esAdmin']){
+                if(Usuario::permisoEliminar(Usuario::buscaIdDelUsuario($_SESSION['nombreUsuario']))){
                     $capacidadCurso = entradaBlog::borrarEntrada($nombre);
                     if(!$capacidadCurso){
                         $result[] ='No se ha podido crear';

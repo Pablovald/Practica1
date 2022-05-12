@@ -7,7 +7,7 @@
 	<title><?= $tituloPagina ?></title>
 	<link rel="icon" href="img/favicon.png" type="image/png" />
 	<link rel="stylesheet" type="text/css" href="css/Vista.css" />
-	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="css/font-awesome.min.css" rel="stylesheet">
 
 </head>
 <body>
