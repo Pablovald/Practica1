@@ -50,7 +50,7 @@ $(document).ready(function() {
 			// el correo es válido y acaba por @ucm.es: marcamos y limpiamos quejas
 		
 			// tu código aquí: coloca la marca correcta
-			var url = "comprobarUsuario.php?user=" + $("#campoUser").val();
+			var url = "jsFuncion.php?user=" + $("#campoUser").val();
 			$.get(url,usuarioExiste);
 			campo[0].setCustomValidity("");
 		} else {			
@@ -179,7 +179,7 @@ $(document).ready(function() {
 
 	$("#campoActividad").change(function(){
 		const campoActividad = $("#campoActividad"); // referencia jquery al campo
-		var url = "comprobarUsuario.php?capacidad=" + $("#campoActividad").val();
+		var url = "jsFuncion.php?capacidad=" + $("#campoActividad").val();
 		$.get( url , function( data ) {
 			var o = new Option(data, data);
 			var $el = $("#campoCurso");
@@ -198,7 +198,7 @@ $(document).ready(function() {
 
 		// validación html5, porque el campo es <input type="email" ...>
 		const esNombreValido = campo[0].checkValidity();
-		var url = "comprobarUsuario.php?actividad=" + $("#insertarNombreActividad").val();
+		var url = "jsFuncion.php?actividad=" + $("#insertarNombreActividad").val();
 		$.get( url , function( data ) {
 			if (esNombreValido && data == "disponible") {
 				// el correo es válido y acaba por @ucm.es: marcamos y limpiamos quejas
@@ -225,7 +225,7 @@ $(document).ready(function() {
 
 		// validación html5, porque el campo es <input type="email" ...>
 		const esNombreValido = campo[0].checkValidity();
-		var url = "comprobarUsuario.php?actividad=" + $("#campoNombreCursoActividad").val() +"&curso=" + $("#campoNombreCurso").val() + "&usuario=admin";
+		var url = "jsFuncion.php?actividad=" + $("#campoNombreCursoActividad").val() +"&curso=" + $("#campoNombreCurso").val() + "&usuario=admin";
 		$.get( url , function( data ) {
 			if (esNombreValido && data == "disponible") {
 				// el correo es válido y acaba por @ucm.es: marcamos y limpiamos quejas
@@ -248,7 +248,7 @@ $(document).ready(function() {
 
 	//El precio y la hora se cambia segun el curso
 	$("#campoCurso").change(function(){
-		var url = "comprobarUsuario.php?actividad=" + $("#campoActividad").val() + "&curso=" +  $("#campoCurso").val();
+		var url = "jsFuncion.php?actividad=" + $("#campoActividad").val() + "&curso=" +  $("#campoCurso").val();
 		$.get( url , function( data ) {
 			var arrayDeNum = data.split(' ');
 			$("#campoHora").val(arrayDeNum[0]);
@@ -260,7 +260,7 @@ $(document).ready(function() {
 	$("#borrarActividad").click(function(){
 		var opcion = confirm("¿Deseas eliminar la actividad?");
 		if (opcion == true) {
-			var url = "comprobarUsuario.php?nombre=" + $("#nombreActividad").val() + "&estado=borrarActividad";
+			var url = "jsFuncion.php?nombre=" + $("#nombreActividad").val() + "&estado=borrarActividad";
 			$.get( url , function( data ) {
 				if(data == "exito"){
 					alert("¡La actividad: '" + $("#nombreActividad").val() + "' se borro correctamente!");
