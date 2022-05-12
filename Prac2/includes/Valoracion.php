@@ -106,7 +106,7 @@ class Valoracion extends Comentario
         if(isset($_POST['Eliminar'])){}
         $app = Aplicacion::getSingleton();
         $conn = $app->conexionBd();
-        $query = (sprintf("DELETE FROM Valoraciones C WHERE $id = C.id"));
+        $query = (sprintf("DELETE FROM Valoraciones  WHERE $id = id"));
         if($conn->query($query)){
             $ret="Valoracion eliminada con éxito.";
         }else {
