@@ -100,11 +100,11 @@ class Usuario
             , $usuario->id);
         if ( $conn->query($query) ) {
             if ( $conn->affected_rows != 1) {
-                header("Location: Perfil.php?editar=true&estado=error");
+                header("Location: perfil.php?editar=true&estado=error");
             }
             else{
                 $result = $usuario;
-                header("Location: Perfil.php?editar=true&estado=exito");
+                header("Location: perfil.php?editar=true&estado=exito");
             }
         } else {
             echo "Error al insertar en la BD: (" . $conn->errno . ") " . utf8_encode($conn->error);
